@@ -1,4 +1,4 @@
 {
-  "directory": "src/AppBundle/Resources/public/js/vendor",
+  "directory": "src/AppBundle/Resources/public/vendor",
   "interactive": false
 }

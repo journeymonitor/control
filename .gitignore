@@ -9,4 +9,4 @@
 /vendor/
 /web/bundles/
 composer.lock
-src/AppBundle/Resources/public/js/vendor
+src/AppBundle/Resources/public/vendor
