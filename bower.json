@@ -1,0 +1,7 @@
+{
+  "name": "selenior/control-web-frontend",
+  "version": "0.0.1",
+  "dependencies": {
+    "bootstrap": "~3.3.4"
+  }
+}
