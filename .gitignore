@@ -8,4 +8,4 @@
 /composer.phar
 /vendor/
 /web/bundles/
-composer.local
+composer.lock
