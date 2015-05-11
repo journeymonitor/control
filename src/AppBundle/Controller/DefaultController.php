@@ -6,6 +6,7 @@ use AppBundle\Entity\Testcase;
 use AppBundle\Entity\TestcaseHomepageForm;
 use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Type\TestcaseHomepageFormType;
 
@@ -19,13 +20,23 @@ class DefaultController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) { // False if not submitted
-            $salt = sha1(mt_rand(0, PHP_INT_MAX));
-            
-            $user = new User();
-            $user->setId($this->generateUuid());
-            $user->setEmail($testcaseHomepageForm->getNotifyEmail());
-            $user->setPassword(sha1($salt.$testcaseHomepageForm->getPassword()));
-            $user->setSalt($salt);
+            $em = $this->getDoctrine()->getManager();
+            $userRepo = $em->getRepository('AppBundle\Entity\User');
+            $user = $userRepo->findOneBy(['email' => $testcaseHomepageForm->getNotifyEmail()]);
+            if ($user) {
+                if (sha1($user->getSalt().$testcaseHomepageForm->getPassword()) != $user->getPassword()) {
+                    $this->addFlash('error', 'Mail/password combination incorrect!');
+                    return $this->render('default/index.html.twig', array('form' => $form->createView()));
+                }
+            } else {
+                $salt = sha1(mt_rand(0, PHP_INT_MAX));
+                $user = new User();
+                $user->setId($this->generateUuid());
+                $user->setEmail($testcaseHomepageForm->getNotifyEmail());
+                $user->setPassword(sha1($salt.$testcaseHomepageForm->getPassword()));
+                $user->setSalt($salt);
+                $em->persist($user);
+            }
 
             $testcase = new Testcase();
             $testcase->setId($this->generateUuid());
@@ -35,8 +46,6 @@ class DefaultController extends Controller
             $testcase->setCadence($testcaseHomepageForm->getCadence());
             $testcase->setScript($testcaseHomepageForm->getScript());
             
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
             $em->persist($testcase);
             $em->flush();
 
