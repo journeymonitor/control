@@ -16,7 +16,7 @@ class DefaultController extends Controller
         $form->handleRequest($request);
         
         if ($form->isValid()) { // False if not submitted
-            $this->addFlash('notice', 'Thank you!');
+            $this->addFlash('success', 'Thank you. Your website will now be monitored.');
         }
         
         return $this->render('default/index.html.twig', array('form' => $form->createView()));

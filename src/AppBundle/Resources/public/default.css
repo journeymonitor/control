@@ -77,3 +77,13 @@ body {
         border-bottom: 0;
     }
 }
+
+.jumbotron h1 {
+    font-size: 60px;
+}
+
+textarea.codeform {
+    height: 200px;
+    font-size: 8px;
+    font-family: "Courier New";
+}

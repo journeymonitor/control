@@ -27,8 +27,8 @@ class TestcaseType extends AbstractType
                     'expanded' => true,
                     'label' => 'Check interval'
                 ])
-            ->add('script', 'textarea', ['label' => 'Python 2 WebDriver Selenium script'])
-            ->add('Save', 'submit');
+            ->add('script', 'textarea', ['label' => 'Python 2 WebDriver Selenium script', 'attr' => ['class' => 'codeform']])
+            ->add('Save', 'submit', ['label' => 'Start monitoring', 'attr' => ['class' => 'btn-primary']]);
     }
 
     public function getName()
