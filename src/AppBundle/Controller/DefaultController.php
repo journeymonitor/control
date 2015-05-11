@@ -3,25 +3,43 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Testcase;
+use AppBundle\Entity\TestcaseHomepageForm;
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Type\TestcaseType;
+use AppBundle\Form\Type\TestcaseHomepageFormType;
 
 class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $testcase = new Testcase();
-        $testcase->setCadence('*/15');
-        $form = $this->createForm(new TestcaseType(), $testcase);
+        $testcaseHomepageForm = new TestcaseHomepageForm();
+        $testcaseHomepageForm->setCadence('*/15');
+        $form = $this->createForm(new TestcaseHomepageFormType(), $testcaseHomepageForm);
         $form->handleRequest($request);
 
         if ($form->isValid()) { // False if not submitted
+            $salt = sha1(mt_rand(0, PHP_INT_MAX));
+            
+            $user = new User();
+            $user->setId($this->generateUuid());
+            $user->setEmail($testcaseHomepageForm->getNotifyEmail());
+            $user->setPassword(sha1($salt.$testcaseHomepageForm->getPassword()));
+            $user->setSalt($salt);
+
+            $testcase = new Testcase();
             $testcase->setId($this->generateUuid());
-            $testcase->setUserId('fake');
+            $testcase->setUserId($user->getId());
+            $testcase->setTitle($testcaseHomepageForm->getTitle());
+            $testcase->setNotifyEmail($testcaseHomepageForm->getNotifyEmail());
+            $testcase->setCadence($testcaseHomepageForm->getCadence());
+            $testcase->setScript($testcaseHomepageForm->getScript());
+            
             $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
             $em->persist($testcase);
             $em->flush();
+
             $this->addFlash('success', 'Thank you. Your website will now be monitored.');
         }
         

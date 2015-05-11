@@ -5,13 +5,14 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class TestcaseType extends AbstractType
+class TestcaseHomepageFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('title', 'text', ['label' => 'Testcase name'])
             ->add('notifyEmail', 'email', ['label' => 'Notification mail address'])
+            ->add('password', 'text', ['label' => 'Password (for existing or new account)'])
             ->add(
                 'cadence',
                 'choice',

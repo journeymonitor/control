@@ -2,3 +2,8 @@ homepage:
     path:     /
     defaults: { _controller: AppBundle:Default:index }
     methods:  [GET, POST]
+
+registration_complete_testcase_creation:
+    path:     /registration/complete-testcase-creation
+    defaults: { _controller: AppBundle:Registration:completeTestcaseCreation }
+    
