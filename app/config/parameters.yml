@@ -1,14 +1,15 @@
 # This file is auto-generated during the composer install
 parameters:
-    database_driver: pdo_mysql
+    database_driver: pdo_sqlite
     database_host: 127.0.0.1
     database_port: null
     database_name: symfony
     database_user: root
     database_password: null
+    database_path: "/var/tmp/selenior-control.sqlite"
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
     mailer_password: null
     locale: en
-    secret: e4067fc439d1bfcebd72621453a63ad488775f2b
+    secret: 5de01c468540400abef101b7baf935e8
