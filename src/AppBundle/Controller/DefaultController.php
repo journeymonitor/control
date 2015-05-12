@@ -41,6 +41,7 @@ class DefaultController extends Controller
             $testcase = new Testcase();
             $testcase->setId($this->generateUuid());
             $testcase->setUserId($user->getId());
+            $testcase->setEnabled(1);
             $testcase->setTitle($testcaseHomepageForm->getTitle());
             $testcase->setNotifyEmail($testcaseHomepageForm->getNotifyEmail());
             $testcase->setCadence($testcaseHomepageForm->getCadence());

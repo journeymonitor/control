@@ -3,7 +3,17 @@ homepage:
     defaults: { _controller: AppBundle:Default:index }
     methods:  [GET, POST]
 
-registration_complete_testcase_creation:
-    path:     /registration/complete-testcase-creation
-    defaults: { _controller: AppBundle:Registration:completeTestcaseCreation }
-    
+api_retrieve_testcases:
+    path:     /api/control/testcases
+    defaults: { _controller: AppBundle:TestcasesApi:index }
+    methods:  [GET]
+
+disable_testcase:
+    path:     /testcases/disable/{testcaseId}
+    defaults: { _controller: AppBundle:Testcases:disable }
+    methods:  [GET]
+
+enable_testcase:
+    path:     /testcases/enable/{testcaseId}
+    defaults: { _controller: AppBundle:Testcases:enable }
+    methods:  [GET]

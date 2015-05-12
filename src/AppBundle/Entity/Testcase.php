@@ -28,6 +28,13 @@ class Testcase
     private $userId;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="enabled", type="integer")
+     */
+    private $enabled;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=128)
@@ -99,6 +106,29 @@ class Testcase
     public function getUserId()
     {
         return $this->userId;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param int $enabled
+     * @return Testcase
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return int
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
     }
 
     /**

@@ -19,6 +19,7 @@ body {
 }
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
+    color: #537c0c;
     margin-top: 0;
     margin-bottom: 0;
     line-height: 40px;
@@ -43,6 +44,8 @@ body {
 
 /* Main marketing message and sign up button */
 .jumbotron {
+    background-color: #abd450;
+    color: #000;
     text-align: center;
     border-bottom: 1px solid #e5e5e5;
 }
@@ -86,4 +89,10 @@ textarea.codeform {
     height: 200px;
     font-size: 8px;
     font-family: "Courier New";
+}
+
+p .highlight {
+    background-color: #ee4;
+    padding-left: 4px;
+    padding-right: 4px;
 }
