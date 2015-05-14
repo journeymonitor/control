@@ -2,7 +2,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\User;
 use AppBundle\Form\Type\TestcaseAndUserType;
+use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\FOSUserEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +18,19 @@ class TestcasesController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) { // False if not submitted
-            $this->get('selenior.testcase')->createTestcaseAndUser(
+            $user = $this->getUser();
+
+            if (!$user->hasRole('ROLE_USER')) {
+                $result = $this->get('selenior.registration')->createUserOrLogin(
+                    $form->get('user')->getData()
+                );
+                if ($result instanceof User) {
+                    $event = new FormEvent($form, $request);
+                    $this->get('event_dispatcher')->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
+                }
+            }
+
+            $this->get('selenior.testcase')->createTestcaseForUser(
                 $form->get('user')->getData(),
                 $form->get('testcase')->getData()
             );

@@ -11,15 +11,15 @@ class TestcaseAndUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user', new UserType())
-            ->add('testcase', new TestcaseType())
+            ->add('user', new UserType(), ['label' => false])
+            ->add('testcase', new TestcaseType(), ['label' => false])
             ->add('Save', 'submit', ['label' => 'Start monitoring', 'attr' => ['class' => 'btn-primary']]);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolverInterface)
     {
         $resolverInterface->setDefaults([
-           'label' => false
+            'label' => false
         ]);
     }
 

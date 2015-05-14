@@ -7,3 +7,10 @@ services:
             - @fos_user.security.login_manager
             - @event_dispatcher
             - @doctrine.orm.entity_manager
+
+    selenior.registration:
+        class: AppBundle\Service\RegistrationService
+        arguments:
+            - @fos_user.user_manager
+            - @fos_user.security.login_manager
+            - @security.encoder_factory

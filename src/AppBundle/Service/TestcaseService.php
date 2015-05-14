@@ -60,18 +60,8 @@ class TestcaseService
      * @param User $user
      * @param Testcase $testcase
      */
-    public function createTestcaseAndUser(User $user, Testcase $testcase)
+    public function createTestcaseForUser(User $user, Testcase $testcase)
     {
-        if ($existingUser = $this->userManager->findUserByEmail($user->getEmail()))
-        {
-            $this->loginManager->loginUser('main', $user);
-        } else {
-            $user->setUsername($user->getEmail());
-            $this->userManager->updatePassword($user);
-            $this->userManager->updateUser($user);
-            $this->dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS);
-        }
-
         $testcase->setUser($user);
         $this->entityManager->persist($testcase);
         $this->entityManager->flush();
