@@ -53,7 +53,7 @@ class DefaultController extends Controller
             $this->addFlash('success', 'Thank you. Your website will now be monitored.');
         }
         
-        return $this->render('default/index.html.twig', array('form' => $form->createView()));
+        return $this->render('AppBundle:default:index.html.twig', array('form' => $form->createView()));
     }
     
     private function generateUuid()
