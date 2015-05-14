@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Testcase;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Type\TestcaseHomepageFormType;
+use AppBundle\Form\Type\TestcaseAndUserType;
 
 class RegistrationController extends Controller
 {
@@ -13,11 +13,11 @@ class RegistrationController extends Controller
     {
         $testcase = new Testcase();
         $testcase->setTitle($request->get('testcase_title'));
-        $form = $this->createForm(new TestcaseHomepageFormType(), $testcase);
+        $form = $this->createForm(new TestcaseAndUserType(), $testcase);
 
         if ($form->isValid()) { // False if not submitted
             $testcase->setId($this->generateUuid());
-            $testcase->setUserId('fake');
+            $testcase->setUser('fake');
             $em = $this->getDoctrine()->getManager();
             $em->persist($testcase);
             $em->flush();

@@ -1,18 +1,19 @@
 <?php
 
+
 namespace AppBundle\Form\Type;
+
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class TestcaseHomepageFormType extends AbstractType
+class TestcaseType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('title', 'text', ['label' => 'Testcase name'])
-            ->add('notifyEmail', 'email', ['label' => 'Notification mail address'])
-            ->add('password', 'text', ['label' => 'Password (for existing or new account)'])
             ->add(
                 'cadence',
                 'choice',
@@ -28,8 +29,19 @@ class TestcaseHomepageFormType extends AbstractType
                     'expanded' => true,
                     'label' => 'Check interval'
                 ])
-            ->add('script', 'textarea', ['label' => 'Selenium script (HTML format only!)', 'attr' => ['class' => 'codeform']])
-            ->add('Save', 'submit', ['label' => 'Start monitoring', 'attr' => ['class' => 'btn-primary']]);
+            ->add('script', 'textarea', ['label' => 'Selenium script (HTML format only!)', 'attr' => ['class' => 'codeform']]);
+
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(
+            [
+                'data_class'      => 'AppBundle\Entity\Testcase',
+                'csrf_protection' => true,
+                'allow_extra_fields' => true
+            ]
+        );
     }
 
     public function getName()

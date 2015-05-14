@@ -1,0 +1,9 @@
+services:
+    selenior.testcase:
+        class: AppBundle\Service\TestcaseService
+        arguments:
+            - @fos_user.user_manager
+            - @fos_user.mailer
+            - @fos_user.security.login_manager
+            - @event_dispatcher
+            - @doctrine.orm.entity_manager

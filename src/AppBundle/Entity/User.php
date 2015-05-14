@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 /**
@@ -21,6 +22,25 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="uuid", type="string")
+     */
+    private $uuid;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Testcase", mappedBy="user")
+     */
+    private $testcases;
+
+    public function __construct()
+    {
+        $this->testcases = new ArrayCollection();
+        $this->setUuid(uniqid('sl.u.', true));
+        parent::__construct();
+    }
     /**
      * Get id
      *
@@ -111,5 +131,37 @@ class User extends BaseUser
     public function getSalt()
     {
         return $this->salt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param string $uuid
+     */
+    public function setUuid($uuid)
+    {
+        $this->uuid = $uuid;
+    }
+
+    /**
+     * @return ArrayCollection|Testcase
+     */
+    public function getTestcases()
+    {
+        return $this->testcases;
+    }
+
+    /**
+     * @param ArrayCollection|Testcase[] $testcases
+     */
+    public function setTestcases($testcases)
+    {
+        $this->testcases = $testcases;
     }
 }

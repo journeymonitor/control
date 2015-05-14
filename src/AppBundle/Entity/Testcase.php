@@ -14,25 +14,33 @@ class Testcase
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="string", length=36)
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      */
     private $id;
 
     /**
      * @var string
+     * @ORM\Column(type="string")
+     */
+    private $uuid;
+
+    /**
+     * @var string
      *
      * @ORM\Column(name="userId", type="string", length=36)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="testcases")
+     * @ORM\JoinColumn(name="user_id")
      */
-    private $userId;
+    private $user;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="enabled", type="integer")
+     * @ORM\Column(name="enabled", type="boolean", nullable=false)
      */
-    private $enabled;
+    private $enabled = false;
 
     /**
      * @var string
@@ -44,16 +52,9 @@ class Testcase
     /**
      * @var string
      *
-     * @ORM\Column(name="notifyEmail", type="string", length=128)
+     * @ORM\Column(name="cadence", type="string", length=4, nullable=false)
      */
-    private $notifyEmail;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="cadence", type="string", length=4)
-     */
-    private $cadence;
+    private $cadence = '*/15';
 
     /**
      * @var string
@@ -61,6 +62,11 @@ class Testcase
      * @ORM\Column(name="script", type="text")
      */
     private $script;
+
+    public function __construct()
+    {
+        $this->setUuid(uniqid('sl.t.', true));
+    }
 
     /**
      * Set id
@@ -88,12 +94,12 @@ class Testcase
     /**
      * Set userId
      *
-     * @param string $userId
+     * @param string $user
      * @return Testcase
      */
-    public function setUserId($userId)
+    public function setUser($user)
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }
@@ -103,9 +109,9 @@ class Testcase
      *
      * @return string 
      */
-    public function getUserId()
+    public function getUser()
     {
-        return $this->userId;
+        return $this->user;
     }
 
     /**
@@ -154,28 +160,6 @@ class Testcase
         return $this->title;
     }
 
-    /**
-     * Set notifyEmail
-     *
-     * @param string $notifyEmail
-     * @return Testcase
-     */
-    public function setNotifyEmail($notifyEmail)
-    {
-        $this->notifyEmail = $notifyEmail;
-
-        return $this;
-    }
-
-    /**
-     * Get notifyEmail
-     *
-     * @return string 
-     */
-    public function getNotifyEmail()
-    {
-        return $this->notifyEmail;
-    }
 
     /**
      * Set cadence
@@ -221,5 +205,21 @@ class Testcase
     public function getScript()
     {
         return $this->script;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param mixed $uuid
+     */
+    public function setUuid($uuid)
+    {
+        $this->uuid = $uuid;
     }
 }

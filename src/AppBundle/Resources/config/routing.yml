@@ -1,0 +1,4 @@
+homepage:
+    path:     /
+    defaults: { _controller: AppBundle:Testcases:new }
+    methods:  [GET, POST]
