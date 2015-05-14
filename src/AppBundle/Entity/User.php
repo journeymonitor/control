@@ -3,49 +3,28 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use FOS\UserBundle\Model\User as BaseUser;
 /**
  * User
  *
- * @ORM\Table(name="users")
+ * @ORM\Table(name="user")
  * @ORM\Entity
  */
-class User
+class User extends BaseUser
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="string", length=36)
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=128)
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=40)
-     */
-    private $password;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="salt", type="string", length=40)
-     */
-    private $salt;
-
+    protected $id;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -64,7 +43,7 @@ class User
 
         return $this;
     }
-    
+
     /**
      * Set email
      *
@@ -81,7 +60,7 @@ class User
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -104,7 +83,7 @@ class User
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -127,7 +106,7 @@ class User
     /**
      * Get salt
      *
-     * @return string 
+     * @return string
      */
     public function getSalt()
     {

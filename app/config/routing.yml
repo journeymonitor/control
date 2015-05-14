@@ -17,3 +17,6 @@ enable_testcase:
     path:     /testcases/enable/{testcaseId}
     defaults: { _controller: AppBundle:Testcases:enable }
     methods:  [GET]
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
