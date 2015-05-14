@@ -45,10 +45,11 @@ StartDb()
     # remove named container
     RemoveNamedContainer "selenior_db"
 
+    sudo mkdir -p /opt/selenior-db
     # start named container
     docker run -d -p 3306:3306 \
         -e MYSQL_ROOT_PASSWORD=$DB_PASSWORD \
-        -v "/opt/mysql":/var/lib/mysql \
+        -v "/opt/selenior-db":/var/lib/mysql \
         --cidfile=$DB_CID \
         --name selenior_db \
         selenior/db

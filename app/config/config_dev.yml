@@ -1,6 +1,11 @@
 imports:
     - { resource: config.yml }
-    - { resource: env_parameters.yml }
+    - { resource: parameters_dev.php }
+
+doctrine:
+    dbal:
+        host:     "%database_host%"
+        password:     root
 
 framework:
     router:

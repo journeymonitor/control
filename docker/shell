@@ -1,3 +1,3 @@
 #!/bin/bash
 dir=$PWD
-docker run -v $dir:/var/www --link selenior_db:db -it --rm selenior/frontend sudo -uwww-data $@
+docker run -v $dir:/var/www --link selenior_db:db -it --rm selenior/frontend $@
