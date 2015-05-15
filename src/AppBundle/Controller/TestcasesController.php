@@ -25,7 +25,7 @@ class TestcasesController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid() && empty($user)) {
-            $this->handleUserForm($form);
+            $this->createUserFromForm($form);
         }
 
         if ($form->isValid()) {
@@ -82,7 +82,7 @@ class TestcasesController extends Controller
     /**
      * @param Form $form
      */
-    protected function handleUserForm(Form $form)
+    protected function createUserFromForm(Form $form)
     {
         try {
             $this->get('selenior.registration')->createUserOrLogin(

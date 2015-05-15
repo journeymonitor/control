@@ -14,46 +14,16 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 class TestcaseService
 {
     /**
-     * @var UserManager
-     */
-    private $userManager;
-    /**
      * @var EntityManager
      */
     private $entityManager;
-    /**
-     * @var Mailer
-     */
-    private $mailer;
-    /**
-     * @var LoginManager
-     */
-    private $loginManager;
-    /**
-     * @var EventDispatcher
-     */
-    private $dispatcher;
 
     /**
-     * @param UserManager $userManager
-     * @param Mailer $mailer
-     * @param LoginManager $loginManager
-     * @param TraceableEventDispatcher $dispatcher
      * @param EntityManager $entityManager
      */
-    public function __construct(
-        UserManager $userManager,
-        Mailer $mailer,
-        LoginManager $loginManager,
-        TraceableEventDispatcher $dispatcher,
-        EntityManager $entityManager
-    )
+    public function __construct(EntityManager $entityManager)
     {
-        $this->userManager = $userManager;
         $this->entityManager = $entityManager;
-        $this->mailer = $mailer;
-        $this->loginManager = $loginManager;
-        $this->dispatcher = $dispatcher;
     }
 
     /**

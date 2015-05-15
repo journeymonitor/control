@@ -33,6 +33,9 @@
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
+              {#{% if app.user %}#}
+                  {#Logged in as: {{ app.user.username }}#}
+              {#{% endif %}#}
             <li role="presentation" class="active"><a href="/">Home</a></li>
             <li role="presentation"><a href="#">About</a></li>
           </ul>
