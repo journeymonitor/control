@@ -2,34 +2,32 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\User;
 use AppBundle\Form\Type\TestcaseAndUserType;
-use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\FOSUserEvents;
+use AppBundle\Form\Type\TestcaseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\Test\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 class TestcasesController extends Controller
 {
-    public function newAction(Request $request)
+    public function newWithRegAction(Request $request)
     {
+        $user = $this->getUser();
+        if (!empty($user)) {
+            return $this->redirect($this->get('router')->generate('selenior.testcase_new'));
+        }
+
         $form = $this->createForm(new TestcaseAndUserType());
         $form->handleRequest($request);
 
-        if ($form->isValid()) { // False if not submitted
-            $user = $this->getUser();
+        if ($form->isValid() && empty($user)) {
+            $this->handleUserForm($form);
+        }
 
-            if (!$user->hasRole('ROLE_USER')) {
-                $result = $this->get('selenior.registration')->createUserOrLogin(
-                    $form->get('user')->getData()
-                );
-                if ($result instanceof User) {
-                    $event = new FormEvent($form, $request);
-                    $this->get('event_dispatcher')->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
-                }
-            }
-
+        if ($form->isValid()) {
             $this->get('selenior.testcase')->createTestcaseForUser(
                 $form->get('user')->getData(),
                 $form->get('testcase')->getData()
@@ -37,6 +35,26 @@ class TestcasesController extends Controller
 
             $this->addFlash('success', 'Thank you. Your website will now be monitored.');
         }
+        return $this->render('AppBundle:default:index.html.twig', array('form' => $form->createView()));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function newAction(Request $request)
+    {
+        $form = $this->createForm(new TestcaseType());
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $this->get('selenior.testcase')->createTestcaseForUser(
+                $this->getUser(),
+                $form->getData()
+            );
+            $this->addFlash('success', 'Thank you. Your website will now be monitored.');
+        }
+
         return $this->render('AppBundle:default:index.html.twig', array('form' => $form->createView()));
     }
 
@@ -58,5 +76,20 @@ class TestcasesController extends Controller
         $testcase->setEnabled(1);
         $em->flush();
         return new JsonResponse("The testcase '" . $testcase->getTitle() . "' has been enabled.");
+    }
+
+    /**
+     * @param FormInterface $form
+     */
+    protected function handleUserForm(FormInterface $form)
+    {
+        try {
+            $this->get('selenior.registration')->createUserOrLogin(
+                $form->get('user')->getData(),
+                $form
+            );
+        } catch (AuthenticationException $ex) {
+            $form->addError(new FormError('login failed'));
+        }
     }
 }

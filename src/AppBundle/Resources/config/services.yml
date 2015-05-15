@@ -14,3 +14,6 @@ services:
             - @fos_user.user_manager
             - @fos_user.security.login_manager
             - @security.encoder_factory
+            - @session
+            - @security.token_storage
+            - @event_dispatcher

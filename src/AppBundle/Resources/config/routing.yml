@@ -1,4 +1,9 @@
 homepage:
     path:     /
+    defaults: { _controller: AppBundle:Testcases:newWithReg }
+    methods:  [GET, POST]
+
+selenior.testcase_new:
+    path:     /testcase/new
     defaults: { _controller: AppBundle:Testcases:new }
     methods:  [GET, POST]
