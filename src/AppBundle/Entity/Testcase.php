@@ -8,23 +8,18 @@ use Doctrine\ORM\Mapping as ORM;
  * Testcase
  *
  * @ORM\Table(name="testcases")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TestcaseRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Testcase
 {
     /**
      * @var integer
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\Column(name="id", type="guid")
      * @ORM\Id
      */
     private $id;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string")
-     */
-    private $uuid;
 
     /**
      * @var string
@@ -36,7 +31,7 @@ class Testcase
     private $user;
 
     /**
-     * @var int
+     * @var boolean
      *
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
      */
@@ -63,9 +58,38 @@ class Testcase
      */
     private $script;
 
-    public function __construct()
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="activated_at", type="datetime", nullable=true)
+     */
+    private $activatedAt = null;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt = null;
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prePersist()
     {
-        $this->setUuid(uniqid('sl.t.', true));
+        $this->setCreatedAt(new \DateTime());
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function preUpdate()
+    {
+        $this->setUpdatedAt(new \DateTime());
     }
 
     /**
@@ -117,7 +141,7 @@ class Testcase
     /**
      * Set enabled
      *
-     * @param int $enabled
+     * @param boolean $enabled
      * @return Testcase
      */
     public function setEnabled($enabled)
@@ -130,9 +154,9 @@ class Testcase
     /**
      * Get enabled
      *
-     * @return int
+     * @return boolean
      */
-    public function getEnabled()
+    public function isEnabled()
     {
         return $this->enabled;
     }
@@ -208,18 +232,50 @@ class Testcase
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
-    public function getUuid()
+    public function getCreatedAt()
     {
-        return $this->uuid;
+        return $this->createdAt;
     }
 
     /**
-     * @param mixed $uuid
+     * @param \DateTime $createdAt
      */
-    public function setUuid($uuid)
+    public function setCreatedAt($createdAt)
     {
-        $this->uuid = $uuid;
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActivatedAt()
+    {
+        return $this->activatedAt;
+    }
+
+    /**
+     * @param mixed $activatedAt
+     */
+    public function setActivatedAt($activatedAt)
+    {
+        $this->activatedAt = $activatedAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
     }
 }

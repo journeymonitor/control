@@ -5,7 +5,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     platform="mac"
 fi
 
-
 CURDIR="$(pwd)"
 CIDDIR="/tmp"
 DB_CID="$CIDDIR/.db.cid" # global lock
@@ -32,18 +31,18 @@ StartDb()
     EchoCommand "Starting DB container"
 
     # check if it is not already running
-    if [[ ! -z $(docker ps -a | grep selenior_db) ]]; then
+    if [[ ! -z $(docker ps -a | grep db.journeymonitor.local.net) ]]; then
         # check if it is really running
-        status=$(docker inspect -f "{{ .State.Running }}" $(docker ps -a | grep selenior_db | head -n 1 | awk '{print $1}') | tr -d '/' )
+        status=$(docker inspect -f "{{ .State.Running }}" $(docker ps -a | grep db.journeymonitor.local.net | head -n 1 | awk '{print $1}') | tr -d '/' )
 
         if [[ "$status" == "true" ]]; then
-            echo -e "\e[34mselenior_db\e[0m is already running, skipping"
+            echo -e "\e[34mdb.journeymonitor.local.net\e[0m is already running, skipping"
             return 0
         fi
     fi
 
     # remove named container
-    RemoveNamedContainer "selenior_db"
+    RemoveNamedContainer "db.journeymonitor.local.net"
 
     sudo mkdir -p /opt/selenior-db
     # start named container
@@ -51,8 +50,10 @@ StartDb()
         -e MYSQL_ROOT_PASSWORD=$DB_PASSWORD \
         -v "/opt/selenior-db":/var/lib/mysql \
         --cidfile=$DB_CID \
-        --name selenior_db \
+        --name db.journeymonitor.local.net \
         selenior/db
+
+    UpdateEtcHosts "db.journeymonitor.local.net"
 }
 
 StopDb()
@@ -65,24 +66,9 @@ StopDb()
     fi
 }
 
-CheckCnameFile()
-{
-    if [ -e ".hostname" ]
-    then
-        echo -e "Warning! \e[34m.hostname\e[0m file detected. Renaming it to \e[32mCNAME\e[0m\nPlease include it in your next commit!\n\n"
-        mv .hostname CNAME
-        git add CNAME
-        git rm .hostname
-    fi
-}
-
 StartPhpNginx()
-{   
-    CheckCnameFile
-
+{
     EchoCommand "Starting php-fpm nginx container $hostname" 
-
-    LOCAL_DYNAMODB=""
 
     if [[ ! -z $(docker ps -a | grep "$hostname") ]]; then
         # check if it is really running
@@ -96,15 +82,8 @@ StartPhpNginx()
         fi
     fi
 
-    if [[ ! -z $(docker ps -a | grep dynamodb) ]]; then
-        status=$(docker inspect -f "{{ .State.Running }}" $(docker ps -a | grep "dynamodb" | head -n 1 | awk '{print $1}') | tr -d '/' )
-        if [[ "$status" == "true" ]]; then
-            LOCAL_DYNAMODB=" --link dynamodb:dynamodb -v /tmp/dynamodb:/var/dynamodb "
-        fi
-    fi
-
     docker run -d -P \
-        --link selenior_db:db \
+        --link db.journeymonitor.local.net:db \
         -v $(pwd):/var/www \
         $XDEBUG_ENABLE \
         $LOCAL_DYNAMODB \
@@ -112,18 +91,22 @@ StartPhpNginx()
         --cidfile="$CIDDIR/$hostname.cid" \
         selenior/frontend
 
-    EchoCommand "updating /etc/hosts"
-    SELENIOR_WEBAPP_CONTAINER_ID=$(docker ps | grep $hostname | cut -d" " -f 1)
-    SELENIOR_WEBAPP_CONTAINER_IP=$(docker inspect $SELENIOR_WEBAPP_CONTAINER_ID | grep IPAddress | cut -d"\"" -f4)
-    cat /etc/hosts | grep -v "$hostname" > /tmp/hosts
-    echo "$SELENIOR_WEBAPP_CONTAINER_IP      $hostname" >> /tmp/hosts
+    UpdateEtcHosts "$hostname"
+}
+
+function UpdateEtcHosts
+{
+    hostToUpdate=$1;
+    EchoCommand "updating /etc/hosts for $hostToUpdate"
+    CONTAINER_ID=$(docker ps | grep $hostToUpdate | cut -d" " -f 1)
+    CONTAINER_IP=$(docker inspect $CONTAINER_ID | grep IPAddress | cut -d"\"" -f4)
+    cat /etc/hosts | grep -v "$hostToUpdate" > /tmp/hosts
+    echo "$CONTAINER_IP      $hostToUpdate" >> /tmp/hosts
     sudo cp /tmp/hosts /etc/hosts && rm /tmp/hosts
 }
 
 StopPhpNginx()
 {
-    CheckCnameFile
-
     cidfile="$CIDDIR/$hostname.cid"
 
     if [ -e "$cidfile" ]
@@ -138,8 +121,6 @@ StopPhpNginx()
 
 ShowStatus()
 {
-    CheckCnameFile
-
     if [ -e "$DB_CID" ]
     then
         echo -e "DB container active: \e[32m$(docker inspect -f '{{ .State.Running }}' $(cat $DB_CID))\e[0m"
@@ -174,7 +155,7 @@ InitializeMysql()
      
     docker run -it \
         -e TMP_SQL="$sql" \
-        --link selenior_db:mysql \
+        --link db.journeymonitor.local.net:mysql \
         --rm selenior/db \
         sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD" -Bse "$TMP_SQL"'
 }
@@ -182,7 +163,7 @@ InitializeMysql()
 MysqlConsole()
 {
     docker run -it \
-        --link selenior_db:mysql \
+        --link db.journeymonitor.local.net:mysql \
         --rm selenior/db \
         sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"'
 }

@@ -1,3 +1,6 @@
+imports:
+    - { resource: repositories.yml }
+
 services:
     selenior.testcase:
         class: AppBundle\Service\TestcaseService
@@ -17,3 +20,12 @@ services:
             - @session
             - @security.token_storage
             - @event_dispatcher
+
+    selenior.registration_confirmation_listener:
+        class: AppBundle\EventListener\RegistrationConfirmationListener
+        arguments:
+            - @selenior.repo.testcase
+            - @security.token_storage
+            - @doctrine.orm.entity_manager
+        tags:
+            - { name: kernel.event_subscriber }

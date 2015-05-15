@@ -26,7 +26,8 @@
         "friendsofsymfony/user-bundle": "~2.0@dev"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3"
+        "sensio/generator-bundle": "~2.3",
+        "phpunit/phpunit": "4.8.*@dev"
     },
     "scripts": {
         "post-root-package-install": [

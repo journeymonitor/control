@@ -16,18 +16,11 @@ class User extends BaseUser
     /**
      * @var integer
      *
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\Column(name="id", type="guid")
      * @ORM\Id
      */
     protected $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="uuid", type="string")
-     */
-    private $uuid;
 
     /**
      * @var ArrayCollection
@@ -35,10 +28,15 @@ class User extends BaseUser
      */
     private $testcases;
 
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="datetime", name="activated_at", nullable=true)
+     */
+    private $activatedAt = null;
+
     public function __construct()
     {
         $this->testcases = new ArrayCollection();
-        $this->setUuid(uniqid('sl.u.', true));
         parent::__construct();
     }
     /**
@@ -134,22 +132,6 @@ class User extends BaseUser
     }
 
     /**
-     * @return string
-     */
-    public function getUuid()
-    {
-        return $this->uuid;
-    }
-
-    /**
-     * @param string $uuid
-     */
-    public function setUuid($uuid)
-    {
-        $this->uuid = $uuid;
-    }
-
-    /**
      * @return ArrayCollection|Testcase
      */
     public function getTestcases()
@@ -163,5 +145,21 @@ class User extends BaseUser
     public function setTestcases($testcases)
     {
         $this->testcases = $testcases;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getActivatedAt()
+    {
+        return $this->activatedAt;
+    }
+
+    /**
+     * @param \DateTime $activatedAt
+     */
+    public function setActivatedAt($activatedAt)
+    {
+        $this->activatedAt = $activatedAt;
     }
 }
