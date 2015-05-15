@@ -35,13 +35,18 @@ This project ships with some Dockerfiles for webserver and database that can be 
     selenior-docker -xdebug start
     docker/shell sudo -uwww-data composer install
         
-This will launch a contaier for the database and one for the web-application, linked to the database.
+This will launch a contaier for the database and one for the web-application, linked to the database container.
 XDebug will be enabled with idekey "xdebug" if you use the "-xdebug" flag.
 Try clearing the cache to see that permissions are set correctly (the nginx will be run as www-data)
 
     docker/console cache:clear
     docker/console doctrine:database:create
     docker/console doctrine:schema:update --force
- 
-    
+    docker/console assets:install
+
+If everything works fine, you should be able to open `http://frontend.journeymonitor.local.net/` in your
+browser.
+For convience there is also a shortcut to get into the mysql-shell in the db container:
+
+    selenior-docker mysql-console
     
