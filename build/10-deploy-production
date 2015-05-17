@@ -4,7 +4,8 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PA
 
 rsync -ac --stats $2/ /opt/selenior/control-web-frontend/ || exit 1
 chown -R www-data:www-data /opt/selenior/control-web-frontend/app/cache || exit 1
-chown -R www-data:www-data /opt/selenior/control-web-frontend/app/log || exit 1
+chown -R www-data:www-data /opt/selenior/control-web-frontend/app/logs || exit 1
 
 cd /opt/selenior/control-web-frontend/
+sudo -u www-data ./composer.phar update
 sudo -u www-data app/console doctrine:migrations:migrate --no-interaction --env=prod
