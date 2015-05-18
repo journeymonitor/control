@@ -46,12 +46,12 @@ StartDb()
 
     sudo mkdir -p /opt/selenior-db
     # start named container
-    docker run -d -p 3306:3306 \
+    docker run -d \
         -e MYSQL_ROOT_PASSWORD=$DB_PASSWORD \
         -v "/opt/selenior-db":/var/lib/mysql \
         --cidfile=$DB_CID \
-        --name db.journeymonitor.local.net \
-        -h db.journeymonitor.local.net \
+        --name "db.journeymonitor.local.net" \
+        -h "db.journeymonitor.local.net" \
         selenior/db
 
     UpdateEtcHosts "db.journeymonitor.local.net"
@@ -89,9 +89,7 @@ StartPhpNginx()
         --link db.journeymonitor.local.net:db \
         -v $(pwd):/var/www \
         $XDEBUG_ENABLE \
-        $LOCAL_DYNAMODB \
         --name="$hostname" \
-        --net=container:$DB_CONTAINER_ID \
         --cidfile="$CIDDIR/$hostname.cid" \
         selenior/frontend
 

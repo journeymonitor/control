@@ -1,7 +1,7 @@
 # This file is auto-generated during the composer install
 parameters:
     database_driver: pdo_mysql
-    database_host: db.journeymonitor.local.net
+    database_host: db
     database_port: null
     database_name: symfony
     database_user: root
@@ -12,3 +12,4 @@ parameters:
     mailer_password: null
     locale: en
     secret: 5de01c468540400abef101b7baf935e8
+    database_path: /var/tmp/selenior-control.sqlite
