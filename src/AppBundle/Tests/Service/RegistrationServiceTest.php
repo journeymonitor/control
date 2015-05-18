@@ -5,6 +5,7 @@ use AppBundle\Entity\User;
 use AppBundle\Service\RegistrationService;
 use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit_Framework_TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
 class RegistrationServiceTest extends PHPUnit_Framework_TestCase
@@ -30,7 +31,7 @@ class RegistrationServiceTest extends PHPUnit_Framework_TestCase
      */
     private $tokenStorageMock;
     /**
-     * @var PHPUnit_Framework_MockObject_MockObject|\Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher
+     * @var PHPUnit_Framework_MockObject_MockObject|EventDispatcher
      */
     private $dispatcherMock;
     /**+
@@ -58,7 +59,7 @@ class RegistrationServiceTest extends PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()->getMock();
         $this->tokenStorageMock = $this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage')
             ->disableOriginalConstructor()->getMock();
-        $this->dispatcherMock = $this->getMockBuilder('Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher')
+        $this->dispatcherMock = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcher')
             ->disableOriginalConstructor()->getMock();
         $this->formMock = $this->getMockBuilder('Symfony\Component\Form\Form')
             ->disableOriginalConstructor()->getMock();
