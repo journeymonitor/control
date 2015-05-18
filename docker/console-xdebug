@@ -1,0 +1,13 @@
+#!/bin/bash -e
+#docker run -v $(pwd):/var/www -e "XDEBUG_CONFIG[ideky"--link db.journeymonitor.local.net:db -it --rm selenior/frontend sudo -E -uwww-data app/console "$@"
+
+if [ $(whoami) == "vagrant" ]
+then
+ HOST_IP=$(netstat -rn | grep "^0.0.0.0 " | cut -d " " -f10)
+else
+ HOST_IP=$(ifconfig | grep docker0 -A 1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | head -n1)
+fi
+echo "host ip detected: $HOST_IP"
+
+docker run -v $(pwd):/var/www -e XDEBUG_CONFIG="remote_host=$HOST_IP  idekey=xdebug" --link db.journeymonitor.local.net:db -it --rm selenior/frontend sudo -E -uwww-data app/console "$@"
+

@@ -1,0 +1,24 @@
+homepage:
+    path:     /
+    defaults: { _controller: AppBundle:Testcases:newWithReg }
+    methods:  [GET, POST]
+
+selenior.testcases_new:
+    path:     /testcase/new
+    defaults: { _controller: AppBundle:Testcases:new }
+    methods:  [GET, POST]
+
+api_retrieve_testcases:
+    path:     /api/control/testcases
+    defaults: { _controller: AppBundle:TestcasesApi:index }
+    methods:  [GET]
+
+disable_testcase:
+    path:     /testcases/disable/{testcaseId}
+    defaults: { _controller: AppBundle:Testcases:disable }
+    methods:  [GET]
+
+enable_testcase:
+    path:     /testcases/enable/{testcaseId}
+    defaults: { _controller: AppBundle:Testcases:enable }
+    methods:  [GET]

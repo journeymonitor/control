@@ -7,15 +7,16 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Testcase
  *
- * @ORM\Table(name="testcases")
- * @ORM\Entity
+ * @ORM\Table(name="testcase")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TestcaseRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Testcase
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="string", length=36)
+     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\Column(name="id", type="guid")
      * @ORM\Id
      */
     private $id;
@@ -23,16 +24,18 @@ class Testcase
     /**
      * @var string
      *
-     * @ORM\Column(name="userId", type="string", length=36)
+     * @ORM\Column(name="user_id", type="string", length=36)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="testcases")
+     * @ORM\JoinColumn(name="user_id")
      */
-    private $userId;
+    private $user;
 
     /**
-     * @var int
+     * @var boolean
      *
-     * @ORM\Column(name="enabled", type="integer")
+     * @ORM\Column(name="enabled", type="boolean", nullable=false)
      */
-    private $enabled;
+    private $enabled = false;
 
     /**
      * @var string
@@ -44,16 +47,9 @@ class Testcase
     /**
      * @var string
      *
-     * @ORM\Column(name="notifyEmail", type="string", length=128)
+     * @ORM\Column(name="cadence", type="string", length=4, nullable=false)
      */
-    private $notifyEmail;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="cadence", type="string", length=4)
-     */
-    private $cadence;
+    private $cadence = '*/15';
 
     /**
      * @var string
@@ -61,6 +57,40 @@ class Testcase
      * @ORM\Column(name="script", type="text")
      */
     private $script;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="activated_at", type="datetime", nullable=true)
+     */
+    private $activatedAt = null;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt = null;
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prePersist()
+    {
+        $this->setCreatedAt(new \DateTime());
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function preUpdate()
+    {
+        $this->setUpdatedAt(new \DateTime());
+    }
 
     /**
      * Set id
@@ -88,12 +118,12 @@ class Testcase
     /**
      * Set userId
      *
-     * @param string $userId
+     * @param string $user
      * @return Testcase
      */
-    public function setUserId($userId)
+    public function setUser($user)
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }
@@ -103,15 +133,15 @@ class Testcase
      *
      * @return string 
      */
-    public function getUserId()
+    public function getUser()
     {
-        return $this->userId;
+        return $this->user;
     }
 
     /**
      * Set enabled
      *
-     * @param int $enabled
+     * @param boolean $enabled
      * @return Testcase
      */
     public function setEnabled($enabled)
@@ -124,9 +154,9 @@ class Testcase
     /**
      * Get enabled
      *
-     * @return int
+     * @return boolean
      */
-    public function getEnabled()
+    public function isEnabled()
     {
         return $this->enabled;
     }
@@ -154,28 +184,6 @@ class Testcase
         return $this->title;
     }
 
-    /**
-     * Set notifyEmail
-     *
-     * @param string $notifyEmail
-     * @return Testcase
-     */
-    public function setNotifyEmail($notifyEmail)
-    {
-        $this->notifyEmail = $notifyEmail;
-
-        return $this;
-    }
-
-    /**
-     * Get notifyEmail
-     *
-     * @return string 
-     */
-    public function getNotifyEmail()
-    {
-        return $this->notifyEmail;
-    }
 
     /**
      * Set cadence
@@ -221,5 +229,53 @@ class Testcase
     public function getScript()
     {
         return $this->script;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActivatedAt()
+    {
+        return $this->activatedAt;
+    }
+
+    /**
+     * @param mixed $activatedAt
+     */
+    public function setActivatedAt($activatedAt)
+    {
+        $this->activatedAt = $activatedAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
     }
 }

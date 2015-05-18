@@ -4,32 +4,42 @@ namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class TestcaseHomepageFormType extends AbstractType
+class TestcaseType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('title', 'text', ['label' => 'Testcase name'])
-            ->add('notifyEmail', 'email', ['label' => 'Notification mail address'])
-            ->add('password', 'password', ['label' => 'Password (for existing or new account)'])
             ->add(
                 'cadence',
                 'choice',
                 [
                     'choices' => [
-                        '*/5' => 'Every 5 minutes',
+                        '*/5'  => 'Every 5 minutes',
                         '*/15' => 'Every 15 minutes',
                         '*/30' => 'Every 30 minutes',
-                        '0' => 'Every 60 minutes',
+                        '0'    => 'Every 60 minutes',
                     ],
                     'required' => true,
                     'multiple' => false,
                     'expanded' => true,
-                    'label' => 'Check interval'
+                    'label'    => 'Check interval'
                 ])
             ->add('script', 'textarea', ['label' => 'Selenium script (HTML format only!)', 'attr' => ['class' => 'codeform']])
-            ->add('save', 'submit', ['label' => 'Start monitoring', 'attr' => ['class' => 'btn-primary']]);
+            ->add('Save', 'submit', ['label' => 'Start monitoring', 'attr' => ['class' => 'btn-primary']]);
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(
+            [
+                'data_class'         => 'AppBundle\Entity\Testcase',
+                'csrf_protection'    => true,
+                'allow_extra_fields' => true
+            ]
+        );
     }
 
     public function getName()

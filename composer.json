@@ -1,5 +1,5 @@
 {
-    "name": "manuelkiessling/control-web-frontend",
+    "name": "selenior/control-web-frontend",
     "license": "proprietary",
     "type": "project",
     "autoload": {
@@ -23,11 +23,12 @@
         "sensio/distribution-bundle": "~3.0,>=3.0.12",
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
-        "doctrine/doctrine-migrations-bundle": "^2.1@dev"
+        "doctrine/doctrine-migrations-bundle": "^2.1@dev",
+        "friendsofsymfony/user-bundle": "dev-master" // Temporary solution because of https://github.com/FriendsOfSymfony/FOSUserBundle/issues/1800
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
-        "phpunit/phpunit": "4.6.*"
+        "phpunit/phpunit": "4.8.*@dev"
     },
     "scripts": {
         "post-root-package-install": [

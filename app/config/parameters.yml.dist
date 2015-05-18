@@ -16,4 +16,4 @@ parameters:
     locale:            en
 
     # A secret key that's used to generate certain security-related tokens
-    secret:            5de01c468540400abef101b7baf935e8
+    secret:            changeme

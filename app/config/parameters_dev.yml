@@ -1,0 +1,8 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_sqlite
+    database_port: null
+    database_name: symfony
+    database_user: root
+    database_password: root
+    database_path: /var/tmp/selenior-control.sqlite

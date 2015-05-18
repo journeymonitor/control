@@ -21,6 +21,6 @@ class DefaultControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/');
 
-        $this->assertTrue($crawler->filter('#testcase_password')->attr('type') == 'password');
+        $this->assertTrue($crawler->filter('#testcase_and_user_user_password')->attr('type') == 'password');
     }
 }

@@ -2,50 +2,47 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * User
  *
- * @ORM\Table(name="users")
+ * @ORM\Table(name="user")
  * @ORM\Entity
  */
-class User
+class User extends BaseUser
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="string", length=36)
+     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\Column(name="id", type="guid")
      * @ORM\Id
      */
-    private $id;
+    protected $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=128)
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Testcase", mappedBy="user")
      */
-    private $email;
+    private $testcases;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=40)
+     * @var \DateTime
+     * @ORM\Column(type="datetime", name="activated_at", nullable=true)
      */
-    private $password;
+    private $activatedAt = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="salt", type="string", length=40)
-     */
-    private $salt;
-
-
+    public function __construct()
+    {
+        $this->testcases = new ArrayCollection();
+        parent::__construct();
+    }
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -64,7 +61,7 @@ class User
 
         return $this;
     }
-    
+
     /**
      * Set email
      *
@@ -81,7 +78,7 @@ class User
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -104,7 +101,7 @@ class User
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -127,10 +124,42 @@ class User
     /**
      * Get salt
      *
-     * @return string 
+     * @return string
      */
     public function getSalt()
     {
         return $this->salt;
+    }
+
+    /**
+     * @return ArrayCollection|Testcase
+     */
+    public function getTestcases()
+    {
+        return $this->testcases;
+    }
+
+    /**
+     * @param ArrayCollection|Testcase[] $testcases
+     */
+    public function setTestcases($testcases)
+    {
+        $this->testcases = $testcases;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getActivatedAt()
+    {
+        return $this->activatedAt;
+    }
+
+    /**
+     * @param \DateTime $activatedAt
+     */
+    public function setActivatedAt($activatedAt)
+    {
+        $this->activatedAt = $activatedAt;
     }
 }
