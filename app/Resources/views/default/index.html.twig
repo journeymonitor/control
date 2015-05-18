@@ -24,8 +24,44 @@
         {% endfor %}
 
         {{ form_start(form) }}
-        {{ form_widget(form) }}
+            {{ form_errors(form) }}
+
+            <div class="form-group">
+                {{ form_label(form.title) }}
+                {{ form_errors(form.title) }}
+                {{ form_widget(form.title) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.notifyEmail) }}
+                {{ form_errors(form.notifyEmail) }}
+                {{ form_widget(form.notifyEmail) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.password) }}
+                {{ form_errors(form.password) }}
+                {{ form_widget(form.password) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.cadence) }}
+                {{ form_errors(form.cadence) }}
+                {{ form_widget(form.cadence) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.script) }}
+                {{ form_errors(form.script) }}
+                {{ form_widget(form.script) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_widget(form.save) }}
+            </div>
+
         {{ form_end(form) }}
+
     </div>
 </div>
 

@@ -12,7 +12,7 @@ class TestcaseHomepageFormType extends AbstractType
         $builder
             ->add('title', 'text', ['label' => 'Testcase name'])
             ->add('notifyEmail', 'email', ['label' => 'Notification mail address'])
-            ->add('password', 'text', ['label' => 'Password (for existing or new account)'])
+            ->add('password', 'password', ['label' => 'Password (for existing or new account)'])
             ->add(
                 'cadence',
                 'choice',
@@ -29,7 +29,7 @@ class TestcaseHomepageFormType extends AbstractType
                     'label' => 'Check interval'
                 ])
             ->add('script', 'textarea', ['label' => 'Selenium script (HTML format only!)', 'attr' => ['class' => 'codeform']])
-            ->add('Save', 'submit', ['label' => 'Start monitoring', 'attr' => ['class' => 'btn-primary']]);
+            ->add('save', 'submit', ['label' => 'Start monitoring', 'attr' => ['class' => 'btn-primary']]);
     }
 
     public function getName()

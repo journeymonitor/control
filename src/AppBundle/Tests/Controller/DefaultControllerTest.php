@@ -10,9 +10,17 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/');
+        $client->request('GET', '/');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertTrue($crawler->filter('html:contains("Notification mail address")')->count() == 1);
+    }
+
+    public function testIndexContainsPasswordField()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/');
+
+        $this->assertTrue($crawler->filter('#testcase_password')->attr('type') == 'password');
     }
 }
