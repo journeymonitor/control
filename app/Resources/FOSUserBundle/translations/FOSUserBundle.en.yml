@@ -1,0 +1,14 @@
+# Registration
+registration:
+    email:
+        subject: Welcome to JourneyMonitor!
+        message: |
+            Hello,
+
+            In order to activate your account and enable your monitoring,
+            please visit %confirmationUrl%
+
+            Regards,
+
+            --
+              The JourneyMonitor Team

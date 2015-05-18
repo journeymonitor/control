@@ -56,10 +56,10 @@ class RegistrationConfirmationListener implements EventSubscriberInterface {
      */
     public function onRegistrationConfirmed(FilterUserResponseEvent $event)
     {
-        $user = $this->tokenStorage->getToken()->getUser();
+        $user = $event->getUser();
         $user->setActivatedAt(new \DateTime());
         $pendingTestcases = $this->testcaseRepository->findWaitingConfirmation($user);
-        foreach($pendingTestcases as $testcase) {
+        foreach ($pendingTestcases as $testcase) {
             $testcase->setEnabled(true);
             $testcase->setActivatedAt(new \DateTime());
             $this->entityManager->persist($testcase);

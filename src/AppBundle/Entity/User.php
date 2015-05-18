@@ -15,7 +15,8 @@ use FOS\UserBundle\Model\User as BaseUser;
 class User extends BaseUser
 {
     /**
-     * @var integer
+     * @var string
+     *
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(name="id", type="guid")
      * @ORM\Id
@@ -23,7 +24,8 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @var ArrayCollection
+     * @var ArrayCollection|Testcase[]
+     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Testcase", mappedBy="user")
      */
     private $testcases;
@@ -42,7 +44,7 @@ class User extends BaseUser
     /**
      * Get id
      *
-     * @return integer
+     * @return string
      */
     public function getId()
     {
@@ -132,7 +134,7 @@ class User extends BaseUser
     }
 
     /**
-     * @return ArrayCollection|Testcase
+     * @return ArrayCollection|Testcase[]
      */
     public function getTestcases()
     {
@@ -161,5 +163,10 @@ class User extends BaseUser
     public function setActivatedAt($activatedAt)
     {
         $this->activatedAt = $activatedAt;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getId();
     }
 }

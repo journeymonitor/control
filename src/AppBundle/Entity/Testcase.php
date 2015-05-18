@@ -14,7 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Testcase
 {
     /**
-     * @var integer
+     * @var string
+     *
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(name="id", type="guid")
      * @ORM\Id
@@ -22,11 +23,11 @@ class Testcase
     private $id;
 
     /**
-     * @var string
+     * @var \AppBundle\Entity\User
      *
-     * @ORM\Column(name="user_id", type="string", length=36)
+     * @ORM\Column(name="user_id", type="guid", length=255)
      * @ORM\ManyToOne(targetEntity="User", inversedBy="testcases")
-     * @ORM\JoinColumn(name="user_id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 
@@ -108,7 +109,7 @@ class Testcase
     /**
      * Get id
      *
-     * @return integer 
+     * @return string
      */
     public function getId()
     {
@@ -116,9 +117,9 @@ class Testcase
     }
 
     /**
-     * Set userId
+     * Set user
      *
-     * @param string $user
+     * @param \AppBundle\Entity\User $user
      * @return Testcase
      */
     public function setUser($user)
@@ -129,9 +130,9 @@ class Testcase
     }
 
     /**
-     * Get userId
+     * Get user
      *
-     * @return string 
+     * @return \AppBundle\Entity\User
      */
     public function getUser()
     {
@@ -248,7 +249,7 @@ class Testcase
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getActivatedAt()
     {
@@ -256,7 +257,7 @@ class Testcase
     }
 
     /**
-     * @param mixed $activatedAt
+     * @param \DateTime $activatedAt
      */
     public function setActivatedAt($activatedAt)
     {
