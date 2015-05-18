@@ -1,6 +1,6 @@
 <?php
-namespace AppBundle\Service;
 
+namespace AppBundle\Service;
 
 use AppBundle\Entity\User;
 use FOS\UserBundle\Doctrine\UserManager;
@@ -10,6 +10,7 @@ use FOS\UserBundle\Security\LoginManager;
 use FOS\UserBundle\Security\LoginManagerInterface;
 use Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,7 +55,7 @@ class RegistrationService
      * @param EncoderFactory $encoderFactory
      * @param Session $session
      * @param TokenStorage|SessionTokenStorage $tokenStorage
-     * @param TraceableEventDispatcher $eventDispatcher
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         UserManager $userManager,
@@ -62,7 +63,7 @@ class RegistrationService
         EncoderFactory $encoderFactory,
         Session $session,
         TokenStorage $tokenStorage,
-        TraceableEventDispatcher $eventDispatcher
+        EventDispatcherInterface $eventDispatcher
     )
     {
         $this->userManager = $userManager;
