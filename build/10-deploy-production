@@ -3,8 +3,13 @@
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PATH
 
 rsync -ac --stats --exclude /opt/selenior/control-web-frontend/app/cache --exclude /opt/selenior/control-web-frontend/app/logs $2/ /opt/selenior/control-web-frontend/ || exit 1
-chown -R www-data:www-data /opt/selenior/control-web-frontend/app/cache || exit 1
-chown -R www-data:www-data /opt/selenior/control-web-frontend/app/logs || exit 1
+
+chown -R www-data:www-data /opt/selenior/control-web-frontend/app/cache/prod || exit 1
+chown -R www-data:www-data /opt/selenior/control-web-frontend/app/logs/prod.log || exit 1
 
 cd /opt/selenior/control-web-frontend/
+
+sudo -u www-data /usr/bin/php ./app/console cache:clear --no-interaction --env=prod || exit 1
+sudo -u www-data /usr/bin/php ./app/console cache:warmup --no-interaction --env=prod || exit 1
+
 sudo -u www-data /usr/bin/php ./app/console doctrine:migrations:migrate --no-interaction --env=prod || exit 1
