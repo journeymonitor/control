@@ -31,16 +31,38 @@
 
     <div class="container">
       <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            {% if app.user %}
-              <li role="presentation"><a href="#">Logged in as <strong>{{ app.user.username }}</strong></a></li>
-              <li role="presentation"><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
-            {% endif %}
-            <li role="presentation" class="active"><a href="{{ path('homepage') }}">Home</a></li>
-          </ul>
+
+        {# see http://getbootstrap.com/components/#navbar-default #}
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a id="brandname" class="navbar-brand" href="{{ path('homepage') }}"><h3>JourneyMonitor</h3></a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav pull-right">
+                {% if app.user %}
+                  <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+                {% endif %}
+              </ul>
+
+
+              {% if app.user %}
+                <p id="loggedin-info" class="navbar-text pull-right">
+                  Logged in as <strong>{{ app.user.username }}</strong>
+                </p>
+              {% endif %}
+
+            </div> <!-- /.navbar-collapse -->
+          </div> <!-- /.container-fluid -->
         </nav>
-        <h3 class="text-muted">JourneyMonitor</h3>
+
       </div>
 
       {% block body %}{% endblock %}
