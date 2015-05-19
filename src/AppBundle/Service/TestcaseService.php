@@ -27,6 +27,10 @@ class TestcaseService
      */
     public function createTestcaseForUser(User $user, Testcase $testcase)
     {
+        // The user from the userManager is incomplete in terms of Doctrine,
+        // we need a full model from persistance
+        $userRepo = $this->entityManager->getRepository('AppBundle\Entity\User');
+        $user = $userRepo->findOneBy(['email' => $user->getEmail()]);
         $testcase->setUser($user);
         $this->entityManager->persist($testcase);
         $this->entityManager->flush();

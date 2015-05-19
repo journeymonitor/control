@@ -1,0 +1,20 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-lg-12">
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert alert-success" role="alert">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('info') %}
+            <div class="alert-info">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

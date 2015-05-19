@@ -90,8 +90,6 @@ class RegistrationService
             ))  {
                 throw new AuthenticationException();
             }
-
-            $this->loginManager->loginUser('main', $user);
         } else {
             $this->createUserEntry($user);
             $event = new FormEvent($regForm->get('user'), new Request());
@@ -110,8 +108,5 @@ class RegistrationService
         $this->userManager->updatePassword($user);
         $this->userManager->updateUser($user);
         $this->session->getFlashBag()->add('success', 'Thank you. Please check your mails in order to activate your account.');
-        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
-        $this->tokenStorage->setToken($token);
-        $this->session->set('_security_main', serialize($token));
     }
 }

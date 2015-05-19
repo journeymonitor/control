@@ -32,8 +32,8 @@ class TestcasesController extends Controller
                 $form->get('user')->getData(),
                 $form->get('testcase')->getData()
             );
-            $this->addFlash('success', 'We will start monitoring your site as soon as your account has been activated.');
-            return $this->redirect($this->get('router')->generate('selenior.testcases_new'));
+            $this->addFlash('success', 'Testcase added successfully. We will start monitoring your site as soon as your account has been activated.');
+            return $this->render('AppBundle:registration:thankyou.html.twig');
         }
         return $this->render('AppBundle:default:index.html.twig', array('form' => $form->createView()));
     }
@@ -44,12 +44,17 @@ class TestcasesController extends Controller
      */
     public function newAction(Request $request)
     {
+        $user = $this->getUser();
+        if (empty($user)) {
+            return $this->redirect($this->get('router')->generate('homepage'));
+        }
+
         $form = $this->createForm(new TestcaseType());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $this->get('selenior.testcase')->createTestcaseForUser(
-                $this->getUser(),
+                $user,
                 $form->getData()
             );
             $this->addFlash('success', 'Thank you. Your website will now be monitored.');
