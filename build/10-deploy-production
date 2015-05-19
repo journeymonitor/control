@@ -5,7 +5,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PA
 rsync -ac --stats --exclude /opt/selenior/control-web-frontend/app/cache --exclude /opt/selenior/control-web-frontend/app/logs $2/ /opt/selenior/control-web-frontend/ || exit 1
 
 chown -R www-data:www-data /opt/selenior/control-web-frontend/app/cache || exit 1
-chown -R www-data:www-data /opt/selenior/control-web-frontend/app/logs/prod.log || exit 1
+chown -R www-data:www-data /opt/selenior/control-web-frontend/app/logs || exit 1
 
 cd /opt/selenior/control-web-frontend/
 
