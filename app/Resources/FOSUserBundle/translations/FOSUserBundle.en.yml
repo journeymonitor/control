@@ -1,4 +1,8 @@
 # Registration
+security:
+    login:
+        username: Your e-mail address:
+        password: Your password:
 registration:
     email:
         subject: Welcome to JourneyMonitor!

@@ -11,7 +11,7 @@
 
     <title>{% block title %}JourneyMonitor{% endblock %}</title>
 
-    
+
     {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('bundles/app/vendor/bootstrap/dist/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/app/default.css') }}">
@@ -23,6 +23,8 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+    <script src="{{ asset('bundles/app/vendor/jquery/dist/jquery.js') }}"></script>
+    <script src="{{ asset('bundles/app/vendor/bootstrap/dist/js/bootstrap.js') }}"></script>
     {% endblock %}
 
   </head>
@@ -36,7 +38,7 @@
         <nav class="navbar navbar-default">
           <div class="container-fluid">
             <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -45,10 +47,12 @@
               <a id="brandname" class="navbar-brand" href="{{ path('homepage') }}"><h3>JourneyMonitor</h3></a>
             </div>
 
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse" id="navbar">
               <ul class="nav navbar-nav pull-right">
                 {% if app.user %}
                   <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+                {% else %}
+                  <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
                 {% endif %}
               </ul>
 

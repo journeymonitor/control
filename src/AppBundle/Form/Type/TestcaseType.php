@@ -11,7 +11,7 @@ class TestcaseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text', ['label' => 'Testcase name'])
+            ->add('title', 'text', ['label' => 'Testcase name:'])
             ->add(
                 'cadence',
                 'choice',
@@ -25,9 +25,9 @@ class TestcaseType extends AbstractType
                     'required' => true,
                     'multiple' => false,
                     'expanded' => true,
-                    'label'    => 'Check interval'
+                    'label'    => 'Check interval:'
                 ])
-            ->add('script', 'textarea', ['label' => 'Selenium script (HTML format only!)', 'attr' => ['class' => 'codeform']])
+            ->add('script', 'textarea', ['label' => 'Selenium script (HTML format only!):', 'attr' => ['class' => 'codeform']])
             ->add('Save', 'submit', ['label' => 'Start monitoring', 'attr' => ['class' => 'btn-primary']]);
     }
 
