@@ -33,11 +33,11 @@
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
-              {#{% if app.user %}#}
-                  {#Logged in as: {{ app.user.username }}#}
-              {#{% endif %}#}
-            <li role="presentation" class="active"><a href="/">Home</a></li>
-            <li role="presentation"><a href="#">About</a></li>
+            {% if app.user %}
+              <li role="presentation"><a href="#">Logged in as <strong>{{ app.user.username }}</strong></a></li>
+              <li role="presentation"><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+            {% endif %}
+            <li role="presentation" class="active"><a href="{{ path('homepage') }}">Home</a></li>
           </ul>
         </nav>
         <h3 class="text-muted">JourneyMonitor</h3>
