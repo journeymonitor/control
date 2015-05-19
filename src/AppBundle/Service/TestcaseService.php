@@ -32,6 +32,9 @@ class TestcaseService
         $userRepo = $this->entityManager->getRepository('AppBundle\Entity\User');
         $user = $userRepo->findOneBy(['email' => $user->getEmail()]);
         $testcase->setUser($user);
+        if ($user->isEnabled()) {
+            $testcase->setEnabled(true);
+        }
         $this->entityManager->persist($testcase);
         $this->entityManager->flush();
     }

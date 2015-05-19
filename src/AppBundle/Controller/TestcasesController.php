@@ -37,7 +37,7 @@ class TestcasesController extends Controller
                 $form->get('user')->getData(),
                 $form->get('testcase')->getData()
             );
-            $this->addFlash('success', 'Testcase added.');
+            $this->addFlash('success', 'The new testcase has been added.');
 
             $user = $this->getUser();
             if (!empty($user) && $user->isEnabled()) { // A previously non-logged in user that is fully activated used the homepage form
@@ -65,7 +65,7 @@ class TestcasesController extends Controller
                 $user,
                 $form->getData()
             );
-            $this->addFlash('success', 'Thank you. Your website will now be monitored.');
+            $this->addFlash('success', 'The new testcase has been added.');
         }
 
         return $this->render('AppBundle:testcases:new.html.twig', array('form' => $form->createView()));
