@@ -109,7 +109,7 @@ class RegistrationService
         $user->setPlainPassword($user->getPassword());
         $this->userManager->updatePassword($user);
         $this->userManager->updateUser($user);
-        $this->session->getFlashBag()->add('success', 'Please confirm your e-mail address to start monitoring.');
+        $this->session->getFlashBag()->add('success', 'Thank you. Please check your mails in order to activate your account.');
         $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
         $this->tokenStorage->setToken($token);
         $this->session->set('_security_main', serialize($token));

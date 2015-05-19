@@ -32,6 +32,8 @@ class TestcasesController extends Controller
                 $form->get('user')->getData(),
                 $form->get('testcase')->getData()
             );
+            $this->addFlash('success', 'We will start monitoring your site as soon as your account has been activated.');
+            return $this->redirect($this->get('router')->generate('selenior.testcases_new'));
         }
         return $this->render('AppBundle:default:index.html.twig', array('form' => $form->createView()));
     }
@@ -53,7 +55,7 @@ class TestcasesController extends Controller
             $this->addFlash('success', 'Thank you. Your website will now be monitored.');
         }
 
-        return $this->render('AppBundle:default:index.html.twig', array('form' => $form->createView()));
+        return $this->render('AppBundle:testcases:new.html.twig', array('form' => $form->createView()));
     }
 
     public function disableAction($testcaseId)
