@@ -90,6 +90,10 @@ class RegistrationService
             ))  {
                 throw new AuthenticationException();
             }
+            if ($existingUser->isEnabled()) {
+                $this->loginManager->loginUser('main', $existingUser);
+                $user = $existingUser;
+            }
         } else {
             $this->createUserEntry($user);
             $event = new FormEvent($regForm->get('user'), new Request());

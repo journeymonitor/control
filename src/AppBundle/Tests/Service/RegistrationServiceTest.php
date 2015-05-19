@@ -92,7 +92,31 @@ class RegistrationServiceTest extends PHPUnit_Framework_TestCase
         $this->service->createUserOrLogin($user, $this->formMock);
     }
 
-    public function testCreateUserOrLoginCreateLoginValid()
+    public function testCreateUserOrLoginCreateLoginValidAndUserEnabled()
+    {
+        $user = new User();
+        $user->setEmail('test@test.test');
+        $user->setPassword('testing');
+
+        $existingUser = new User();
+        $existingUser->setPassword('testing');
+        $existingUser->setSalt('');
+        $existingUser->setEnabled(true);
+        $this->userManagerMock->expects($this->once())
+            ->method('findUserByEmail')
+            ->with('test@test.test')
+            ->willReturn($existingUser);
+
+        $this->encoderFactoryMock->expects($this->once())
+            ->method('getEncoder')
+            ->willReturn(new PlaintextPasswordEncoder());
+        $this->loginManagerMock->expects($this->once())
+            ->method('loginUser')
+            ->with('main', $existingUser);
+        $this->service->createUserOrLogin($user, $this->formMock);
+    }
+
+    public function testCreateUserOrLoginCreateLoginValidAndUserNotYetEnabled()
     {
         $user = new User();
         $user->setEmail('test@test.test');
@@ -109,9 +133,8 @@ class RegistrationServiceTest extends PHPUnit_Framework_TestCase
         $this->encoderFactoryMock->expects($this->once())
             ->method('getEncoder')
             ->willReturn(new PlaintextPasswordEncoder());
-        $this->loginManagerMock->expects($this->once())
-            ->method('loginUser')
-            ->with('main', $user);
+        $this->loginManagerMock->expects($this->never())
+            ->method('loginUser');
         $this->service->createUserOrLogin($user, $this->formMock);
     }
 

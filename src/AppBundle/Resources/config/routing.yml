@@ -3,7 +3,7 @@ homepage:
     defaults: { _controller: AppBundle:Testcases:newWithReg }
     methods:  [GET, POST]
 
-selenior.testcases_new:
+testcases.new:
     path:     /testcase/new
     defaults: { _controller: AppBundle:Testcases:new }
     methods:  [GET, POST]

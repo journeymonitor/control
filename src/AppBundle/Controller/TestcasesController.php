@@ -17,14 +17,19 @@ class TestcasesController extends Controller
     {
         $user = $this->getUser();
         if (!empty($user)) {
-            return $this->redirect($this->get('router')->generate('selenior.testcases_new'));
+            return $this->redirect($this->get('router')->generate('testcases.new'));
         }
 
         $form = $this->createForm(new TestcaseAndUserType());
         $form->handleRequest($request);
 
         if ($form->isValid() && empty($user)) {
-            $this->createUserFromForm($form);
+            try {
+                $this->createOrLoginUserFromForm($form);
+            } catch (AuthenticationException $ex) {
+                $this->addFlash('error', 'This e-mail/password combination is incorrect.');
+                return $this->render('AppBundle:default:index.html.twig', array('form' => $form->createView()));
+            }
         }
 
         if ($form->isValid()) {
@@ -32,8 +37,15 @@ class TestcasesController extends Controller
                 $form->get('user')->getData(),
                 $form->get('testcase')->getData()
             );
-            $this->addFlash('success', 'Testcase added. We will start monitoring your site as soon as your account has been activated.');
-            return $this->render('AppBundle:registration:thankyou.html.twig');
+            $this->addFlash('success', 'Testcase added.');
+
+            $user = $this->getUser();
+            if (!empty($user) && $user->isEnabled()) { // A previously non-logged in user that is fully activated used the homepage form
+                return $this->redirect($this->get('router')->generate('testcases.new'));
+            } else {
+                $this->addFlash('info', 'We will start monitoring your site as soon as your account has been activated.');
+                return $this->render('AppBundle:registration:thankyou.html.twig');
+            }
         }
         return $this->render('AppBundle:default:index.html.twig', array('form' => $form->createView()));
     }
@@ -45,11 +57,6 @@ class TestcasesController extends Controller
     public function newAction(Request $request)
     {
         $user = $this->getUser();
-        if (empty($user)) {
-            $this->addFlash('error', 'You need to be logged in to access this page.');
-            return $this->redirect($this->get('router')->generate('homepage'));
-        }
-
         $form = $this->createForm(new TestcaseType());
         $form->handleRequest($request);
 
@@ -62,6 +69,13 @@ class TestcasesController extends Controller
         }
 
         return $this->render('AppBundle:testcases:new.html.twig', array('form' => $form->createView()));
+    }
+
+    public function editAction($testcaseId) {
+        $user = $this->getUser();
+        if (empty($user)) {
+            return $this->redirect($this->get('router')->generate('homepage'));
+        }
     }
 
     public function disableAction($testcaseId)
@@ -87,15 +101,11 @@ class TestcasesController extends Controller
     /**
      * @param Form $form
      */
-    protected function createUserFromForm(Form $form)
+    protected function createOrLoginUserFromForm(Form $form)
     {
-        try {
-            $this->get('selenior.registration')->createUserOrLogin(
-                $form->get('user')->getData(),
-                $form
-            );
-        } catch (AuthenticationException $ex) {
-            $form->addError(new FormError('Login failed.'));
-        }
+        $this->get('selenior.registration')->createUserOrLogin(
+            $form->get('user')->getData(),
+            $form
+        );
     }
 }
