@@ -4,7 +4,7 @@ homepage:
     methods:  [GET, POST]
 
 testcases.new:
-    path:     /testcase/new
+    path:     /testcases/new
     defaults: { _controller: AppBundle:Testcases:new }
     methods:  [GET, POST]
 
@@ -14,11 +14,11 @@ api_retrieve_testcases:
     methods:  [GET]
 
 disable_testcase:
-    path:     /testcases/disable/{testcaseId}
+    path:     /testcases/{testcaseId}/disable
     defaults: { _controller: AppBundle:Testcases:disable }
     methods:  [GET]
 
 enable_testcase:
-    path:     /testcases/enable/{testcaseId}
+    path:     /testcases/{testcaseId}/enable
     defaults: { _controller: AppBundle:Testcases:enable }
     methods:  [GET]

@@ -83,9 +83,19 @@ class TestcasesController extends Controller
         $em = $this->getDoctrine()->getManager();
         $testcaseRepo = $em->getRepository('AppBundle\Entity\Testcase');
         $testcase = $testcaseRepo->find($testcaseId);
-        $testcase->setEnabled(0);
-        $em->flush();
-        return new JsonResponse("The testcase '" . $testcase->getTitle() . "' has been disabled.");
+        if (!empty($testcase)) {
+            $user = $this->getUser();
+            if ($user->getId() != $testcase->getUser()->getId()) {
+                $this->addFlash('error', 'Access to this testcase has been denied.');
+            } else {
+                $testcase->setEnabled(false);
+                $em->flush();
+                $this->addFlash('success', 'The testcase "' . $testcase->getTitle() . '" has been disabled.');
+            }
+        } else {
+            $this->addFlash('error', 'The testcase could not be found.');
+        }
+        return $this->redirect($this->get('router')->generate('testcases.new'));
     }
 
     public function enableAction($testcaseId)
@@ -93,9 +103,19 @@ class TestcasesController extends Controller
         $em = $this->getDoctrine()->getManager();
         $testcaseRepo = $em->getRepository('AppBundle\Entity\Testcase');
         $testcase = $testcaseRepo->find($testcaseId);
-        $testcase->setEnabled(1);
-        $em->flush();
-        return new JsonResponse("The testcase '" . $testcase->getTitle() . "' has been enabled.");
+        if (!empty($testcase)) {
+            $user = $this->getUser();
+            if ($user->getId() != $testcase->getUser()->getId()) {
+                $this->addFlash('error', 'Access to this testcase has been denied.');
+            } else {
+                $testcase->setEnabled(true);
+                $em->flush();
+                $this->addFlash('success', 'The testcase "' . $testcase->getTitle() . '" has been enabled.');
+            }
+        } else {
+            $this->addFlash('error', 'The testcase could not be found.');
+        }
+        return $this->redirect($this->get('router')->generate('testcases.new'));
     }
 
     /**
