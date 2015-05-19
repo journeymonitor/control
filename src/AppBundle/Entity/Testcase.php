@@ -23,13 +23,13 @@ class Testcase
     private $id;
 
     /**
-     * @var \AppBundle\Entity\User
+     * @var string
      *
      * @ORM\Column(name="user_id", type="guid", length=255)
      * @ORM\ManyToOne(targetEntity="User", inversedBy="testcases")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $user;
+    private $userId;
 
     /**
      * @var boolean
@@ -117,26 +117,26 @@ class Testcase
     }
 
     /**
-     * Set user
+     * Set userId
      *
-     * @param \AppBundle\Entity\User $user
+     * @param string $userId
      * @return Testcase
      */
-    public function setUser($user)
+    public function setUserId($userId)
     {
-        $this->user = $user;
+        $this->userId = $userId;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Get userId
      *
-     * @return \AppBundle\Entity\User
+     * @return string
      */
-    public function getUser()
+    public function getUserId()
     {
-        return $this->user;
+        return $this->userId;
     }
 
     /**

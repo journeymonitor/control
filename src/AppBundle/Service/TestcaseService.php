@@ -27,7 +27,7 @@ class TestcaseService
      */
     public function createTestcaseForUser(User $user, Testcase $testcase)
     {
-        $testcase->setUser($user);
+        $testcase->setUserId($user->getId());
         $this->entityManager->persist($testcase);
         $this->entityManager->flush();
     }
