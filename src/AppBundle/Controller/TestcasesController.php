@@ -32,7 +32,7 @@ class TestcasesController extends Controller
                 $form->get('user')->getData(),
                 $form->get('testcase')->getData()
             );
-            $this->addFlash('success', 'Testcase added successfully. We will start monitoring your site as soon as your account has been activated.');
+            $this->addFlash('success', 'Testcase added. We will start monitoring your site as soon as your account has been activated.');
             return $this->render('AppBundle:registration:thankyou.html.twig');
         }
         return $this->render('AppBundle:default:index.html.twig', array('form' => $form->createView()));
@@ -46,6 +46,7 @@ class TestcasesController extends Controller
     {
         $user = $this->getUser();
         if (empty($user)) {
+            $this->addFlash('error', 'You need to be logged in to access this page.');
             return $this->redirect($this->get('router')->generate('homepage'));
         }
 
