@@ -56,19 +56,17 @@
                   <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
                 {% endif %}
               </ul>
-
-
-              {% if app.user %}
-                <p id="loggedin-info" class="navbar-text pull-right">
-                  Logged in as <strong>{{ app.user.username }}</strong>
-                </p>
-              {% endif %}
-
             </div> <!-- /.navbar-collapse -->
           </div> <!-- /.container-fluid -->
         </nav>
-
+        {% if app.user %}
+          <div id="loggedin-info" class="pull-right">
+            <small>Logged in as <strong>{{ app.user.username }}</strong></small>
+          </div>
+        {% endif %}
       </div>
+
+
 
       <div class="row">
         <div class="col-lg-12">

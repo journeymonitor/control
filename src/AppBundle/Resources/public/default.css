@@ -25,7 +25,8 @@ body {
 }
 
 #loggedin-info {
-    color: #337ab7;
+    color: #aaa;
+    margin-top: -93px;
 }
 
 /* Custom page footer */
