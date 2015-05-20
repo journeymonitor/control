@@ -13,14 +13,14 @@
             {% for testcase in testcases %}
                 <tr class="testcase-entry {% if loop.index0 is even %}even{% endif %}">
                     <td>
+                        <span class="label label-default">{{ testcase.cadence }}</span>
+                        {% if (testcase.enabled) %}
+                            <span class="label label-success">Enabled</span>
+                        {% else %}
+                            <span class="label label-default">Disabled</span>
+                        {% endif %}
                         <h5>
                             <a href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}">{{ testcase.title }}</a>
-                            <span class="label label-default">{{ testcase.cadence }}</span>
-                            {% if (testcase.enabled) %}
-                                <span class="label label-success">Enabled</span>
-                            {% else %}
-                                <span class="label label-default">Disabled</span>
-                            {% endif %}
                         </h5>
                     </td>
                     <td>
