@@ -14,7 +14,7 @@ testcases.new:
     methods:  [GET, POST]
 
 testcases.edit:
-    path:     /testcases/{testcaseId}/edit
+    path:     /testcases/{testcaseId}
     defaults: { _controller: AppBundle:Testcases:edit }
     methods:  [GET, POST]
 
