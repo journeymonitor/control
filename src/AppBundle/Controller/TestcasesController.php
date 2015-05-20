@@ -104,6 +104,7 @@ class TestcasesController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em->flush();
+            $this->addFlash('success', 'The testcase has been updated.');
         }
 
         return $this->render('AppBundle:testcases:edit.html.twig', array('form' => $form->createView()));
