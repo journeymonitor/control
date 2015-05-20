@@ -71,11 +71,33 @@ class TestcasesController extends Controller
         return $this->render('AppBundle:testcases:new.html.twig', array('form' => $form->createView()));
     }
 
-    public function editAction($testcaseId) {
+    public function editAction(Request $request, $testcaseId)
+    {
         $user = $this->getUser();
-        if (empty($user)) {
-            return $this->redirect($this->get('router')->generate('homepage'));
+
+        $em = $this->getDoctrine()->getManager();
+        $testcaseRepo = $em->getRepository('AppBundle\Entity\Testcase');
+        $testcase = $testcaseRepo->find($testcaseId);
+
+        if (empty($testcase)) {
+            $this->addFlash('error', 'Testcase not found.');
+            return $this->redirect($this->get('router')->generate('testcases.new'));
         }
+
+        if ($testcase->getUser()->getId() != $user->getId()) {
+            $this->addFlash('error', 'Access to this testcase has been denied.');
+            return $this->redirect($this->get('router')->generate('testcases.new'));
+        }
+
+        $form = $this->createForm(new TestcaseType(), $testcase);
+        $form->add('Save', 'submit', ['label' => 'Update testcase', 'attr' => ['class' => 'btn-primary']]);
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $em->flush();
+        }
+
+        return $this->render('AppBundle:testcases:edit.html.twig', array('form' => $form->createView()));
     }
 
     public function disableAction($testcaseId)
