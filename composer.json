@@ -28,7 +28,7 @@
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
-        "phpunit/phpunit": "4.8.*@dev"
+        "phpunit/phpunit": "4.6.*"
     },
     "scripts": {
         "post-root-package-install": [
