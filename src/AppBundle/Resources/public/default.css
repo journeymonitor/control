@@ -95,3 +95,11 @@ p .highlight {
     padding-left: 4px;
     padding-right: 4px;
 }
+
+#testcases-list-entry {
+    height: 110px;
+}
+
+#testcases-list-entry.even {
+    background-color: #eee;
+}

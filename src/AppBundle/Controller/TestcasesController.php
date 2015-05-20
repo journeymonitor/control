@@ -13,6 +13,15 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 class TestcasesController extends Controller
 {
+    public function indexAction()
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $testcaseRepo = $em->getRepository('AppBundle\Entity\Testcase');
+        $testcases = $testcaseRepo->findBy(['user' => $user], ['updatedAt' => 'DESC']);
+        return $this->render('AppBundle:testcases:index.html.twig', array('testcases' => $testcases));
+    }
+
     public function newWithRegAction(Request $request)
     {
         $user = $this->getUser();
@@ -41,7 +50,7 @@ class TestcasesController extends Controller
 
             $user = $this->getUser();
             if (!empty($user) && $user->isEnabled()) { // A previously non-logged in user that is fully activated used the homepage form
-                return $this->redirect($this->get('router')->generate('testcases.new'));
+                return $this->redirect($this->get('router')->generate('testcases.index'));
             } else {
                 $this->addFlash('info', 'We will start monitoring your site as soon as your account has been activated.');
                 return $this->render('AppBundle:registration:thankyou.html.twig');
@@ -81,12 +90,12 @@ class TestcasesController extends Controller
 
         if (empty($testcase)) {
             $this->addFlash('error', 'Testcase not found.');
-            return $this->redirect($this->get('router')->generate('testcases.new'));
+            return $this->redirect($this->get('router')->generate('testcases.index'));
         }
 
         if ($testcase->getUser()->getId() != $user->getId()) {
             $this->addFlash('error', 'Access to this testcase has been denied.');
-            return $this->redirect($this->get('router')->generate('testcases.new'));
+            return $this->redirect($this->get('router')->generate('testcases.index'));
         }
 
         $form = $this->createForm(new TestcaseType(), $testcase);
@@ -117,7 +126,7 @@ class TestcasesController extends Controller
         } else {
             $this->addFlash('error', 'The testcase could not be found.');
         }
-        return $this->redirect($this->get('router')->generate('testcases.new'));
+        return $this->redirect($this->get('router')->generate('testcases.index'));
     }
 
     public function enableAction($testcaseId)
@@ -137,7 +146,7 @@ class TestcasesController extends Controller
         } else {
             $this->addFlash('error', 'The testcase could not be found.');
         }
-        return $this->redirect($this->get('router')->generate('testcases.new'));
+        return $this->redirect($this->get('router')->generate('testcases.index'));
     }
 
     /**
