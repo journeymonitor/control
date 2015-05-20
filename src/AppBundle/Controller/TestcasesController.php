@@ -18,7 +18,7 @@ class TestcasesController extends Controller
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $testcaseRepo = $em->getRepository('AppBundle\Entity\Testcase');
-        $testcases = $testcaseRepo->findBy(['user' => $user], ['updatedAt' => 'DESC']);
+        $testcases = $testcaseRepo->findBy(['user' => $user], ['createdAt' => 'DESC']);
         return $this->render('AppBundle:testcases:index.html.twig', array('testcases' => $testcases));
     }
 
