@@ -5,35 +5,43 @@
 <div class="row">
     <div class="col-lg-12">
 
+        <a href="{{ path('testcases.new') }}">＋ Add another testcase</a>
+
         <h4 class="page-header">Your testcases</h4>
 
-        <ul class="list-group">
+        <table class="table">
             {% for testcase in testcases %}
-                <li id="testcases-list-entry" class="list-group-item {% if loop.index0 is even %}even{% endif %}">
-                    <span class="badge">{{ testcase.cadence }}</span>
-
-                    <h5><a href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}">{{ testcase.title }}</a></h5>
-
-                    <div class="pull-right">
-                        {% if (testcase.enabled) %}
-                            <p>
-                                <span class="label label-primary">Enabled</span>
-                            </p>
-                            <p>
-                                <a class="btn btn-default btn-xs" href="{{ path('testcases.disable', {'testcaseId': testcase.id}) }}">Disable</a>
-                            </p>
-                        {% else %}
-                            <p>
+                <tr class="testcase-entry {% if loop.index0 is even %}even{% endif %}">
+                    <td>
+                        <h5>
+                            <a href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}">{{ testcase.title }}</a>
+                            <span class="label label-default">{{ testcase.cadence }}</span>
+                            {% if (testcase.enabled) %}
+                                <span class="label label-success">Enabled</span>
+                            {% else %}
                                 <span class="label label-default">Disabled</span>
-                            </p>
+                            {% endif %}
+                        </h5>
+                    </td>
+                    <td>
+                        <div>
                             <p>
-                                <a class="btn btn-success btn-xs" href="{{ path('testcases.enable', {'testcaseId': testcase.id}) }}">Enable</a>
+                                <a class="btn btn-primary" href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}">Edit</a>
                             </p>
-                        {% endif %}
-                    </div>
-                </li>
+                            {% if (testcase.enabled) %}
+                                <p>
+                                    <a class="btn btn-default btn-sm" href="{{ path('testcases.disable', {'testcaseId': testcase.id}) }}">Disable</a>
+                                </p>
+                            {% else %}
+                                <p>
+                                    <a class="btn btn-default btn-sm" href="{{ path('testcases.enable', {'testcaseId': testcase.id}) }}">Enable</a>
+                                </p>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
             {% endfor %}
-        </ul>
+        </table>
 
     </div>
 </div>
