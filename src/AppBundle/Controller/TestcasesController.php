@@ -26,7 +26,7 @@ class TestcasesController extends Controller
     {
         $user = $this->getUser();
         if (!empty($user)) {
-            return $this->redirect($this->get('router')->generate('testcases.new'));
+            return $this->redirect($this->get('router')->generate('testcases.index'));
         }
 
         $form = $this->createForm(new TestcaseAndUserType());
