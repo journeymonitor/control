@@ -107,4 +107,5 @@ p .highlight {
 
 .journeymonitor-testresult-output {
     font-size: 6pt;
+    white-space: pre-wrap;
 }
