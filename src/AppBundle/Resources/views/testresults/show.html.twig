@@ -24,7 +24,7 @@
 
         {% if (testresult.failScreenshotFilename) %}
             <p>
-                <a target="_blank" href="{{ path('testresult-screenshots', {'filename': testresult.failScreenshotFilename}) }}.png"><image width="256" height="144" src="{{ path('testresult-screenshots', {'filename': testresult.failScreenshotFilename}) }}_256.png"></a>
+                <a target="_blank" href="{{ path('testresult-screenshots', {'filename': testresult.failScreenshotFilename}) }}.png"><image width="256" src="{{ path('testresult-screenshots', {'filename': testresult.failScreenshotFilename}) }}_256.png"></a>
                 <br>
                 <small>Failure step screenshot - click to enlarge</small>
             </p>
