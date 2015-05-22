@@ -24,7 +24,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @var ArrayCollection|Testcase[]
+     * @var \ArrayCollection|Testcase[]
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Testcase", mappedBy="user")
      */
@@ -38,7 +38,7 @@ class User extends BaseUser
 
     public function __construct()
     {
-        $this->testcases = new ArrayCollection();
+        $this->testcases = new \ArrayCollection();
         parent::__construct();
     }
     /**
@@ -134,7 +134,7 @@ class User extends BaseUser
     }
 
     /**
-     * @return ArrayCollection|Testcase[]
+     * @return \ArrayCollection|Testcase[]
      */
     public function getTestcases()
     {
@@ -142,7 +142,7 @@ class User extends BaseUser
     }
 
     /**
-     * @param ArrayCollection|Testcase[] $testcases
+     * @param \ArrayCollection|Testcase[] $testcases
      */
     public function setTestcases($testcases)
     {
