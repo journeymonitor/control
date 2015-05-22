@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,7 +32,7 @@ class Testcase
     private $user;
 
     /**
-     * @var \ArrayCollection|Testresult[]
+     * @var ArrayCollection|Testresult[]
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Testresult", mappedBy="testcase")
      * @ORM\OrderBy({"datetimeRun" = "DESC"})
@@ -86,7 +87,7 @@ class Testcase
 
     public function __construct()
     {
-        $this->testresults = new \ArrayCollection();
+        $this->testresults = new ArrayCollection();
         parent::__construct();
     }
 
@@ -153,7 +154,7 @@ class Testcase
     }
 
     /**
-     * @return \ArrayCollection|Testresult[]
+     * @return ArrayCollection|Testresult[]
      */
     public function getTestresults()
     {
@@ -161,7 +162,7 @@ class Testcase
     }
 
     /**
-     * @param \ArrayCollection|Testresult[] $testresults
+     * @param ArrayCollection|Testresult[] $testresults
      */
     public function setTestresults($testresults)
     {
