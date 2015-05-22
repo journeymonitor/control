@@ -2,6 +2,8 @@
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PATH
 
+mkdir -p /opt/selenior/control-web-frontend
+
 rsync -ac --stats --exclude /opt/selenior/control-web-frontend/app/cache --exclude /opt/selenior/control-web-frontend/app/logs $2/ /opt/selenior/control-web-frontend/ || exit 1
 
 chown -R www-data:www-data /opt/selenior/control-web-frontend/app/cache || exit 1

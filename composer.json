@@ -24,7 +24,8 @@
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/doctrine-migrations-bundle": "^2.1@dev",
-        "friendsofsymfony/user-bundle": "dev-master"
+        "friendsofsymfony/user-bundle": "dev-master",
+        "guzzlehttp/guzzle": "~5.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

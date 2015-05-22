@@ -31,6 +31,14 @@ class Testcase
     private $user;
 
     /**
+     * @var ArrayCollection|Testresult[]
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Testresult", mappedBy="testcase")
+     * @ORM\OrderBy({"datetimeRun" = "DESC"})
+     */
+    private $testresults;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
@@ -75,6 +83,12 @@ class Testcase
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt = null;
+
+    public function __construct()
+    {
+        $this->testresults = new ArrayCollection();
+        parent::__construct();
+    }
 
     /**
      * @ORM\PrePersist()
@@ -136,6 +150,22 @@ class Testcase
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * @return ArrayCollection|Testresult[]
+     */
+    public function getTestresults()
+    {
+        return $this->testresults;
+    }
+
+    /**
+     * @param ArrayCollection|Testresult[] $testresults
+     */
+    public function setTestresults($testresults)
+    {
+        $this->testresults = $testresults;
     }
 
     /**

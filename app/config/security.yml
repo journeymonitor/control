@@ -33,3 +33,4 @@ security:
 
     access_control:
         - { path: ^/testcases, role: IS_AUTHENTICATED_REMEMBERED }
+        - { path: ^/testresults, role: IS_AUTHENTICATED_REMEMBERED }

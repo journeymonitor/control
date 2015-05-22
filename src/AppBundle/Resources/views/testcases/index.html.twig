@@ -11,7 +11,7 @@
 
         <table class="table">
             {% for testcase in testcases %}
-                <tr class="testcase-entry {% if loop.index0 is even %}even{% endif %}">
+                <tr class="journeymonitor-testcase-entry {% if loop.index0 is even %}journeymonitor-even{% endif %}">
                     <td>
                         <span class="label label-default">{{ testcase.cadence }}</span>
                         {% if (testcase.enabled) %}
@@ -22,6 +22,40 @@
                         <h4>
                             <a href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}">{{ testcase.title }}</a>
                         </h4>
+
+                        <div class="well">
+                            {% if (testcase.testresults|length > 0) %}
+                                <h5>History of test run results:</h5>
+                                <div>
+                                    {% for testresult in testcase.testresults|slice(0, 5) %}
+                                        <small>
+                                            <span class="label label-{% if (testresult.exitCode == 0) %}success{% else %}danger{% endif %}">{{ testresult.datetimeRun|date("Y-m-d H:i:s") }}</span>
+                                            <a href="{{ path('testresults.show', {'testresultId': testresult.id}) }}">Show result details</a>
+                                        </small>
+                                        <br>
+                                    {% endfor%}
+                                </div>
+
+                                {% if (testcase.testresults|length > 5) %}
+                                    <small>
+                                        <a name="testresults-{{ testcase.id }}">
+                                        <a href="#testresults-{{ testcase.id }}" data-toggle="collapse" data-target="#testresults-{{ testcase.id }}">Show all available results</a>
+                                    </small>
+
+                                    <div class="collapse" id="testresults-{{ testcase.id }}">
+                                        {% for testresult in testcase.testresults|slice(5, 1000) %}
+                                            <small>
+                                                <span class="label label-{% if (testresult.exitCode == 0) %}success{% else %}danger{% endif %}">{{ testresult.datetimeRun|date("Y-m-d H:i:s") }}</span>
+                                                <a href="{{ path('testresults.show', {'testresultId': testresult.id}) }}">Show result details</a>
+                                            </small>
+                                            <br>
+                                        {% endfor%}
+                                    </div>
+                                {% endif %}
+                            {% else %}
+                                <small>No test run results yet.</small>
+                            {% endif %}
+                        </div>
                     </td>
                     <td>
                         <div class="pull-right">

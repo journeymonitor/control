@@ -97,14 +97,14 @@ p .highlight {
     padding-right: 4px;
 }
 
-#testcases-list-entry {
-    height: 110px;
-}
-
-.testcase-entry.even {
+.journeymonitor-testcase-entry.journeymonitor-even {
     background-color: #eee;
 }
 
-.testcase-entry small {
+.journeymonitor-testcase-entry small {
     color: #aaa;
+}
+
+.journeymonitor-testresult-output {
+    font-size: 6pt;
 }
