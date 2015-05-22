@@ -88,7 +88,6 @@ class Testcase
     public function __construct()
     {
         $this->testresults = new ArrayCollection();
-        parent::__construct();
     }
 
     /**
