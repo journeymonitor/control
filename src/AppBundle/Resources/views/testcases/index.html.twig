@@ -38,8 +38,7 @@
 
                                 {% if (testcase.testresults|length > 5) %}
                                     <small>
-                                        <a name="testresults-{{ testcase.id }}">
-                                        <a href="#testresults-{{ testcase.id }}" data-toggle="collapse" data-target="#testresults-{{ testcase.id }}">Show all available results</a>
+                                        <a href="javascript:;" data-toggle="collapse" data-target="#testresults-{{ testcase.id }}">Show all available results</a>
                                     </small>
 
                                     <div class="collapse" id="testresults-{{ testcase.id }}">
