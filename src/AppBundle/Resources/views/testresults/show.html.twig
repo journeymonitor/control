@@ -9,22 +9,32 @@
 
         <h4 class="page-header">Testresult details</h4>
 
-        <strong>Testcase: </strong>
-        <a href="{{ path('testcases.edit', {'testcaseId': testresult.testcase.id}) }}">{{ testresult.testcase.title }}</a>
-        <br>
+        <p>
+            <strong>Testcase: </strong>
+            <a href="{{ path('testcases.edit', {'testcaseId': testresult.testcase.id}) }}">{{ testresult.testcase.title }}</a>
+            <br>
 
-        <strong>Date and time of run: </strong>
-        {{ testresult.datetimeRun|date('Y-m-d H:i:s') }}
-        <br>
+            <strong>Date and time of run: </strong>
+            {{ testresult.datetimeRun|date('Y-m-d H:i:s') }}
+            <br>
 
-        <strong>Exit code: </strong>
-        {{ testresult.exitCode }}
-        <br>
+            <strong>Exit code: </strong>
+            {{ testresult.exitCode }}
+        </p>
 
-        <strong>Output: </strong>
-        <br>
-        <pre class="journeymonitor-testresult-output">{{ testresult.output }}</pre>
+        {% if (testresult.failScreenshotFilename) %}
+            <p>
+                <a target="_blank" href="{{ path('testresult-screenshots', {'filename': testresult.failScreenshotFilename}) }}"><image width="256" height="144" src="{{ path('testresult-screenshots', {'filename': testresult.failScreenshotFilename}) }}"></a>
+                <br>
+                <small>Failure step screenshot - click to enlarge</small>
+            </p>
+        {% endif %}
 
+        <p>
+            <strong>Output: </strong>
+            <br>
+            <pre class="journeymonitor-testresult-output">{{ testresult.output }}</pre>
+        </p>
     </div>
 </div>
 

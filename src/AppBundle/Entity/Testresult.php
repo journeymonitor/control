@@ -51,6 +51,13 @@ class Testresult
     private $output;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="fail_screenshot_filename", type="text")
+     */
+    private $failScreenshotFilename;
+
+    /**
      * @var \DateTime
      * @ORM\Column(name="created_at", type="datetime")
      */
@@ -192,6 +199,29 @@ class Testresult
     public function getOutput()
     {
         return $this->output;
+    }
+
+    /**
+     * Set failScreenshotFilename
+     *
+     * @param string $failScreenshotFilename
+     * @return Testresult
+     */
+    public function setFailScreenshotFilename($failScreenshotFilename)
+    {
+        $this->failScreenshotFilename = $failScreenshotFilename;
+
+        return $this;
+    }
+
+    /**
+     * Get failScreenshotFilename
+     *
+     * @return string
+     */
+    public function getFailScreenshotFilename()
+    {
+        return $this->failScreenshotFilename;
     }
 
     /**

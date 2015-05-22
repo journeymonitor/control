@@ -33,6 +33,9 @@ testresults.show:
     defaults: { _controller: AppBundle:Testresults:show }
     methods:  [GET]
 
+testresult-screenshots:
+    path:     /testresult-screenshots/{filename}
+
 api.testcases.index:
     path:     /api/control/testcases
     defaults: { _controller: AppBundle:TestcasesApi:index }
