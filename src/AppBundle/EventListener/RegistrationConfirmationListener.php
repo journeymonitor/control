@@ -58,8 +58,8 @@ class RegistrationConfirmationListener implements EventSubscriberInterface {
     {
         $user = $event->getUser();
         $user->setActivatedAt(new \DateTime());
-        $pendingTestcases = $this->testcaseRepository->findWaitingConfirmation($user);
-        foreach ($pendingTestcases as $testcase) {
+        $testcases = $this->testcaseRepository->findBy(['user' => $user]);
+        foreach ($testcases as $testcase) {
             $testcase->setEnabled(true);
             $testcase->setActivatedAt(new \DateTime());
             $this->entityManager->persist($testcase);
