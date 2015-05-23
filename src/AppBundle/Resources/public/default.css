@@ -113,3 +113,7 @@ p .highlight {
     font-size: 6pt;
     white-space: pre-wrap;
 }
+
+#journeymonitor-productvideo {
+    border: 1px solid #eee;
+}
