@@ -29,7 +29,7 @@
                                 <div>
                                     {% for testresult in testcase.testresults|slice(0, 5) %}
                                         <small>
-                                            <span class="label label-{% if (testresult.exitCode == 0) %}success{% endif %}{% if (testresult.exitCode == 2) %}danger{% endif %}{% if (testresult.exitCode == 3) %}danger{% endif %}{% if (testresult.exitCode) == 4 %}warning{% endif %}">{{ testresult.datetimeRun|date("Y-m-d H:i:s") }}</span>
+                                            <span class="label label-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}">{{ testresult.datetimeRun|date("Y-m-d H:i:s") }}</span>
                                             <a href="{{ path('testresults.show', {'testresultId': testresult.id}) }}">Show result details</a>
                                         </small>
                                         <br>
@@ -44,7 +44,7 @@
                                     <div class="collapse" id="testresults-{{ testcase.id }}">
                                         {% for testresult in testcase.testresults|slice(5, 1000) %}
                                             <small>
-                                                <span class="label label-{% if (testresult.exitCode == 0) %}success{% else %}danger{% endif %}">{{ testresult.datetimeRun|date("Y-m-d H:i:s") }}</span>
+                                                <span class="label label-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}">{{ testresult.datetimeRun|date("Y-m-d H:i:s") }}</span>
                                                 <a href="{{ path('testresults.show', {'testresultId': testresult.id}) }}">Show result details</a>
                                             </small>
                                             <br>
