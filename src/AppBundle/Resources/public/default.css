@@ -105,6 +105,10 @@ p .highlight {
     color: #aaa;
 }
 
+.journeymonitor-testcase-entry {
+    
+}
+
 .journeymonitor-testresult-output {
     font-size: 6pt;
     white-space: pre-wrap;
