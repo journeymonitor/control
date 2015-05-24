@@ -18,7 +18,7 @@ body {
 }
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
-    color: #537c0c;
+    color: #49146B;
     margin-top: 0;
     margin-bottom: 0;
     line-height: 20px;
@@ -116,4 +116,10 @@ p .highlight {
 
 #journeymonitor-productvideo {
     border: 1px solid #eee;
+}
+
+#journeymonitor-beta-badge {
+    margin-left: -24px;
+    font-size: 8px;
+    background-color: #90BD2D;
 }
