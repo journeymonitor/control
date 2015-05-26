@@ -48,7 +48,6 @@ class TestcasesControllerTest extends BaseTestCase
         $this->assertSame(trim($crawler->filter('div.alert.alert-success')->first()->text()), 'Thank you. Please check your mails in order to activate your account.');
         $this->assertSame(trim($crawler->filter('div.alert.alert-success')->eq(1)->text()), 'The new testcase has been added.');
 
-
         $container = $client->getContainer();
         $em = $container->get('doctrine.orm.entity_manager');
 
