@@ -4,6 +4,8 @@ namespace Selenior\ApiBundle\Controller;
 
 
 use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\View;
+use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Selenior\ApiBundle\Http\ApiResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -21,13 +23,9 @@ class TestCaseApiController extends Controller {
      * )
      * @Get("/api/internal/testcase")
      * @Security("has_role('ROLE_INTERNAL_API')")
-     * @return ApiResponse
+     * @View(serializerGroups={"testcase"})
      */
-
     public function listTestcasesAction() {
-        $all = $this->get('selenior.repo.testcase')->findAll();
-        $apiResponse = new ApiResponse();
-        $apiResponse->addToBody($all);
-        return $apiResponse;
+        return $this->get('selenior.repo.testcase')->findAll();
     }
 }
