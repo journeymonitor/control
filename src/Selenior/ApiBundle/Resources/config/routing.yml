@@ -1,0 +1,3 @@
+selenior_api_testcase:
+  type:     rest
+  resource: @SeleniorApiBundle/Controller/TestCaseApiController.php

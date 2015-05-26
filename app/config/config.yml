@@ -82,3 +82,14 @@ fos_user:
     from_email:
         address:     replies-welcome@journeymonitor.com
         sender_name: JourneyMonitor
+
+nelmio_api_doc: ~
+
+fos_rest:
+    routing_loader:
+        default_format: json
+    param_fetcher_listener: true
+    body_listener: true
+    format_listener: true
+    view:
+        view_response_listener: 'force'
