@@ -12,3 +12,4 @@ parameters:
     mailer_password: null
     locale: en
     secret: 5de01c468540400abef101b7baf935e8
+    database_path: /var/tmp/selenior-control.sqlite
