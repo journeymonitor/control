@@ -1,6 +1,6 @@
 <?php
 
-namespace Selenior\ApiBundle\Controller;
+namespace ApiBundle\Controller;
 
 
 use FOS\RestBundle\Controller\Annotations\Get;

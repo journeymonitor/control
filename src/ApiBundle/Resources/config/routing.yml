@@ -1,0 +1,3 @@
+api_testcase:
+  type:     rest
+  resource: @ApiBundle/Controller/TestCaseApiController.php

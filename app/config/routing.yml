@@ -1,9 +1,9 @@
-selenior_api:
-    resource: "@SeleniorApiBundle/Resources/config/routing.yml"
+api:
+    resource: "@ApiBundle/Resources/config/routing.yml"
     prefix:   /
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
-selenior_app_bundle:
+app:
     resource: "@AppBundle/Resources/config/routing.yml"

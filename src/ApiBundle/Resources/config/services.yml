@@ -1,4 +1,4 @@
 services:
-#    selenior_api.example:
-#        class: Selenior\ApiBundle\Example
+#    api.example:
+#        class: ApiBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
