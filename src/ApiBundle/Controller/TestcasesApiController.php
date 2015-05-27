@@ -5,7 +5,6 @@ namespace ApiBundle\Controller;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class TestcasesApiController extends Controller {
@@ -19,7 +18,6 @@ class TestcasesApiController extends Controller {
      *      }
      * )
      * @Get("/api/internal/testcases")
-     * @Security("has_role('ROLE_INTERNAL_API')")
      * @View(serializerGroups={"testcase"})
      */
     public function listTestcasesAction() {
