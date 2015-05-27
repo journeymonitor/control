@@ -42,7 +42,7 @@ class TestcasesController extends Controller
         }
 
         if ($form->isValid()) {
-            $this->get('selenior.testcase')->createTestcaseForUser(
+            $this->get('testcase')->createTestcaseForUser(
                 $form->get('user')->getData(),
                 $form->get('testcase')->getData()
             );
@@ -70,7 +70,7 @@ class TestcasesController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $this->get('selenior.testcase')->createTestcaseForUser(
+            $this->get('testcase')->createTestcaseForUser(
                 $user,
                 $form->getData()
             );
@@ -155,7 +155,7 @@ class TestcasesController extends Controller
      */
     protected function createOrLoginUserFromForm(Form $form)
     {
-        $this->get('selenior.registration')->createUserOrLogin(
+        $this->get('registration')->createUserOrLogin(
             $form->get('user')->getData(),
             $form
         );

@@ -2,12 +2,12 @@ imports:
     - { resource: repositories.yml }
 
 services:
-    selenior.testcase:
+    testcase:
         class: AppBundle\Service\TestcaseService
         arguments:
             - @doctrine.orm.entity_manager
 
-    selenior.registration:
+    registration:
         class: AppBundle\Service\RegistrationService
         arguments:
             - @fos_user.user_manager
@@ -17,10 +17,10 @@ services:
             - @security.token_storage
             - @event_dispatcher
 
-    selenior.registration_confirmation_listener:
+    registration_confirmation_listener:
         class: AppBundle\EventListener\RegistrationConfirmationListener
         arguments:
-            - @selenior.repo.testcase
+            - @repo.testcase
             - @security.token_storage
             - @doctrine.orm.entity_manager
         tags:

@@ -23,6 +23,6 @@ class TestcasesApiController extends Controller {
      * @View(serializerGroups={"testcase"})
      */
     public function listTestcasesAction() {
-        return $this->get('selenior.repo.testcase')->findAll();
+        return $this->get('repo.testcase')->findAll();
     }
 }
