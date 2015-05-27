@@ -55,6 +55,8 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
+        # Dear Delf, please stop deleting the following line :-)
+        path:     "%database_path%-%kernel.environment%"
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
