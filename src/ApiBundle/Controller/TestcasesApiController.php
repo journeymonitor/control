@@ -9,7 +9,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class TestCaseApiController extends Controller {
+class TestcasesApiController extends Controller {
     /**
      * @ApiDoc(
      *      section="Testcase",
@@ -19,7 +19,7 @@ class TestCaseApiController extends Controller {
      *          401="Returned when the user is not authorized."
      *      }
      * )
-     * @Get("/api/internal/testcase")
+     * @Get("/api/internal/testcases")
      * @Security("has_role('ROLE_INTERNAL_API')")
      * @View(serializerGroups={"testcase"})
      */
