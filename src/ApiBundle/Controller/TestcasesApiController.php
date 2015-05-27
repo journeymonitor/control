@@ -2,7 +2,6 @@
 
 namespace ApiBundle\Controller;
 
-
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
