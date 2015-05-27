@@ -50,8 +50,8 @@ StartDb()
         -e MYSQL_ROOT_PASSWORD=$DB_PASSWORD \
         -v "/opt/selenior-db":/var/lib/mysql \
         --cidfile=$DB_CID \
-        --name "db.journeymonitor.local.net" \
-        -h "db.journeymonitor.local.net" \
+        --name="db.journeymonitor.local.net" \
+        --hostname="db.journeymonitor.local.net" \
         selenior/db
 
     UpdateEtcHosts "db.journeymonitor.local.net"

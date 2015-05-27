@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Testcase
@@ -18,6 +20,7 @@ class Testcase
      * @var string
      *
      * @ORM\GeneratedValue(strategy="UUID")
+     * @Groups({"testcase"})
      * @ORM\Column(name="id", type="guid")
      * @ORM\Id
      */
@@ -25,7 +28,7 @@ class Testcase
 
     /**
      * @var \AppBundle\Entity\User
-     *
+     * @Groups({"testcase"})
      * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\User", inversedBy="testcases")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
@@ -33,7 +36,7 @@ class Testcase
 
     /**
      * @var ArrayCollection|Testresult[]
-     *
+     * @Groups({"testcase"})
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Testresult", mappedBy="testcase")
      * @ORM\OrderBy({"datetimeRun" = "DESC"})
      */
@@ -41,28 +44,28 @@ class Testcase
 
     /**
      * @var boolean
-     *
+     * @Groups({"testcase"})
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
      */
     private $enabled = false;
 
     /**
      * @var string
-     *
+     * @Groups({"testcase"})
      * @ORM\Column(name="title", type="string", length=128)
      */
     private $title;
 
     /**
      * @var string
-     *
+     * @Groups({"testcase"})
      * @ORM\Column(name="cadence", type="string", length=4, nullable=false)
      */
     private $cadence = '*/15';
 
     /**
      * @var string
-     *
+     * @Groups({"testcase"})
      * @ORM\Column(name="script", type="text")
      */
     private $script;

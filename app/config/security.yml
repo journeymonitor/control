@@ -5,6 +5,7 @@ security:
 
     encoders:
         FOS\UserBundle\Model\UserInterface: sha512
+        Symfony\Component\Security\Core\User\User: plaintext
 
     # http://symfony.com/doc/current/book/security.html#hierarchical-roles
     role_hierarchy:
@@ -13,10 +14,25 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
+        chain_provider:
+            chain:
+                providers: [in_memory, fos_userbundle]
+        in_memory:
+            memory:
+                users:
+                    internal_api:
+                        #ChangeMeQuiteFast89247
+                        password: ChangeMeQuiteFast89247
+                        roles: 'ROLE_INTERNAL_API'
         fos_userbundle:
             id: fos_user.user_provider.username
 
     firewalls:
+        api:
+            pattern: ^/api/internal/
+            http_basic: ~
+            stateless:  true
+
         main:
             pattern: ^/
             form_login:
@@ -30,6 +46,7 @@ security:
 
             logout:       true
             anonymous:    true
+
 
     access_control:
         - { path: ^/testcases, role: IS_AUTHENTICATED_REMEMBERED }

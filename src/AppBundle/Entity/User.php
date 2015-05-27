@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * User
@@ -18,6 +19,7 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\GeneratedValue(strategy="UUID")
+     * @Groups({"testcase"})
      * @ORM\Column(name="id", type="guid")
      * @ORM\Id
      */
@@ -29,6 +31,12 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Testcase", mappedBy="user")
      */
     private $testcases;
+
+    /**
+     * @Groups({"testcase"})
+     * @var string
+     */
+    protected $email;
 
     /**
      * @var \DateTime

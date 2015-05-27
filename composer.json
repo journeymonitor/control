@@ -25,7 +25,10 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/doctrine-migrations-bundle": "^2.1@dev",
         "friendsofsymfony/user-bundle": "dev-master",
-        "guzzlehttp/guzzle": "~5.0"
+        "guzzlehttp/guzzle": "~5.0",
+        "friendsofsymfony/rest-bundle": "1.6.*@dev",
+        "jms/serializer-bundle": "0.13.*@dev",
+        "nelmio/api-doc-bundle": "2.9.*@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
