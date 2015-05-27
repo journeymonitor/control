@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Testcase
@@ -28,7 +30,7 @@ class Testcase
 
     /**
      * @var \AppBundle\Entity\User
-     * @Groups({"testcase"})
+     * @Exclude()
      * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\User", inversedBy="testcases")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
@@ -36,7 +38,6 @@ class Testcase
 
     /**
      * @var ArrayCollection|Testresult[]
-     * @Groups({"testcase"})
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Testresult", mappedBy="testcase")
      * @ORM\OrderBy({"datetimeRun" = "DESC"})
      */
@@ -310,5 +311,15 @@ class Testcase
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @VirtualProperty()
+     * @SerializedName("notifyEmail")
+     * @Groups({"testcase"})
+     */
+    public function getNotifyEmail()
+    {
+        return $this->getUser()->getEmailCanonical();
     }
 }

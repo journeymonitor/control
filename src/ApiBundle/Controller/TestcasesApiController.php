@@ -21,17 +21,6 @@ class TestcasesApiController extends Controller {
      * @View(serializerGroups={"testcase"})
      */
     public function listTestcasesAction() {
-        $testcases = $this->get('repo.testcase')->findBy(['enabled' => 1]);
-        $testcasesArray = [];
-        foreach ($testcases as $testcase) {
-            $testcasesArray[] = [
-                'id'          => $testcase->getId(),
-                'title'       => $testcase->getTitle(),
-                'notifyEmail' => $testcase->getUser()->getEmailCanonical(),
-                'cadence'     => $testcase->getCadence(),
-                'script'      => $testcase->getScript(),
-            ];
-        }
-        return $testcasesArray;
+        return $this->get('repo.testcase')->findBy(['enabled' => 1]);
     }
 }
