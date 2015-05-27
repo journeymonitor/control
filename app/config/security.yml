@@ -21,8 +21,7 @@ security:
             memory:
                 users:
                     internal_api:
-                        #ChangeMeQuiteFast89247
-                        password: ChangeMeQuiteFast89247
+                        password: 2b51865a16984a18af71f1bd64ffff8c
                         roles: 'ROLE_INTERNAL_API'
         fos_userbundle:
             id: fos_user.user_provider.username
