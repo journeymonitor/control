@@ -2,14 +2,15 @@
 
 namespace AppBundle\Tests\Controller;
 
-use AppBundle\Tests\BaseTestCase;
+use AppBundle\Tests\TestHelpers;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class TestcasesControllerTest extends BaseTestCase
+class TestcasesControllerWebTest extends WebTestCase
 {
+    use TestHelpers;
+
     public function testIndex()
     {
-        $this->resetDatabase();
-
         $client = static::createClient();
 
         $client->request('GET', '/');
@@ -28,6 +29,8 @@ class TestcasesControllerTest extends BaseTestCase
 
     public function testAddingTestcaseWithNewUserHappyPath()
     {
+        $this->resetDatabase();
+
         $client = static::createClient();
         $crawler = $client->request('GET', '/');
 
