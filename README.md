@@ -7,7 +7,17 @@ Application for the service homepage
 
 ## Setup instructions
 
-The following applies to a vanilla Ubuntu 14.04 64bit system.
+### Mac OS X
+
+Assumes that you have PHP 5.5, Git, and Composer installed.
+
+    git clone git@bitbucket.org:selenior/control-web-frontend.git
+    cd control-web-frontend
+    composer install
+    php app/console doctrine:migrations:migrate
+    php app/console server:run
+
+### Ubuntu 14.04 64bit
 
 First, set up the target machine as described in the *infra-maschine-provisioner* README.
 
@@ -49,4 +59,3 @@ browser.
 For convience there is also a shortcut to get into the mysql-shell in the db container:
 
     selenior-docker mysql-console
-    
