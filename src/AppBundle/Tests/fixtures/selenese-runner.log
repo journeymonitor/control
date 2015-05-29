@@ -1,0 +1,67 @@
+[2015-05-28 23:46:11.385] [INFO] Start: Selenese Runner 1.10.0
+[2015-05-28 23:46:16.383] [INFO] Initial window size: system default
+[2015-05-28 23:46:16.384] [INFO] Initialized: FirefoxDriver
+[2015-05-28 23:46:16.653] [INFO] Timeout: 30000 ms
+[2015-05-28 23:46:17.240 +02:00] [INFO] Start: TestSuite[complex] (/var/tmp/selenior-testcase-F899FF08-6414-494F-A0FC-AEE4750C1EDE.html)
+[2015-05-28 23:46:17.351] [INFO] Existing driver found.
+[2015-05-28 23:46:17.485] [INFO] Current speed: 0 ms/command
+[2015-05-28 23:46:17.485 +02:00] [INFO] Start: TestCase[complex] (/var/tmp/selenior-testcase-F899FF08-6414-494F-A0FC-AEE4750C1EDE.html)
+[2015-05-28 23:46:17.485 +02:00] [INFO] baseURL: https://www.galeria-kaufhof.de
+[2015-05-28 23:46:17.520 +02:00] [INFO] |1|Command#1: open("/")
+[2015-05-28 23:46:22.817 +02:00] [INFO] - [Success] URL: [https://www.galeria-kaufhof.de/] / Title: [GALERIA Kaufhof: Shop f?r Mode, Spielwaren & Haushalt]
+[2015-05-28 23:46:22.823 +02:00] [INFO] - Cookie: _#env=[20150529214620] (domain=.galeria-kaufhof.de, path=/, expire=2015-05-29 23:46:20 +02:00)
+[2015-05-28 23:46:22.823 +02:00] [INFO] - Cookie: _#sess=[1%7C20150528221620%7C1] (domain=.galeria-kaufhof.de, path=/, expire=2018-02-21 22:46:20 +01:00)
+[2015-05-28 23:46:22.824 +02:00] [INFO] - Cookie: _#srchist=[51175%3A1%3A20150628214620] (domain=.galeria-kaufhof.de, path=/, expire=2018-02-21 22:46:20 +01:00)
+[2015-05-28 23:46:22.824 +02:00] [INFO] - Cookie: _#tsa=[https%25253A//www.galeria-kaufhof.de/%257C] (domain=.galeria-kaufhof.de, path=/, expire=2015-05-28 23:56:20 +02:00)
+[2015-05-28 23:46:22.824 +02:00] [INFO] - Cookie: _#uid=[1432849580698.1853328461.422047.4953.217475617.271] (domain=.galeria-kaufhof.de, path=/, expire=2018-02-21 22:46:20 +01:00)
+[2015-05-28 23:46:22.824 +02:00] [INFO] - Cookie: _#vdf=[51175%7C1%7C20150628214620] (domain=.galeria-kaufhof.de, path=/, expire=2018-02-21 22:46:20 +01:00)
+[2015-05-28 23:46:22.825 +02:00] [INFO] - Cookie: __utma=[122524445.1225878335.1432849581.1432849581.1432849581.1] (domain=.galeria-kaufhof.de, path=/, expire=2017-05-27 23:46:21 +02:00)
+[2015-05-28 23:46:22.825 +02:00] [INFO] - Cookie: __utmb=[122524445.1.10.1432849581] (domain=.galeria-kaufhof.de, path=/, expire=2015-05-29 00:16:21 +02:00)
+[2015-05-28 23:46:22.825 +02:00] [INFO] - Cookie: __utmc=[122524445] (domain=.galeria-kaufhof.de, path=/, expire=*)
+[2015-05-28 23:46:22.825 +02:00] [INFO] - Cookie: __utmt=[1] (domain=.galeria-kaufhof.de, path=/, expire=2015-05-28 23:56:21 +02:00)
+[2015-05-28 23:46:22.826 +02:00] [INFO] - Cookie: __utmz=[122524445.1432849581.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)] (domain=.galeria-kaufhof.de, path=/, expire=2015-11-27 10:46:21 +01:00)
+[2015-05-28 23:46:22.826 +02:00] [INFO] - Cookie: _msuuid_rer107wj20=[1731AD52-5851-4E28-A6E9-7E38A1C91700] (domain=.galeria-kaufhof.de, path=/, expire=2016-05-27 23:46:21 +02:00)
+[2015-05-28 23:46:22.826 +02:00] [INFO] - Cookie: bid=[0100007FA48C6755B206CF3C0208C205] (domain=www.galeria-kaufhof.de, path=/, expire=2038-01-01 00:55:55 +01:00)
+[2015-05-28 23:46:22.827 +02:00] [INFO] - Cookie: emos_jcsid=[AAABTZx9gIKgbLeETG87_ZCcNUoiVB3C:2:AAABTZx9gcV2QIt7CsP1w8mxRbWyKYpW:1432849580485] (domain=.galeria-kaufhof.de, path=/, expire=*)
+[2015-05-28 23:46:22.827 +02:00] [INFO] - Cookie: emos_jcvid=[AAABTZx9gIKgbLeETG87_ZCcNUoiVB3C:1:AAABTZx9gIKgbLeETG87_ZCcNUoiVB3C:1432849580162:0:true:1] (domain=.galeria-kaufhof.de, path=/, expire=2018-05-27 23:46:20 +02:00)
+[2015-05-28 23:46:22.827 +02:00] [INFO] - Cookie: rr_rcs=[eF4FwTEOwCAIAMDFqX8hEQGRH_QbCph06Nb2_b0r5fVz5BJ3qhBuC3iTgs0MyCnUFXerkcf9PVew2gBkaoNNVIgQugFit_oD8YgTCA] (domain=.galeria-kaufhof.de, path=/, expire=2017-05-27 23:46:20 +02:00)
+[2015-05-28 23:46:22.827 +02:00] [INFO] - Cookie: vid=[fwAAAVVnjKQ8zwayBcIIAg==] (domain=www.galeria-kaufhof.de, path=/, expire=*)
+[2015-05-28 23:46:22.830 +02:00] [INFO] |2|Command#2: type("id=gk-header__search__input", "hose")
+[2015-05-28 23:46:24.452 +02:00] [INFO] - [Success]
+[2015-05-28 23:46:24.453 +02:00] [INFO] |3|Command#3: clickAndWait("xpath=(/html/body/div[1]/div/header/div/div[2]/div/div/form/div/div/button)")
+[2015-05-28 23:46:29.164 +02:00] [INFO] - [Success] URL: [https://www.galeria-kaufhof.de/search?q=hose] / Title: [Suchergebnis f?r hose | GALERIA Kaufhof]
+[2015-05-28 23:46:29.164 +02:00] [INFO] - Cookie: [mod] _#env=[20150529214627] (domain=.galeria-kaufhof.de, path=/, expire=2015-05-29 23:46:27 +02:00)
+[2015-05-28 23:46:29.164 +02:00] [INFO] - Cookie: [mod] _#sess=[1%7C20150528221627%7C2] (domain=.galeria-kaufhof.de, path=/, expire=2018-02-21 22:46:27 +01:00)
+[2015-05-28 23:46:29.164 +02:00] [INFO] - Cookie: [mod] _#tsa=[https%25253A//www.galeria-kaufhof.de/search%25253Fq%25253Dhose%257Chttps%25253A//www.galeria-kaufhof.de/] (domain=.galeria-kaufhof.de, path=/, expire=2015-05-28 23:56:27 +02:00)
+[2015-05-28 23:46:29.164 +02:00] [INFO] - Cookie: [mod] __utmb=[122524445.2.10.1432849581] (domain=.galeria-kaufhof.de, path=/, expire=2015-05-29 00:16:27 +02:00)
+[2015-05-28 23:46:29.165 +02:00] [INFO] - Cookie: [mod] emos_jcsid=[AAABTZx9gIKgbLeETG87_ZCcNUoiVB3C:3:AAABTZx9mupH2qJFC4EjMr4g86Wpjx75:1432849586922] (domain=.galeria-kaufhof.de, path=/, expire=*)
+[2015-05-28 23:46:29.165 +02:00] [INFO] |4|Command#4: clickAndWait("xpath=(/html/body/div[1]/div/main/div/div[6]/div[2]/div/a[3])")
+[2015-05-28 23:46:34.933 +02:00] [INFO] - [Success] URL: [https://www.galeria-kaufhof.de/search?q=hose&page=4] / Title: [Suchergebnis f?r hose | GALERIA Kaufhof]
+[2015-05-28 23:46:34.934 +02:00] [INFO] - Cookie: [mod] _#env=[20150529214633] (domain=.galeria-kaufhof.de, path=/, expire=2015-05-29 23:46:33 +02:00)
+[2015-05-28 23:46:34.934 +02:00] [INFO] - Cookie: [mod] _#sess=[1%7C20150528221633%7C3] (domain=.galeria-kaufhof.de, path=/, expire=2018-02-21 22:46:33 +01:00)
+[2015-05-28 23:46:34.935 +02:00] [INFO] - Cookie: [mod] _#tsa=[https%25253A//www.galeria-kaufhof.de/search%25253Fq%25253Dhose%252526page%25253D4%257Chttps%25253A//www.galeria-kaufhof.de/search%25253Fq%25253Dhose] (domain=.galeria-kaufhof.de, path=/, expire=2015-05-28 23:56:33 +02:00)
+[2015-05-28 23:46:34.935 +02:00] [INFO] - Cookie: [mod] __utmb=[122524445.3.10.1432849581] (domain=.galeria-kaufhof.de, path=/, expire=2015-05-29 00:16:33 +02:00)
+[2015-05-28 23:46:34.936 +02:00] [INFO] - Cookie: [mod] emos_jcsid=[AAABTZx9gIKgbLeETG87_ZCcNUoiVB3C:4:AAABTZx9r74528ylqJGfPnkLnt6Ca9wZ:1432849592254] (domain=.galeria-kaufhof.de, path=/, expire=*)
+[2015-05-28 23:46:34.936 +02:00] [INFO] |5|Command#5: clickAndWait("id=gk-header__cart__quantity")
+[2015-05-28 23:46:36.760 +02:00] [ERROR] Command#5: clickAndWait("id=gk-header__cart__quantity") => [Failure: Element is not currently visible and so may not be interacted with / Command duration or timeout: 182 milliseconds / Build info: version: 'unknown', revision: 'unknown', time: 'unknown' / System info: host: 'v22015051223725490', ip: '37.120.178.155', os.name: 'Linux', os.arch: 'amd64', os.version: '3.13.0-24-generic', java.version: '1.7.0_79' / Session ID: 58a67eb1-0841-4df2-9f0c-254fcfac7f6a / Driver info: org.openqa.selenium.firefox.FirefoxDriver / Capabilities [{platform=LINUX, acceptSslCerts=true, javascriptEnabled=true, cssSelectorsEnabled=true, databaseEnabled=true, browserName=firefox, handlesAlerts=true, nativeEvents=false, webStorageEnabled=true, rotatable=false, locationContextEnabled=true, applicationCacheEnabled=true, takesScreenshot=true, version=38.0}]]
+[2015-05-28 23:46:36.762 +02:00] [ERROR] - Cookie: _#env=[20150529214633] (domain=.galeria-kaufhof.de, path=/, expire=2015-05-29 23:46:33 +02:00)
+[2015-05-28 23:46:36.762 +02:00] [ERROR] - Cookie: _#sess=[1%7C20150528221633%7C3] (domain=.galeria-kaufhof.de, path=/, expire=2018-02-21 22:46:33 +01:00)
+[2015-05-28 23:46:36.762 +02:00] [ERROR] - Cookie: _#srchist=[51175%3A1%3A20150628214620] (domain=.galeria-kaufhof.de, path=/, expire=2018-02-21 22:46:33 +01:00)
+[2015-05-28 23:46:36.763 +02:00] [ERROR] - Cookie: _#tsa=[https%25253A//www.galeria-kaufhof.de/search%25253Fq%25253Dhose%252526page%25253D4%257Chttps%25253A//www.galeria-kaufhof.de/search%25253Fq%25253Dhose] (domain=.galeria-kaufhof.de, path=/, expire=2015-05-28 23:56:33 +02:00)
+[2015-05-28 23:46:36.763 +02:00] [ERROR] - Cookie: _#uid=[1432849580698.1853328461.422047.4953.217475617.271] (domain=.galeria-kaufhof.de, path=/, expire=2018-02-21 22:46:33 +01:00)
+[2015-05-28 23:46:36.763 +02:00] [ERROR] - Cookie: _#vdf=[51175%7C1%7C20150628214620] (domain=.galeria-kaufhof.de, path=/, expire=2018-02-21 22:46:33 +01:00)
+[2015-05-28 23:46:36.763 +02:00] [ERROR] - Cookie: __utma=[122524445.1225878335.1432849581.1432849581.1432849581.1] (domain=.galeria-kaufhof.de, path=/, expire=2017-05-27 23:46:33 +02:00)
+[2015-05-28 23:46:36.764 +02:00] [ERROR] - Cookie: __utmb=[122524445.3.10.1432849581] (domain=.galeria-kaufhof.de, path=/, expire=2015-05-29 00:16:33 +02:00)
+[2015-05-28 23:46:36.764 +02:00] [ERROR] - Cookie: __utmc=[122524445] (domain=.galeria-kaufhof.de, path=/, expire=*)
+[2015-05-28 23:46:36.764 +02:00] [ERROR] - Cookie: __utmt=[1] (domain=.galeria-kaufhof.de, path=/, expire=2015-05-28 23:56:21 +02:00)
+[2015-05-28 23:46:36.764 +02:00] [ERROR] - Cookie: __utmz=[122524445.1432849581.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)] (domain=.galeria-kaufhof.de, path=/, expire=2015-11-27 10:46:33 +01:00)
+[2015-05-28 23:46:36.764 +02:00] [ERROR] - Cookie: _msuuid_rer107wj20=[1731AD52-5851-4E28-A6E9-7E38A1C91700] (domain=.galeria-kaufhof.de, path=/, expire=2016-05-27 23:46:21 +02:00)
+[2015-05-28 23:46:36.765 +02:00] [ERROR] - Cookie: bid=[0100007FA48C6755B206CF3C0208C205] (domain=www.galeria-kaufhof.de, path=/, expire=2038-01-01 00:55:55 +01:00)
+[2015-05-28 23:46:36.765 +02:00] [ERROR] - Cookie: emos_jcsid=[AAABTZx9gIKgbLeETG87_ZCcNUoiVB3C:4:AAABTZx9r74528ylqJGfPnkLnt6Ca9wZ:1432849592254] (domain=.galeria-kaufhof.de, path=/, expire=*)
+[2015-05-28 23:46:36.765 +02:00] [ERROR] - Cookie: emos_jcvid=[AAABTZx9gIKgbLeETG87_ZCcNUoiVB3C:1:AAABTZx9gIKgbLeETG87_ZCcNUoiVB3C:1432849580162:0:true:1] (domain=.galeria-kaufhof.de, path=/, expire=2018-05-27 23:46:32 +02:00)
+[2015-05-28 23:46:36.765 +02:00] [ERROR] - Cookie: rr_rcs=[eF4FwTEOwCAIAMDFqX8hEQGRH_QbCph06Nb2_b0r5fVz5BJ3qhBuC3iTgs0MyCnUFXerkcf9PVew2gBkaoNNVIgQugFit_oD8YgTCA] (domain=.galeria-kaufhof.de, path=/, expire=2017-05-27 23:46:33 +02:00)
+[2015-05-28 23:46:36.765 +02:00] [ERROR] - Cookie: vid=[fwAAAVVnjKQ8zwayBcIIAg==] (domain=www.galeria-kaufhof.de, path=/, expire=*)
+[2015-05-28 23:46:36.769 +02:00] [INFO] End(19.281sec): TestCase[complex] (/var/tmp/selenior-testcase-F899FF08-6414-494F-A0FC-AEE4750C1EDE.html)
+[2015-05-28 23:46:36.769 +02:00] [INFO] End(0.000sec): TestSuite[complex] (/var/tmp/selenior-testcase-F899FF08-6414-494F-A0FC-AEE4750C1EDE.html)
+[2015-05-28 23:46:36.769] [INFO] Exit code: 3
+[2015-05-28 23:46:37.003] [INFO] Quit: FirefoxDriver
