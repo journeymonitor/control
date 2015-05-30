@@ -475,6 +475,63 @@
                 },
                 "comment":"",
                 "time":57
+            },
+            {
+                "pageref":"Foo",
+                "startedDateTime":"2015-05-28T23:46:29.947+02:00",
+                "request":{
+                    "method":"GET",
+                    "url":"https://www.galeria-kaufhof.de/",
+                    "httpVersion":"HTTP/1.1",
+                    "cookies":[
+
+                    ],
+                    "headers":[
+
+                    ],
+                    "queryString":[
+
+                    ],
+                    "headersSize":306,
+                    "bodySize":0,
+                    "comment":""
+                },
+                "response":{
+                    "status":200,
+                    "statusText":"OK",
+                    "httpVersion":"HTTP/1.1",
+                    "cookies":[
+
+                    ],
+                    "headers":[
+
+                    ],
+                    "content":{
+                        "size":22111,
+                        "mimeType":"text/html; charset=utf-8",
+                        "comment":""
+                    },
+                    "redirectURL":"",
+                    "headersSize":503,
+                    "bodySize":22111,
+                    "comment":""
+                },
+                "cache":{
+
+                },
+                "timings":{
+                    "blocked":1,
+                    "dns":3,
+                    "connect":17,
+                    "send":1,
+                    "wait":75,
+                    "receive":62,
+                    "ssl":0,
+                    "comment":""
+                },
+                "serverIPAddress":"162.13.148.30",
+                "comment":"",
+                "time":159
             }
         ],
         "comment":""

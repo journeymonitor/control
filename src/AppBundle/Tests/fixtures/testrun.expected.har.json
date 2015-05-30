@@ -13,18 +13,27 @@
         },
         "pages":[
             {
-                "id":"Page 1: https://www.galeria-kaufhof.de/",
-                "startedDateTime":"2015-05-28T23:46:02.606+02:00",
-                "title":"",
+                "id":"Request 1: https://www.galeria-kaufhof.de/",
+                "startedDateTime":"2015-05-28T23:46:17.693+02:00",
+                "title":"Request 1: https://www.galeria-kaufhof.de/",
                 "pageTimings":{
                     "comment":""
                 },
                 "comment":""
             },
             {
-                "id":"Page 2: https://www.galeria-kaufhof.de/search?q=hose",
+                "id":"Request 2: https://www.galeria-kaufhof.de/search?q=hose",
                 "startedDateTime":"2015-05-28T23:46:25.290+02:00",
-                "title":"",
+                "title":"Request 2: https://www.galeria-kaufhof.de/search?q=hose",
+                "pageTimings":{
+                    "comment":""
+                },
+                "comment":""
+            },
+            {
+                "id":"Request 3: https://www.galeria-kaufhof.de/",
+                "startedDateTime":"2015-05-28T23:46:29.947+02:00",
+                "title":"Request 3: https://www.galeria-kaufhof.de/",
                 "pageTimings":{
                     "comment":""
                 },
@@ -33,7 +42,7 @@
         ],
         "entries":[
             {
-                "pageref":"Page 1: https://www.galeria-kaufhof.de/",
+                "pageref":"Request 1: https://www.galeria-kaufhof.de/",
                 "startedDateTime":"2015-05-28T23:46:17.693+02:00",
                 "request":{
                     "method":"GET",
@@ -90,7 +99,7 @@
                 "time":159
             },
             {
-                "pageref":"Page 1: https://www.galeria-kaufhof.de/",
+                "pageref":"Request 1: https://www.galeria-kaufhof.de/",
                 "startedDateTime":"2015-05-28T23:46:18.086+02:00",
                 "request":{
                     "method":"GET",
@@ -147,7 +156,7 @@
                 "time":144
             },
             {
-                "pageref":"Page 1: https://www.galeria-kaufhof.de/",
+                "pageref":"Request 1: https://www.galeria-kaufhof.de/",
                 "startedDateTime":"2015-05-28T23:46:18.234+02:00",
                 "request":{
                     "method":"GET",
@@ -203,7 +212,7 @@
                 "time":20
             },
             {
-                "pageref":"Page 2: https://www.galeria-kaufhof.de/search?q=hose",
+                "pageref":"Request 2: https://www.galeria-kaufhof.de/search?q=hose",
                 "startedDateTime":"2015-05-28T23:46:25.290+02:00",
                 "request":{
                     "method":"GET",
@@ -346,7 +355,7 @@
                 "time":337
             },
             {
-                "pageref":"Page 2: https://www.galeria-kaufhof.de/search?q=hose",
+                "pageref":"Request 2: https://www.galeria-kaufhof.de/search?q=hose",
                 "startedDateTime":"2015-05-28T23:46:25.315+02:00",
                 "request":{
                     "method":"POST",
@@ -484,6 +493,63 @@
                 },
                 "comment":"",
                 "time":57
+            },
+            {
+                "pageref":"Request 3: https://www.galeria-kaufhof.de/",
+                "startedDateTime":"2015-05-28T23:46:29.947+02:00",
+                "request":{
+                    "method":"GET",
+                    "url":"https://www.galeria-kaufhof.de/",
+                    "httpVersion":"HTTP/1.1",
+                    "cookies":[
+
+                    ],
+                    "headers":[
+
+                    ],
+                    "queryString":[
+
+                    ],
+                    "headersSize":306,
+                    "bodySize":0,
+                    "comment":""
+                },
+                "response":{
+                    "status":200,
+                    "statusText":"OK",
+                    "httpVersion":"HTTP/1.1",
+                    "cookies":[
+
+                    ],
+                    "headers":[
+
+                    ],
+                    "content":{
+                        "size":22111,
+                        "mimeType":"text/html; charset=utf-8",
+                        "comment":""
+                    },
+                    "redirectURL":"",
+                    "headersSize":503,
+                    "bodySize":22111,
+                    "comment":""
+                },
+                "cache":{
+
+                },
+                "timings":{
+                    "blocked":1,
+                    "dns":3,
+                    "connect":17,
+                    "send":1,
+                    "wait":75,
+                    "receive":62,
+                    "ssl":0,
+                    "comment":""
+                },
+                "serverIPAddress":"162.13.148.30",
+                "comment":"",
+                "time":159
             }
         ],
         "comment":""
