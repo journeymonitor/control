@@ -3,9 +3,9 @@
 namespace ApiBundle\Tests\Service;
 
 use PHPUnit_Framework_TestCase;
-use ApiBundle\Service\HarTransformer;
+use ApiBundle\Service\HarTransformerService;
 
-class HarTransformerTest extends PHPUnit_Framework_TestCase
+class HarTransformerServiceTest extends PHPUnit_Framework_TestCase
 {
     public function testSplitIntoMultiplePages()
     {
@@ -15,7 +15,7 @@ class HarTransformerTest extends PHPUnit_Framework_TestCase
         $transformedHar = file_get_contents(__DIR__ . '/../fixtures/testrun.expected.har.json');
         $transformedHarObject = json_decode($transformedHar);
 
-        $ht = new HarTransformer();
+        $hts = new HarTransformerService();
 
         $urls = [
             0 => 'https://www.galeria-kaufhof.de/',
@@ -23,6 +23,6 @@ class HarTransformerTest extends PHPUnit_Framework_TestCase
             2 => 'https://www.galeria-kaufhof.de/',
         ];
 
-        $this->assertEquals($transformedHarObject, $ht->splitIntoMultiplePages($originalHarObject, $urls));
+        $this->assertEquals($transformedHarObject, $hts->splitIntoMultiplePages($originalHarObject, $urls));
     }
 }

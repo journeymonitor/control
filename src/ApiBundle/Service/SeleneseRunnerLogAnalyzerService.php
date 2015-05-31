@@ -2,7 +2,7 @@
 
 namespace ApiBundle\Service;
 
-class SeleneseRunnerLogAnalyzer
+class SeleneseRunnerLogAnalyzerService
 {
     /**
      * @param string $logContent

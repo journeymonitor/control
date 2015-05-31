@@ -1,4 +1,6 @@
 services:
-#    api.example:
-#        class: ApiBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    har_transformer:
+        class: ApiBundle\Service\HarTransformerService
+
+    selenese_runner_log_analyzer:
+        class: ApiBundle\Service\SeleneseRunnerLogAnalyzerService

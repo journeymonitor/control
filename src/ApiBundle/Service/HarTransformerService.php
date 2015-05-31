@@ -2,7 +2,7 @@
 
 namespace ApiBundle\Service;
 
-class HarTransformer
+class HarTransformerService
 {
     /**
      * @param \StdClass $originalHar

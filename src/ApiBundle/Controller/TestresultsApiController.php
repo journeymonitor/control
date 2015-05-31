@@ -2,8 +2,8 @@
 
 namespace ApiBundle\Controller;
 
-use ApiBundle\Service\HarTransformer;
-use ApiBundle\Service\SeleneseRunnerLogAnalyzer;
+use ApiBundle\Service\HarTransformerService;
+use ApiBundle\Service\SeleneseRunnerLogAnalyzerService;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -27,10 +27,10 @@ class TestresultsApiController extends Controller {
         $testresult = $this->get('repo.testresult')->find($id);
         $har = $testresult->getHar();
         $output = $testresult->getOutput();
-        $srla = new SeleneseRunnerLogAnalyzer();
-        $urls = $srla->getUrlsOfRequestedPages($output);
-        $ht = new HarTransformer();
-        $transformedHar = $ht->splitIntoMultiplePages(json_decode($har), $urls);
+        $srlas = $this->get('selenese_runner_log_analyzer');
+        $urls = $srlas->getUrlsOfRequestedPages($output);
+        $hts = $this->get('har_transformer');
+        $transformedHar = $hts->splitIntoMultiplePages(json_decode($har), $urls);
         $response = new JsonResponse();
         $response->setCallback('onInputData');
         $response->setData($transformedHar);
