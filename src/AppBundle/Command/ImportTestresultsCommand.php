@@ -48,6 +48,7 @@ class ImportTestresultsCommand extends ContainerAwareCommand
                     $testresult->setExitCode($testresultArray['exitCode']);
                     $testresult->setOutput($testresultArray['output']);
                     $testresult->setFailScreenshotFilename($testresultArray['failScreenshotFilename']);
+                    $testresult->setHar($testresultArray['har']);
                     $em->persist($testresult);
                     $em->flush();
                     $output->writeln('Imported testresult ' . $testresult->getId() . '.');
