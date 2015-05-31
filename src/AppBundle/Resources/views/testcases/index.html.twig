@@ -108,15 +108,16 @@
                         <div class="row">&nbsp;</div>
                         <div class="pull-right">
                             <p>
-                                <a class="btn btn-primary" href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}">Edit</a>
+                                <a class="pull-right btn btn-primary btn-sm" href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}">Edit</a>
+                                <br clear="all">
                             </p>
                             {% if (testcase.enabled) %}
                                 <p>
-                                    <a class="btn btn-default btn-sm" href="{{ path('testcases.disable', {'testcaseId': testcase.id}) }}">Disable</a>
+                                    <a class="pull-right btn btn-default btn-sm" href="{{ path('testcases.disable', {'testcaseId': testcase.id}) }}">Disable</a>
                                 </p>
                             {% else %}
                                 <p>
-                                    <a class="btn btn-default btn-sm" href="{{ path('testcases.enable', {'testcaseId': testcase.id}) }}">Enable</a>
+                                    <a class="pull-right btn btn-default btn-sm" href="{{ path('testcases.enable', {'testcaseId': testcase.id}) }}">Enable</a>
                                 </p>
                             {% endif %}
                         </div>
