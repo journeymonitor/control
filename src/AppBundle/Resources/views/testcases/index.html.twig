@@ -57,7 +57,7 @@
                                                     {% if (testresult.har) %}
                                                         <br>
                                                         <span class='glyphicon glyphicon-align-left' aria-hidden='true'></span>&nbsp;
-                                                        <a target='_blank' href='http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': testresult.id}) }}'>Click for web performance metrics</a>
+                                                        <a target='_blank' href='http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': testresult.id}) }}'>Click for performance metrics</a>
                                                     {% endif %}
                                                 "
                                                 href="{{ path('testresults.show', {'testresultId': testresult.id}) }}">
