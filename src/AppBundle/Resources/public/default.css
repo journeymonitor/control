@@ -123,3 +123,25 @@ p .highlight {
     font-size: 8px;
     background-color: #90BD2D;
 }
+
+.journeymonitor-testresult-dot {
+    width: 20.16px;
+    height: 20.16px;
+    padding: 0;
+    margin: 0;
+    border-right: 1px solid #f5f5f5;
+    border-bottom: 1px solid #f5f5f5;
+    display: inline-block;
+}
+
+.journeymonitor-testresult-dot-success {
+    background-color: #0f0;
+}
+
+.journeymonitor-testresult-dot-warning {
+    background-color: #ff0;
+}
+
+.journeymonitor-testresult-dot-danger {
+    background-color: #f00;
+}

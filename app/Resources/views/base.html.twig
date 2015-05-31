@@ -25,6 +25,11 @@
         <![endif]-->
     <script src="{{ asset('bundles/app/vendor/jquery/dist/jquery.js') }}"></script>
     <script src="{{ asset('bundles/app/vendor/bootstrap/dist/js/bootstrap.js') }}"></script>
+    <script>
+      $(function () {
+        $('[data-toggle="popover"]').popover();
+      })
+    </script>
     {% endblock %}
 
   </head>

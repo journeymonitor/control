@@ -26,38 +26,71 @@
 
                         <div class="well">
                             {% if (testcase.testresults|length > 0) %}
-                                <h5>History of test run results:</h5>
-                                <div>
-                                    {% for testresult in testcase.testresults|slice(0, 5) %}
+                                {% spaceless %}
+                                    {% for testresult in testcase.testresults|slice(0, 28)|reverse %}
+                                        {% if loop.first %}
+                                            <small>
+                                                ▶ {{ testresult.datetimeRun|date("Y-m-d H:i:s") }}
+                                            </small>
+                                            <br>
+                                        {% endif %}
+                                        <a
+                                                class="journeymonitor-testresult-dot-anchor"
+                                                title="{{ testresult.datetimeRun|date("Y-m-d H:i:s") }}"
+                                                data-content="
+                                                    {% if (testresult.exitCode == 0) %}
+                                                        Journey completed without error.
+                                                    {% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}
+                                                        Journey could not be completed.
+                                                    {% else %}
+                                                        There was a problem with the test case script.
+                                                    {% endif %}
+                                                    <br>
+                                                    <br>
+                                                    <span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span>&nbsp;
+                                                    <a href='{{ path('testresults.show', {'testresultId': testresult.id}) }}'>Click for testrun log</a>
+                                                    {% if (testresult.failScreenshotFilename) %}
+                                                        <br>
+                                                        <span class='glyphicon glyphicon-camera' aria-hidden='true'></span>&nbsp;
+                                                        <a target='_blank' href='{{ path('testresult-screenshots', {'filename': testresult.failScreenshotFilename}) }}.png'>Click for failure screenshot</a>
+                                                    {% endif %}
+                                                    {% if (testresult.har) %}
+                                                        <br>
+                                                        <span class='glyphicon glyphicon-align-left' aria-hidden='true'></span>&nbsp;
+                                                        <a target='_blank' href='http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': testresult.id}) }}'>Click for performance metrics</a>
+                                                    {% endif %}
+                                                "
+                                                href="{{ path('testresults.show', {'testresultId': testresult.id}) }}">
+                                            <span class="journeymonitor-testresult-dot journeymonitor-testresult-dot-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}">
+                                            &nbsp;
+                                            </span>
+                                        </a>
+                                        {% if loop.last %}
+                                            <small class="pull-right">
+                                                {{ testresult.datetimeRun|date("Y-m-d H:i:s") }} ◀
+                                            </small>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endspaceless %}
+                            {% else %}
+                                <small>No test run results yet.</small>
+                            {% endif %}
+                            {% if (testcase.testresults|length > 28) %}
+                                <br>
+                                <br>
+                                <small>
+                                    <a href="javascript:;" data-toggle="collapse" data-target="#testresults-{{ testcase.id }}">Show all available results</a>
+                                </small>
+
+                                <div class="collapse" id="testresults-{{ testcase.id }}">
+                                    {% for testresult in testcase.testresults|slice(28, 1000) %}
                                         <small>
                                             <span class="label label-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}">{{ testresult.datetimeRun|date("Y-m-d H:i:s") }}</span>
-                                            <a href="{{ path('testresults.show', {'testresultId': testresult.id}) }}">Show testrun details</a>
-                                            {% if (testresult.har) %}
-                                                |
-                                                <a href="http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': testresult.id}) }}">Show testrun performance waterfall</a>
-                                            {% endif %}
+                                            <a href="{{ path('testresults.show', {'testresultId': testresult.id}) }}">Show result details</a>
                                         </small>
                                         <br>
                                     {% endfor%}
                                 </div>
-
-                                {% if (testcase.testresults|length > 5) %}
-                                    <small>
-                                        <a href="javascript:;" data-toggle="collapse" data-target="#testresults-{{ testcase.id }}">Show all available results</a>
-                                    </small>
-
-                                    <div class="collapse" id="testresults-{{ testcase.id }}">
-                                        {% for testresult in testcase.testresults|slice(5, 1000) %}
-                                            <small>
-                                                <span class="label label-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}">{{ testresult.datetimeRun|date("Y-m-d H:i:s") }}</span>
-                                                <a href="{{ path('testresults.show', {'testresultId': testresult.id}) }}">Show result details</a>
-                                            </small>
-                                            <br>
-                                        {% endfor%}
-                                    </div>
-                                {% endif %}
-                            {% else %}
-                                <small>No test run results yet.</small>
                             {% endif %}
                         </div>
                     </td>
@@ -85,4 +118,28 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block javascripts_foot %}
+    <script>
+        $('.journeymonitor-testresult-dot-anchor').popover({
+            html: true,
+            trigger: 'manual',
+            container: $(this).attr('id'),
+            placement: 'top',
+        }).on("mouseenter", function () {
+            var _this = this;
+            $(this).popover("show");
+            $(this).siblings(".popover").on("mouseleave", function () {
+                $(_this).popover('hide');
+            });
+        }).on("mouseleave", function () {
+            var _this = this;
+            setTimeout(function () {
+                if (!$(".popover:hover").length) {
+                    $(_this).popover("hide")
+                }
+            }, 0);
+        });
+    </script>
 {% endblock %}
