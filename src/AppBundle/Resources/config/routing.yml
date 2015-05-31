@@ -35,3 +35,6 @@ testresults.show:
 
 testresult-screenshots:
     path:     /testresult-screenshots/{filename}
+
+testresult-show-har:
+    path:   /api/testresults/{testresultId}/har.jsonp

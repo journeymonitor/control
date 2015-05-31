@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Tests\Controller;
+namespace AppBundle\Tests\Controller\Internal;
 
 use AppBundle\Entity\Testcase;
 use AppBundle\Entity\User;

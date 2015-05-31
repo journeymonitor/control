@@ -1,6 +1,6 @@
 <?php
 
-namespace ApiBundle\Controller;
+namespace ApiBundle\Controller\Internal;
 
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\View;

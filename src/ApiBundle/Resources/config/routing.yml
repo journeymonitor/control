@@ -1,3 +1,7 @@
-api.testcases:
+api.internal.testcases:
   type:     rest
-  resource: @ApiBundle/Controller/TestcasesApiController.php
+  resource: @ApiBundle/Controller/Internal/TestcasesApiController.php
+
+api.testresults:
+  type:     rest
+  resource: @ApiBundle/Controller/TestresultsApiController.php

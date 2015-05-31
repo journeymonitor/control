@@ -13,6 +13,7 @@
             {% for testcase in testcases %}
                 <tr class="journeymonitor-testcase-entry {% if loop.index0 is even %}journeymonitor-even{% endif %}">
                     <td>
+                        <div class="row">&nbsp;</div>
                         <span class="label label-default">{{ testcase.cadence }}</span>
                         {% if (testcase.enabled) %}
                             <span class="label label-success">Enabled</span>
@@ -30,7 +31,11 @@
                                     {% for testresult in testcase.testresults|slice(0, 5) %}
                                         <small>
                                             <span class="label label-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}">{{ testresult.datetimeRun|date("Y-m-d H:i:s") }}</span>
-                                            <a href="{{ path('testresults.show', {'testresultId': testresult.id}) }}">Show result details</a>
+                                            <a href="{{ path('testresults.show', {'testresultId': testresult.id}) }}">Show testrun details</a>
+                                            {% if (testresult.har) %}
+                                                |
+                                                <a href="http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': testresult.id}) }}">Show testrun performance waterfall</a>
+                                            {% endif %}
                                         </small>
                                         <br>
                                     {% endfor%}
@@ -57,6 +62,7 @@
                         </div>
                     </td>
                     <td>
+                        <div class="row">&nbsp;</div>
                         <div class="pull-right">
                             <p>
                                 <a class="btn btn-primary" href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}">Edit</a>

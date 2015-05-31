@@ -7,6 +7,10 @@
 
         <a href="{{ path('testcases.index') }}">◀ Back to testcases list</a>
 
+        {% if (testresult.har) %}
+            <a class="pull-right" target="_blank" href="http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': testresult.id}) }}">Show testrun performance waterfall ▶</a>
+        {% endif %}
+
         <h4 class="page-header">Testresult details</h4>
 
         <p>

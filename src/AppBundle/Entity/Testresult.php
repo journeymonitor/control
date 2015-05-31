@@ -58,6 +58,13 @@ class Testresult
     private $failScreenshotFilename;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="har", type="text")
+     */
+    private $har;
+
+    /**
      * @var \DateTime
      * @ORM\Column(name="created_at", type="datetime")
      */
@@ -222,6 +229,29 @@ class Testresult
     public function getFailScreenshotFilename()
     {
         return $this->failScreenshotFilename;
+    }
+
+    /**
+     * Set har
+     *
+     * @param string $har
+     * @return Testresult
+     */
+    public function setHar($har)
+    {
+        $this->har = $har;
+
+        return $this;
+    }
+
+    /**
+     * Get har
+     *
+     * @return string
+     */
+    public function getHar()
+    {
+        return $this->har;
     }
 
     /**

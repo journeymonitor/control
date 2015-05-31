@@ -1,9 +1,9 @@
 <?php
 
-namespace AppBundle\Tests\Service;
+namespace ApiBundle\Tests\Service;
 
 use PHPUnit_Framework_TestCase;
-use AppBundle\Service\SeleneseRunnerLogAnalyzer;
+use ApiBundle\Service\SeleneseRunnerLogAnalyzer;
 
 class SeleneseRunnerLogAnalyzerTest extends PHPUnit_Framework_TestCase
 {
@@ -17,7 +17,7 @@ class SeleneseRunnerLogAnalyzerTest extends PHPUnit_Framework_TestCase
         $expectedListOfUrls = [
             0 => 'https://www.galeria-kaufhof.de/',
             1 => 'https://www.galeria-kaufhof.de/search?q=hose',
-            2 => 'https://www.galeria-kaufhof.de/search?q=hose&page=4'
+            2 => 'https://www.galeria-kaufhof.de/'
         ];
 
         $this->assertEquals($expectedListOfUrls, $actualListOfUrls);

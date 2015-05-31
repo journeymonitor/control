@@ -1,9 +1,9 @@
 <?php
 
-namespace AppBundle\Tests\Service;
+namespace ApiBundle\Tests\Service;
 
 use PHPUnit_Framework_TestCase;
-use AppBundle\Service\HarTransformer;
+use ApiBundle\Service\HarTransformer;
 
 class HarTransformerTest extends PHPUnit_Framework_TestCase
 {
