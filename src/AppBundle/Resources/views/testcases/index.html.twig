@@ -9,6 +9,16 @@
 
         <h4 class="page-header">Your testcases</h4>
 
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-info">
+                    <div class="panel-body">
+                        Hover over (on mobile: tap) each block in the timeline for access to the Selenium <strong>logs</strong>, web performance <strong>metrics</strong> (detailed waterfall for each page requested), and failure <strong>screenshots</strong>.
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <table class="table">
             {% for testcase in testcases %}
                 <tr class="journeymonitor-testcase-entry {% if loop.index0 is even %}journeymonitor-even{% endif %}">
