@@ -11,7 +11,7 @@ class TestresultsController extends Controller
     public function showAction(Request $request, $testresultId)
     {
         $user = $this
-            ->get('demo_aware_user_service')
+            ->get('demo_service')
             ->getUser($request, $this->getUser());
 
         if (empty($user)) {
@@ -33,6 +33,12 @@ class TestresultsController extends Controller
             return $this->redirect($this->get('router')->generate('testcases.index'));
         }
 
-        return $this->render('AppBundle:testresults:show.html.twig', array('testresult' => $testresult));
+        return $this->render(
+            'AppBundle:testresults:show.html.twig',
+            array(
+                'testresult' => $testresult,
+                'isDemoMode' => $this->get('demo_service')->isDemoMode($request)
+            )
+        );
     }
 }

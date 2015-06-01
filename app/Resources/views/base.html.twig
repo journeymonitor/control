@@ -27,6 +27,7 @@
     <script src="{{ asset('bundles/app/vendor/bootstrap/dist/js/bootstrap.js') }}"></script>
     <script>
       $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
         $('[data-toggle="popover"]').popover();
       })
     </script>
@@ -37,6 +38,11 @@
   <body>
 
     <div class="container">
+      {% if (isDemoMode is defined and isDemoMode) %}
+        <div class="alert alert-info" role="alert">
+          You are currently in demo mode.
+        </div>
+      {% endif %}
       <div class="header clearfix">
 
         {# see http://getbootstrap.com/components/#navbar-default #}
@@ -93,7 +99,8 @@
         </div>
       </div>
 
-      {% block body %}{% endblock %}
+      {% block body %}
+      {% endblock %}
 
       <footer class="footer">
         <p>

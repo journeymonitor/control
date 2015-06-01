@@ -16,7 +16,7 @@ class TestcasesController extends Controller
     public function indexAction(Request $request)
     {
         $user = $this
-            ->get('demo_aware_user_service')
+            ->get('demo_service')
             ->getUser($request, $this->getUser());
 
         if (empty($user)) {
@@ -27,7 +27,14 @@ class TestcasesController extends Controller
         $em = $this->getDoctrine()->getManager();
         $testcaseRepo = $em->getRepository('AppBundle\Entity\Testcase');
         $testcases = $testcaseRepo->findBy(['user' => $user], ['createdAt' => 'DESC']);
-        return $this->render('AppBundle:testcases:index.html.twig', array('testcases' => $testcases));
+
+        return $this->render(
+            'AppBundle:testcases:index.html.twig',
+            array(
+                'testcases' => $testcases,
+                'isDemoMode' => $this->get('demo_service')->isDemoMode($request)
+            )
+        );
     }
 
     public function newWithRegAction(Request $request)

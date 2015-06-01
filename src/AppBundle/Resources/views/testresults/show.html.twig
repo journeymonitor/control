@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-lg-12">
 
-        <a href="{{ path('testcases.index') }}">◀ Back to testcases list</a>
+        <a href="{% if (isDemoMode) %}/demo{% endif %}{{ path('testcases.index') }}">◀ Back to testcases list</a>
 
         {% if (testresult.har) %}
             <a class="pull-right" target="_blank" href="http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': testresult.id}) }}">Show testrun performance waterfall ▶</a>
@@ -15,7 +15,13 @@
 
         <p>
             <strong>Testcase: </strong>
-            <a href="{{ path('testcases.edit', {'testcaseId': testresult.testcase.id}) }}">{{ testresult.testcase.title }}</a>
+            <a
+                {% if (not isDemoMode) %}
+                    href="{{ path('testcases.edit', {'testcaseId': testresult.testcase.id}) }}"
+                {% else %}
+                    data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
+                {% endif %}
+            >{{ testresult.testcase.title }}</a>
             <br>
 
             <strong>Date and time of run: </strong>

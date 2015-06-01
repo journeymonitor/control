@@ -5,7 +5,7 @@ namespace AppBundle\Service;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class DemoAwareUserService
+class DemoService
 {
     /**
      * @var UserManagerInterface
@@ -32,6 +32,10 @@ class DemoAwareUserService
         $this->demoPath = $demoPath;
     }
 
+    public function isDemoMode(Request $request) {
+        return substr($request->getPathInfo(), 0, strlen($this->demoPath)) === $this->demoPath;
+    }
+
     /**
      * Dependending on the request, either return the demo user or the one passed in
      *
@@ -41,7 +45,7 @@ class DemoAwareUserService
      */
     public function getUser(Request $request, $realUser)
     {
-        if (substr($request->getPathInfo(), 0, strlen($this->demoPath)) === $this->demoPath) {
+        if ($this->isDemoMode($request)) {
             $demoUser = $this->userManager->findUserByEmail($this->demoUserEmail);
             if (empty($demoUser)) {
                 return $realUser;
