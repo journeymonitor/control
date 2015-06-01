@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class TestresultsController extends Controller
 {
-    public function showAction($testresultId)
+    public function showAction(Request $request, $testresultId)
     {
         $user = $this
             ->get('demo_aware_user_service')
