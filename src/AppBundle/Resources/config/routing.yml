@@ -38,6 +38,11 @@ testresults.show:
     defaults: { _controller: AppBundle:Testresults:show }
     methods:  [GET]
 
+testresults.demo.show:
+    path:     /demo/testresults/{testresultId}
+    defaults: { _controller: AppBundle:Testresults:show }
+    methods:  [GET]
+
 testresult-screenshots:
     path:     /testresult-screenshots/{filename}
 
