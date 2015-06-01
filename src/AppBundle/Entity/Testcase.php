@@ -38,7 +38,7 @@ class Testcase
 
     /**
      * @var ArrayCollection|Testresult[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Testresult", mappedBy="testcase")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Testresult", mappedBy="testcase",fetch="EXTRA_LAZY")
      * @ORM\OrderBy({"datetimeRun" = "DESC"})
      */
     private $testresults;
@@ -162,6 +162,15 @@ class Testcase
     public function getTestresults()
     {
         return $this->testresults;
+    }
+
+    /**
+     * @return ArrayCollection|Testresult[]
+     */
+    public function getLimitedTestresults($limit)
+    {
+        $testresults = $this->getTestresults();
+        return $testresults->slice(0, $limit);
     }
 
     /**
