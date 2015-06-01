@@ -7,7 +7,7 @@ fi
 
 CURDIR="$(pwd)"
 CIDDIR="/tmp"
-DB_CID="$CIDDIR/.db.cid" # global lock
+DB_CID="$CIDDIR/.selenior.db.cid" # global lock
 
 if [[ -f "CNAME" ]]; then
     hostname=$(head -n 1 CNAME | sed  's/ /_/g')
@@ -83,10 +83,19 @@ StartPhpNginx()
         fi
     fi
 
+    ADDITIONAL_LINKS_STR=''
+    if [[ -e '.docker.links' ]]; then
+        ADDITIONAL_LINKS=$(cat .docker.links)
+
+        for link in $ADDITIONAL_LINKS; do
+            ADDITIONAL_LINKS_STR="--link $link $ADDITIONAL_LINKS_STR"
+        done;
+    fi
+    echo $ADDITIONAL_LINKS_STR
     DB_CONTAINER_ID=$(docker ps | grep db.journeymonitor.local.net | cut -d" " -f1)
     echo "found db id: $DB_CONTAINER_ID"
     docker run -d -P \
-        --link db.journeymonitor.local.net:db \
+        --link db.journeymonitor.local.net:db $ADDITIONAL_LINKS_STR \
         -v $(pwd):/var/www \
         $XDEBUG_ENABLE \
         --name="$hostname" \
