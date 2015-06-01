@@ -27,4 +27,28 @@ trait TestHelpers
         $input = new ArgvInput(['', 'doctrine:migrations:migrate', '--no-interaction', '-q']);
         $application->run($input, $output);
     }
+
+    protected function createDemoUser()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/');
+
+        $buttonNode = $crawler->selectButton('Start monitoring');
+
+        $form = $buttonNode->form();
+
+        $crawler = $client->submit($form, array(
+            'testcase_and_user[user][email]' => 'demo-user@journeymonitor.com',
+            'testcase_and_user[user][password]' => 'foo',
+            'testcase_and_user[testcase][title]' => 'Demo User Testcase One',
+            'testcase_and_user[testcase][cadence]' => '*/5',
+            'testcase_and_user[testcase][script]' => 'bar',
+        ));
+
+        $container = $client->getContainer();
+        $um = $container->get('fos_user.user_manager');
+
+        $user = $um->findUserBy(['email' => 'demo-user@journeymonitor.com']);
+        $crawler = $client->request('GET', '/register/confirm/' . $user->getConfirmationToken());
+    }
 }
