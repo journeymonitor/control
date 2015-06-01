@@ -5,12 +5,18 @@ namespace AppBundle\Controller;
 use AppBundle\Form\Type\testresultType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-
 class TestresultsController extends Controller
 {
     public function showAction($testresultId)
     {
-        $user = $this->getUser();
+        $user = $this
+            ->get('demo_aware_user_service')
+            ->getUser($request, $this->getUser());
+
+        if (empty($user)) {
+            $this->addFlash('error', 'Access denied.');
+            return $this->redirect($this->get('router')->generate('homepage'));
+        }
 
         $em = $this->getDoctrine()->getManager();
         $testresultRepo = $em->getRepository('AppBundle\Entity\testresult');

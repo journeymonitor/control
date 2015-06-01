@@ -8,6 +8,11 @@ testcases.index:
     defaults: { _controller: AppBundle:Testcases:index }
     methods:  [GET, POST]
 
+testcases.demo.index:
+    path:     /demo/testcases/
+    defaults: { _controller: AppBundle:Testcases:index }
+    methods:  [GET, POST]
+
 testcases.new:
     path:     /testcases/new
     defaults: { _controller: AppBundle:Testcases:new }

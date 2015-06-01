@@ -13,9 +13,17 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 class TestcasesController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $user = $this->getUser();
+        $user = $this
+            ->get('demo_aware_user_service')
+            ->getUser($request, $this->getUser());
+
+        if (empty($user)) {
+            $this->addFlash('error', 'Access denied.');
+            return $this->redirect($this->get('router')->generate('homepage'));
+        }
+
         $em = $this->getDoctrine()->getManager();
         $testcaseRepo = $em->getRepository('AppBundle\Entity\Testcase');
         $testcases = $testcaseRepo->findBy(['user' => $user], ['createdAt' => 'DESC']);

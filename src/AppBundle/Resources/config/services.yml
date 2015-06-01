@@ -25,3 +25,10 @@ services:
             - @doctrine.orm.entity_manager
         tags:
             - { name: kernel.event_subscriber }
+
+    demo_aware_user_service:
+        class: AppBundle\Service\DemoAwareUserService
+        arguments:
+            - @fos_user.user_manager
+            - "demo-user@journeymonitor.com"
+            - "/demo/"
