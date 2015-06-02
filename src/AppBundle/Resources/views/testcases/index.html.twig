@@ -5,8 +5,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <a class="pull-right" {% if (not isDemoMode) %} href="{{ path('testcases.new') }}" {% else %} data-toggle="tooltip" data-placement="top" title="Not available in demo mode" {% endif %}>
-                        ＋ Add another testcase</a>
                     <h4 class="page-header">Your testcases</h4>
                     <div class="row">
                         <div class="col-xs-12">
@@ -20,6 +18,8 @@
                             </div>
                         </div>
                     </div>
+                    <a class="pull-right" {% if (not isDemoMode) %} href="{{ path('testcases.new') }}" {% else %} data-toggle="tooltip" data-placement="top" title="Not available in demo mode" {% endif %}>
+                        ＋ Add another testcase</a>
                     <table class="table">
                         {% for testcase in testcases %}
                             <tr class="journeymonitor-testcase-entry {% if loop.index0 is even %}journeymonitor-even{% endif %}">
@@ -62,7 +62,7 @@
                                                                 <a target='_blank' href='http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': testresult.id}) }}'>Click for performance metrics</a>
                                                             {% endif %}"
                                                        href="{% if (isDemoMode) %}/demo{% endif %}{{ path('testresults.show', {'testresultId': testresult.id}) }}">
-                                                            <span class="journeymonitor-testresult-dot alert-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}">&nbsp;</span>
+                                                            <span class="journeymonitor-testresult-dot label-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}">&nbsp;</span>
                                                     </a>
                                                     {% if loop.last %}
                                                         <small class="pull-right">{{ testresult.datetimeRun|date("Y-m-d H:i:s") }} ◀</small>
@@ -155,7 +155,7 @@
     </main>
 {% endblock %}
 
-{% block javascripts_foot %}
+{% block javascripts_additional %}
     <script>
         $('.journeymonitor-testresult-dot-anchor').popover({
             html: true,
