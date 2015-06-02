@@ -54,6 +54,7 @@ First, set up the target machine as described in the *infra-maschine-provisioner
         extension=php_openssl.dll
         extension=php_pdo_sqlite.dll
         extension=php_sqlite3.dll
+        also add 'date.timezone = Europe/Berlin' to the file
     now open a cmd console and try to run 'php' - if you see no output at all thats's good!
     next you need to install composer https://getcomposer.org/download/
     now you need to cd into the cloned directory and run composer install
