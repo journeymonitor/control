@@ -9,12 +9,14 @@ Application for the service homepage
 
 ### Mac OS X
 
-Assumes that you have PHP 5.5, Git, and Composer installed.
+Assumes that you have PHP 5.5, Git, Bower, and Composer installed.
 
     git clone git@bitbucket.org:selenior/control-web-frontend.git
     cd control-web-frontend
     composer install
+    bower install
     php app/console doctrine:migrations:migrate
+    php app/console assets:install
     php app/console server:run
 
 ### Ubuntu 14.04 64bit
@@ -26,17 +28,19 @@ First, set up the target machine as described in the *infra-maschine-provisioner
     git clone git@bitbucket.org:selenior/control-web-frontend.git
     cd control-web-frontend
     composer install
+    bower install
     chown -R selenior app/cache
     chown -R selenior app/logs
     rm -rf app/cache/prod
     sudo -u selenior php app/console doctrine:migrations:migrate --env prod
+    php app/console assets:install
     screen
     rm -rf app/cache/prod && chown -R selenior app/cache && chown -R selenior app/logs && sudo -u selenior php app/console server:run 127.0.0.1:5999 --env prod
     # Hit ctrl-a-d to leave screen
 
 ### Other info
 
-At app/Resources/selenior-control.sqlite-dev.dist.gz is an sqlite3 database file that contains the User demo-user@journeymonitor.com with password 'demo123'.
+At app/Resources/selenior-control.sqlite-dev.dist.gz you'll find an sqlite3 database file that contains the user 'demo-user@journeymonitor.com' with password 'demo123'.
 The user has some testcases and testresult data. Simply unzip to /var/tmp/selenior-control.sqlite-dev.
 
 ## Development with docker
