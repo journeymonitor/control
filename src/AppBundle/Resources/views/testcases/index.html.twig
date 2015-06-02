@@ -24,7 +24,6 @@
                         {% for testcase in testcases %}
                             <tr class="journeymonitor-testcase-entry {% if loop.index0 is even %}journeymonitor-even{% endif %}">
                                 <td>
-                                    <div class="row">&nbsp;</div>
                                     <span class="label label-default">{{ testcase.cadence }}</span>
                                     {% if (testcase.enabled) %}
                                         <span class="label label-success">Enabled</span>
@@ -37,10 +36,11 @@
                                     <div class="well">
                                         {% if (testcase.limitedtestresults(100)|length > 0) %}
                                             {% spaceless %}
+                                                <div class="inline-block">
                                                 {% for testresult in testcase.limitedtestresults(100)|slice(0, 28)|reverse %}
                                                     {% if loop.first %}
                                                         <small>
-                                                            ▶ {{ testresult.datetimeRun|date("Y-m-d H:i:s") }}
+                                                            ┌ {{ testresult.datetimeRun|date("Y-m-d H:i:s") }}
                                                         </small>
                                                         <br>
                                                     {% endif %}
@@ -65,9 +65,10 @@
                                                             <span class="journeymonitor-testresult-dot label-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}">&nbsp;</span>
                                                     </a>
                                                     {% if loop.last %}
-                                                        <small class="pull-right">{{ testresult.datetimeRun|date("Y-m-d H:i:s") }} ◀</small>
+                                                        <br><small class="until pull-right">{{ testresult.datetimeRun|date("Y-m-d H:i:s") }} ┘</small>
                                                     {% endif %}
                                                 {% endfor %}
+                                                </div>
                                             {% endspaceless %}
                                         {% else %}
                                             <small>No test run results yet.</small>
@@ -107,42 +108,27 @@
                                             </div>
                                         {% endif %}
                                     </div>
-                                </td>
-                                <td>
-                                    <div class="row">&nbsp;</div>
                                     <div class="pull-right">
-                                        <p>
-                                            <a
-                                                    class="pull-right btn btn-primary btn-sm"
-                                                    {% if (not isDemoMode) %}
-                                                        href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}"
-                                                    {% else %}
-                                                        data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
-                                                    {% endif %}
-                                                    >Edit</a>
-                                            <br clear="all">
-                                        </p>
+                                            <a class="btn btn-primary btn-sm"
+                                                {% if (not isDemoMode) %}
+                                                    href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}"
+                                                {% else %}
+                                                    data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
+                                                {% endif %}>Edit</a>
                                         {% if (testcase.enabled) %}
-                                            <p>
-                                                <a
-                                                        class="pull-right btn btn-default btn-sm"
-                                                    {% if (not isDemoMode) %}
-                                                        href="{{ path('testcases.disable', {'testcaseId': testcase.id}) }}"
-                                                    {% else %}
-                                                        data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
-                                                {% endif %}>Disable</a>
-                                            </p>
+                                            <a class="btn btn-default btn-sm"
+                                                {% if (not isDemoMode) %}
+                                                    href="{{ path('testcases.disable', {'testcaseId': testcase.id}) }}"
+                                                {% else %}
+                                                    data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
+                                            {% endif %}>Disable</a>
                                         {% else %}
-                                            <p>
-                                                <a
-                                                        class="pull-right btn btn-default btn-sm"
-                                                        {% if (not isDemoMode) %}
-                                                            href="{{ path('testcases.enable', {'testcaseId': testcase.id}) }}"
-                                                        {% else %}
-                                                            data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
-                                                        {% endif %}
-                                                        >Enable</a>
-                                            </p>
+                                            <a class="btn btn-default btn-sm"
+                                                {% if (not isDemoMode) %}
+                                                    href="{{ path('testcases.enable', {'testcaseId': testcase.id}) }}"
+                                                {% else %}
+                                                    data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
+                                                {% endif %}>Enable</a>
                                         {% endif %}
                                     </div>
                                 </td>

@@ -83,10 +83,13 @@ textarea.codeform {
     font-family: "Courier New", Courier, monospace;
 }
 
-p .highlight {
+mark {
     background-color: #ee4;
-    padding-left: 4px;
-    padding-right: 4px;
+    padding: 0 4px;
+}
+
+.inline-block {
+    display: inline-block;
 }
 
 .journeymonitor-testcase-entry.journeymonitor-even {
