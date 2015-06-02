@@ -1,27 +1,30 @@
 /* Space out content a bit */
 body {
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-top: 50px;
+    padding-bottom: 12px;
 }
 
 /* Custom page header */
-.header {
-    margin-bottom: 0px;
+header {
+    margin-bottom: 0;
 }
+
+main {
+    margin-top: 12px;
+}
+
 /* Make the masthead heading the same height as the navigation */
-.header h3 {
-    color: #49146B;
+#brandname span {
+    color: #49146b;
     margin-top: 0;
     margin-bottom: 0;
     line-height: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.messages {
+    margin-top: 12px;
 }
 
 #loggedin-info {
@@ -30,8 +33,9 @@ body {
 }
 
 /* Custom page footer */
-.footer {
-    padding-top: 19px;
+footer {
+    padding-top: 12px;
+    margin-top: 12px;
     color: #777;
     border-top: 1px solid #e5e5e5;
 }
@@ -42,6 +46,7 @@ body {
         max-width: 730px;
     }
 }
+
 .container-narrow > hr {
     margin: 30px 0;
 }
@@ -52,29 +57,16 @@ body {
     color: #000;
     text-align: center;
     border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 0;
 }
+
 .jumbotron .btn {
     padding: 14px 24px;
     font-size: 21px;
 }
 
-/* Supporting marketing content */
-.marketing {
-    margin: 40px 0;
-}
-.marketing p + h4 {
-    margin-top: 28px;
-}
-
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-    /* Remove the padding we set earlier */
-    .header,
-    .marketing,
-    .footer {
-        padding-right: 0;
-        padding-left: 0;
-    }
     /* Remove the bottom border on the jumbotron for visual effect */
     .jumbotron {
         border-bottom: 0;
@@ -88,7 +80,7 @@ body {
 textarea.codeform {
     height: 200px;
     font-size: 8pt;
-    font-family: "Courier New";
+    font-family: "Courier New", Courier, monospace;
 }
 
 p .highlight {
@@ -106,7 +98,7 @@ p .highlight {
 }
 
 .journeymonitor-testcase-entry {
-    
+
 }
 
 .journeymonitor-testresult-output {
@@ -121,27 +113,15 @@ p .highlight {
 #journeymonitor-beta-badge {
     margin-left: -24px;
     font-size: 8px;
-    background-color: #90BD2D;
+    background-color: #90bd2d;
 }
 
 .journeymonitor-testresult-dot {
-    width: 20.16px;
-    height: 20.16px;
+    width: 3.57142857%;
+    height: 20px;
     padding: 0;
     margin: 0;
     border-right: 1px solid #f5f5f5;
     border-bottom: 1px solid #f5f5f5;
     display: inline-block;
-}
-
-.journeymonitor-testresult-dot-success {
-    background-color: #0f0;
-}
-
-.journeymonitor-testresult-dot-warning {
-    background-color: #ff0;
-}
-
-.journeymonitor-testresult-dot-danger {
-    background-color: #f00;
 }

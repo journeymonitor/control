@@ -1,184 +1,158 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-
-<div class="row">
-    <div class="col-lg-12">
-
-        <a
-            class="pull-right"
-            {% if (not isDemoMode) %}
-                href="{{ path('testcases.new') }}"
-            {% else %}
-                data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
-            {% endif %}
-        >＋ Add another testcase</a>
-
-        <h4 class="page-header">Your testcases</h4>
-
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="panel panel-info">
-                    <div class="panel-body">
-                        Hover over (on mobile: tap) each block in the timeline for access to the Selenium <strong>logs</strong>, web performance <strong>metrics</strong> (detailed waterfall for each page requested), and failure <strong>screenshots</strong>.
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <a class="pull-right" {% if (not isDemoMode) %} href="{{ path('testcases.new') }}" {% else %} data-toggle="tooltip" data-placement="top" title="Not available in demo mode" {% endif %}>
+                        ＋ Add another testcase</a>
+                    <h4 class="page-header">Your testcases</h4>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="panel panel-info">
+                                <p class="panel-body">
+                                    Hover over (on mobile: tap) each block in the timeline for
+                                    access to the Selenium <b>logs</b>, web performance
+                                    <b>metrics</b> (detailed waterfall for each page requested), and
+                                    failure <b>screenshots</b>.
+                                </p>
+                            </div>
+                        </div>
                     </div>
+                    <table class="table">
+                        {% for testcase in testcases %}
+                            <tr class="journeymonitor-testcase-entry {% if loop.index0 is even %}journeymonitor-even{% endif %}">
+                                <td>
+                                    <div class="row">&nbsp;</div>
+                                    <span class="label label-default">{{ testcase.cadence }}</span>
+                                    {% if (testcase.enabled) %}
+                                        <span class="label label-success">Enabled</span>
+                                    {% else %}
+                                        <span class="label label-default">Disabled</span>
+                                    {% endif %}
+                                    <h4>
+                                        <a {% if (not isDemoMode) %} href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}" {% else %} data-toggle="tooltip" data-placement="top" title="Not available in demo mode" {% endif %}>{{ testcase.title }}</a>
+                                    </h4>
+                                    <div class="well">
+                                        {% if (testcase.limitedtestresults(100)|length > 0) %}
+                                            {% spaceless %}
+                                                {% for testresult in testcase.limitedtestresults(100)|slice(0, 28)|reverse %}
+                                                    {% if loop.first %}
+                                                        <small>
+                                                            ▶ {{ testresult.datetimeRun|date("Y-m-d H:i:s") }}
+                                                        </small>
+                                                        <br>
+                                                    {% endif %}
+                                                    <a class="journeymonitor-testresult-dot-anchor"
+                                                       title="{{ testresult.datetimeRun|date("Y-m-d H:i:s") }}"
+                                                       data-content="{% if (testresult.exitCode == 0) %}Journey completed without error.{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}Journey could not be completed.{% else %}There was a problem with the test case script.{% endif %}
+                                                            <br>
+                                                            <br>
+                                                            <span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span>&nbsp;
+                                                            <a href='{% if (isDemoMode) %}/demo{% endif %}{{ path('testresults.show', {'testresultId': testresult.id}) }}'>Click for Selenium log</a>
+                                                            {% if (testresult.failScreenshotFilename) %}
+                                                                <br>
+                                                                <span class='glyphicon glyphicon-camera' aria-hidden='true'></span>&nbsp;
+                                                                <a target='_blank' href='{{ path('testresult-screenshots', {'filename': testresult.failScreenshotFilename}) }}.png'>Click for failure screenshot</a>
+                                                            {% endif %}
+                                                            {% if (testresult.har) %}
+                                                                <br>
+                                                                <span class='glyphicon glyphicon-align-left' aria-hidden='true'></span>&nbsp;
+                                                                <a target='_blank' href='http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': testresult.id}) }}'>Click for performance metrics</a>
+                                                            {% endif %}"
+                                                       href="{% if (isDemoMode) %}/demo{% endif %}{{ path('testresults.show', {'testresultId': testresult.id}) }}">
+                                                            <span class="journeymonitor-testresult-dot alert-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}">&nbsp;</span>
+                                                    </a>
+                                                    {% if loop.last %}
+                                                        <small class="pull-right">{{ testresult.datetimeRun|date("Y-m-d H:i:s") }} ◀</small>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endspaceless %}
+                                        {% else %}
+                                            <small>No test run results yet.</small>
+                                        {% endif %}
+                                        {% if (testcase.limitedtestresults(100)|length > 28) %}
+                                            <br>
+                                            <br>
+                                            <small>
+                                                <a data-toggle="collapse" data-target="#testresults-{{ testcase.id }}">Show last 100 results</a>
+                                            </small>
+
+                                            <div class="collapse" id="testresults-{{ testcase.id }}">
+                                                {% for testresult in testcase.limitedtestresults(100)|slice(28, 100) %}
+                                                    <small>
+                                                        <span class="label label-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}">{{ testresult.datetimeRun|date("Y-m-d H:i:s") }}</span>
+                                                        &nbsp;&nbsp;
+                                                        <span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span>
+                                                        <a href="{% if (isDemoMode) %}/demo{% endif %}{{ path('testresults.show', {'testresultId': testresult.id}) }}">Selenium
+                                                            log</a>
+
+                                                        {% if (testresult.failScreenshotFilename) %}
+                                                            &nbsp;&nbsp;
+                                                            <span class='glyphicon glyphicon-camera' aria-hidden='true'></span>&nbsp;
+                                                            <a target='_blank' href='{{ path('testresult-screenshots', {'filename': testresult.failScreenshotFilename}) }}.png'>Failure
+                                                                screenshot</a>
+                                                        {% endif %}
+
+                                                        {% if (testresult.har) %}
+                                                            &nbsp;&nbsp;
+                                                            <span class='glyphicon glyphicon-align-left' aria-hidden='true'></span>&nbsp;
+                                                            <a target='_blank' href='http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': testresult.id}) }}'>Performance
+                                                                metrics</a>
+                                                        {% endif %}
+                                                    </small>
+                                                    <br>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row">&nbsp;</div>
+                                    <div class="pull-right">
+                                        <p>
+                                            <a
+                                                    class="pull-right btn btn-primary btn-sm"
+                                                    {% if (not isDemoMode) %}
+                                                        href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}"
+                                                    {% else %}
+                                                        data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
+                                                    {% endif %}
+                                                    >Edit</a>
+                                            <br clear="all">
+                                        </p>
+                                        {% if (testcase.enabled) %}
+                                            <p>
+                                                <a
+                                                        class="pull-right btn btn-default btn-sm"
+                                                    {% if (not isDemoMode) %}
+                                                        href="{{ path('testcases.disable', {'testcaseId': testcase.id}) }}"
+                                                    {% else %}
+                                                        data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
+                                                {% endif %}>Disable</a>
+                                            </p>
+                                        {% else %}
+                                            <p>
+                                                <a
+                                                        class="pull-right btn btn-default btn-sm"
+                                                        {% if (not isDemoMode) %}
+                                                            href="{{ path('testcases.enable', {'testcaseId': testcase.id}) }}"
+                                                        {% else %}
+                                                            data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
+                                                        {% endif %}
+                                                        >Enable</a>
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
                 </div>
             </div>
         </div>
-
-        <table class="table">
-            {% for testcase in testcases %}
-                <tr class="journeymonitor-testcase-entry {% if loop.index0 is even %}journeymonitor-even{% endif %}">
-                    <td>
-                        <div class="row">&nbsp;</div>
-                        <span class="label label-default">{{ testcase.cadence }}</span>
-                        {% if (testcase.enabled) %}
-                            <span class="label label-success">Enabled</span>
-                        {% else %}
-                            <span class="label label-default">Disabled</span>
-                        {% endif %}
-                        <h4>
-                            <a
-                                {% if (not isDemoMode) %}
-                                    href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}"
-                                {% else %}
-                                    data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
-                                {% endif %}
-                            >{{ testcase.title }}</a>
-                        </h4>
-
-                        <div class="well">
-                            {% if (testcase.limitedtestresults(100)|length > 0) %}
-                                {% spaceless %}
-                                    {% for testresult in testcase.limitedtestresults(100)|slice(0, 28)|reverse %}
-                                        {% if loop.first %}
-                                            <small>
-                                                ▶ {{ testresult.datetimeRun|date("Y-m-d H:i:s") }}
-                                            </small>
-                                            <br>
-                                        {% endif %}
-                                        <a
-                                                class="journeymonitor-testresult-dot-anchor"
-                                                title="{{ testresult.datetimeRun|date("Y-m-d H:i:s") }}"
-                                                data-content="
-                                                    {% if (testresult.exitCode == 0) %}
-                                                        Journey completed without error.
-                                                    {% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}
-                                                        Journey could not be completed.
-                                                    {% else %}
-                                                        There was a problem with the test case script.
-                                                    {% endif %}
-                                                    <br>
-                                                    <br>
-                                                    <span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span>&nbsp;
-                                                    <a href='{% if (isDemoMode) %}/demo{% endif %}{{ path('testresults.show', {'testresultId': testresult.id}) }}'>Click for Selenium log</a>
-                                                    {% if (testresult.failScreenshotFilename) %}
-                                                        <br>
-                                                        <span class='glyphicon glyphicon-camera' aria-hidden='true'></span>&nbsp;
-                                                        <a target='_blank' href='{{ path('testresult-screenshots', {'filename': testresult.failScreenshotFilename}) }}.png'>Click for failure screenshot</a>
-                                                    {% endif %}
-                                                    {% if (testresult.har) %}
-                                                        <br>
-                                                        <span class='glyphicon glyphicon-align-left' aria-hidden='true'></span>&nbsp;
-                                                        <a target='_blank' href='http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': testresult.id}) }}'>Click for performance metrics</a>
-                                                    {% endif %}
-                                                "
-                                                href="{% if (isDemoMode) %}/demo{% endif %}{{ path('testresults.show', {'testresultId': testresult.id}) }}">
-                                            <span class="journeymonitor-testresult-dot journeymonitor-testresult-dot-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}">
-                                            &nbsp;
-                                            </span>
-                                        </a>
-                                        {% if loop.last %}
-                                            <small class="pull-right">
-                                                {{ testresult.datetimeRun|date("Y-m-d H:i:s") }} ◀
-                                            </small>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endspaceless %}
-                            {% else %}
-                                <small>No test run results yet.</small>
-                            {% endif %}
-                            {% if (testcase.limitedtestresults(100)|length > 28) %}
-                                <br>
-                                <br>
-                                <small>
-                                    <a href="javascript:;" data-toggle="collapse" data-target="#testresults-{{ testcase.id }}">Show last 100 results</a>
-                                </small>
-
-                                <div class="collapse" id="testresults-{{ testcase.id }}">
-                                    {% for testresult in testcase.limitedtestresults(100)|slice(28, 100) %}
-                                        <small>
-                                            <span class="label label-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}">{{ testresult.datetimeRun|date("Y-m-d H:i:s") }}</span>
-
-                                            &nbsp;&nbsp;
-                                            <span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span>
-                                            <a href="{% if (isDemoMode) %}/demo{% endif %}{{ path('testresults.show', {'testresultId': testresult.id}) }}">Selenium log</a>
-
-                                            {% if (testresult.failScreenshotFilename) %}
-                                                &nbsp;&nbsp;
-                                                <span class='glyphicon glyphicon-camera' aria-hidden='true'></span>&nbsp;
-                                                <a target='_blank' href='{{ path('testresult-screenshots', {'filename': testresult.failScreenshotFilename}) }}.png'>Failure screenshot</a>
-                                            {% endif %}
-
-                                            {% if (testresult.har) %}
-                                                &nbsp;&nbsp;
-                                                <span class='glyphicon glyphicon-align-left' aria-hidden='true'></span>&nbsp;
-                                                <a target='_blank' href='http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': testresult.id}) }}'>Performance metrics</a>
-                                            {% endif %}
-
-                                        </small>
-                                        <br>
-                                    {% endfor%}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </td>
-                    <td>
-                        <div class="row">&nbsp;</div>
-                        <div class="pull-right">
-                            <p>
-                                <a
-                                    class="pull-right btn btn-primary btn-sm"
-                                    {% if (not isDemoMode) %}
-                                        href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}"
-                                    {% else %}
-                                        data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
-                                    {% endif %}
-                                >Edit</a>
-                                <br clear="all">
-                            </p>
-                            {% if (testcase.enabled) %}
-                                <p>
-                                    <a
-                                        class="pull-right btn btn-default btn-sm"
-                                        {% if (not isDemoMode) %}
-                                            href="{{ path('testcases.disable', {'testcaseId': testcase.id}) }}"
-                                        {% else %}
-                                            data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
-                                        {% endif %}
-                                    ">Disable</a>
-                                </p>
-                            {% else %}
-                                <p>
-                                    <a
-                                        class="pull-right btn btn-default btn-sm"
-                                        {% if (not isDemoMode) %}
-                                            href="{{ path('testcases.enable', {'testcaseId': testcase.id}) }}"
-                                        {% else %}
-                                            data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
-                                        {% endif %}
-                                    >Enable</a>
-                                </p>
-                            {% endif %}
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-
-    </div>
-</div>
-
+    </main>
 {% endblock %}
 
 {% block javascripts_foot %}
@@ -187,7 +161,7 @@
             html: true,
             trigger: 'manual',
             container: $(this).attr('id'),
-            placement: 'top',
+            placement: 'top'
         }).on("mouseenter", function () {
             var _this = this;
             $(this).popover("show");
