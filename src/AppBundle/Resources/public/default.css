@@ -126,3 +126,7 @@ mark {
     width: 21px;
     height: 21px;
 }
+
+.testcases .popover{
+    margin-top: 0;
+}

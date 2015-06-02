@@ -20,7 +20,7 @@
                     </div>
                     <a class="pull-right" {% if (not isDemoMode) %} href="{{ path('testcases.new') }}" {% else %} data-toggle="tooltip" data-placement="top" title="Not available in demo mode" {% endif %}>
                         ＋ Add another testcase</a>
-                    <table class="table">
+                    <table class="table testcases">
                         {% for testcase in testcases %}
                             <tr class="journeymonitor-testcase-entry {% if loop.index0 is even %}journeymonitor-even{% endif %}">
                                 <td>
