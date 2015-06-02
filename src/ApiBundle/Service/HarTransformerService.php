@@ -10,6 +10,8 @@ class HarTransformerService
      */
     public function splitIntoMultiplePages(\stdClass $originalHar, $urls)
     {
+        $urls = $this->normalizeUrls($urls);
+
         $pageStartedDateTimes = [];
         $pageStartedDateTimes[] = $originalHar->log->entries[0]->startedDateTime;
         $currentIndex = 0;
@@ -39,5 +41,17 @@ class HarTransformerService
 
         $originalHar->log->pages = $pages;
         return $originalHar;
+    }
+
+    private function normalizeUrls($urls)
+    {
+        $normalizedUrls = [];
+        foreach ($urls as $url) {
+            if (strstr($url, '#')) {
+                $url = substr($url, 0, strpos($url, '#'));
+            }
+            $normalizedUrls[] = $url;
+        }
+        return $normalizedUrls;
     }
 }

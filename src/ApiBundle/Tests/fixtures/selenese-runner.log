@@ -54,7 +54,7 @@
 [2015-05-28 23:46:36.765 +02:00] [ERROR] - Cookie: emos_jcvid=[AAABTZx9gIKgbLeETG87_ZCcNUoiVB3C:1:AAABTZx9gIKgbLeETG87_ZCcNUoiVB3C:1432849580162:0:true:1] (domain=.galeria-kaufhof.de, path=/, expire=2018-05-27 23:46:32 +02:00)
 [2015-05-28 23:46:36.765 +02:00] [ERROR] - Cookie: rr_rcs=[eF4FwTEOwCAIAMDFqX8hEQGRH_QbCph06Nb2_b0r5fVz5BJ3qhBuC3iTgs0MyCnUFXerkcf9PVew2gBkaoNNVIgQugFit_oD8YgTCA] (domain=.galeria-kaufhof.de, path=/, expire=2017-05-27 23:46:33 +02:00)
 [2015-05-28 23:46:36.765 +02:00] [ERROR] - Cookie: vid=[fwAAAVVnjKQ8zwayBcIIAg==] (domain=www.galeria-kaufhof.de, path=/, expire=*)
-[2015-05-28 23:46:22.817 +02:00] [INFO] - [Success] URL: [https://www.galeria-kaufhof.de/] / Title: [GALERIA Kaufhof: Shop f?r Mode, Spielwaren & Haushalt]
+[2015-05-28 23:46:22.817 +02:00] [INFO] - [Success] URL: [https://www.galeria-kaufhof.de/#foo] / Title: [GALERIA Kaufhof: Shop f?r Mode, Spielwaren & Haushalt]
 [2015-05-28 23:46:36.769 +02:00] [INFO] End(19.281sec): TestCase[complex] (/var/tmp/selenior-testcase-F899FF08-6414-494F-A0FC-AEE4750C1EDE.html)
 [2015-05-28 23:46:36.769 +02:00] [INFO] End(0.000sec): TestSuite[complex] (/var/tmp/selenior-testcase-F899FF08-6414-494F-A0FC-AEE4750C1EDE.html)
 [2015-05-28 23:46:36.769] [INFO] Exit code: 3

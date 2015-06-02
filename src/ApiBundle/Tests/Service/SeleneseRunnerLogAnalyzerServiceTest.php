@@ -17,7 +17,7 @@ class SeleneseRunnerLogAnalyzerServiceTest extends PHPUnit_Framework_TestCase
         $expectedListOfUrls = [
             0 => 'https://www.galeria-kaufhof.de/',
             1 => 'https://www.galeria-kaufhof.de/search?q=hose',
-            2 => 'https://www.galeria-kaufhof.de/'
+            2 => 'https://www.galeria-kaufhof.de/#foo'
         ];
 
         $this->assertEquals($expectedListOfUrls, $actualListOfUrls);
