@@ -1,0 +1,67 @@
+{"port":55219}[2015-06-01 17:30:06.712] [INFO] Start: Selenese Runner 1.10.0
+[2015-06-01 17:30:07.341] [INFO] Command line arguments: [--new-instance] [--profile /var/tmp/selenior-firefox-profile-8699]
+[2015-06-01 17:30:16.791] [INFO] Initial window size: 1920x1200
+[2015-06-01 17:30:16.791] [INFO] Initialized: FirefoxDriver
+[2015-06-01 17:30:16.905] [INFO] Screenshot on fail directory: /var/tmp/selenior-screenshots
+[2015-06-01 17:30:16.906] [INFO] Timeout: 30000 ms
+[2015-06-01 17:30:17.405 +02:00] [INFO] Start: TestSuite[nyt] (/var/tmp/selenior-testcase-86337D59-F97F-4456-ACAC-C8D8432312EB.html)
+[2015-06-01 17:30:17.529] [INFO] Existing driver found.
+[2015-06-01 17:30:17.643] [INFO] Current speed: 0 ms/command
+[2015-06-01 17:30:17.643 +02:00] [INFO] Start: TestCase[nyt] (/var/tmp/selenior-testcase-86337D59-F97F-4456-ACAC-C8D8432312EB.html)
+[2015-06-01 17:30:17.643 +02:00] [INFO] baseURL: http://www.nytimes.com
+[2015-06-01 17:30:17.704 +02:00] [INFO] |1|Command#1: open("/")
+[2015-06-01 17:30:27.524 +02:00] [INFO] - [Success] URL: [http://www.nytimes.com/] / Title: [The New York Times - Breaking News, World News & Multimedia]
+[2015-06-01 17:30:27.526 +02:00] [INFO] - Cookie: NYT-mab=[%7B%222%22%3A%22A6%22%7D] (domain=.nytimes.com, path=/, expire=2015-06-01 20:30:11 +02:00)
+[2015-06-01 17:30:27.527 +02:00] [INFO] - Cookie: NYT-wpAB=[0002|0&0012|1&0033|4&0034|0&0035|0&0036|-2&0050|2&0051|0] (domain=.nytimes.com, path=/, expire=2016-05-31 17:30:18 +02:00)
+[2015-06-01 17:30:27.527 +02:00] [INFO] - Cookie: RMID=[007f010143d9556c7a810008] (domain=.nytimes.com, path=/, expire=2016-05-31 17:30:10 +02:00)
+[2015-06-01 17:30:27.527 +02:00] [INFO] - Cookie: WT_FPC=[id=36651e31-e589-4e08-a6ca-d108b30cd945:lv=1433147425744:ss=1433147425744] (domain=.nytimes.com, path=/, expire=2017-06-01 05:07:57 +02:00)
+[2015-06-01 17:30:27.527 +02:00] [INFO] - Cookie: _cb_ls=[1] (domain=www.nytimes.com, path=/, expire=2015-07-01 17:30:25 +02:00)
+[2015-06-01 17:30:27.527 +02:00] [INFO] - Cookie: _chartbeat2=[BRJ1xMB1z66rBY-c81.1433172625588.1433172625608.1] (domain=www.nytimes.com, path=/, expire=2017-05-31 17:30:25 +02:00)
+[2015-06-01 17:30:27.527 +02:00] [INFO] - Cookie: _dy_geo=[DE.EU.DE_.DE__] (domain=.nytimes.com, path=/, expire=2015-07-01 17:30:26 +02:00)
+[2015-06-01 17:30:27.527 +02:00] [INFO] - Cookie: _dy_toffset=[-9] (domain=.nytimes.com, path=/, expire=2015-07-01 17:30:26 +02:00)
+[2015-06-01 17:30:27.527 +02:00] [INFO] - Cookie: _dycst=[l.f.ws.fst.frv1.frs.] (domain=.nytimes.com, path=/, expire=2015-07-01 17:30:26 +02:00)
+[2015-06-01 17:30:27.527 +02:00] [INFO] - Cookie: _dyid=[8201055060313799305] (domain=.nytimes.com, path=/, expire=2015-07-01 17:30:26 +02:00)
+[2015-06-01 17:30:27.528 +02:00] [INFO] - Cookie: _dyus_8765260=[0%7C0%7C0%7C0%7C0%7C0.0.1433172626632.1433172626632.0.0%7C151%7C23%7C5%7C115%7C1%7C0%7C0%7C0%7C0%7C0%7C0%7C1%7C0%7C0%7C0%7C0%7C0%7C1%7C0%7C0%7C0%7C0%7C0] (domain=.nytimes.com, path=/, expire=2015-07-01 17:30:26 +02:00)
+[2015-06-01 17:30:27.528 +02:00] [INFO] - Cookie: _gat_r2d2=[1] (domain=.nytimes.com, path=/, expire=2015-06-01 17:40:25 +02:00)
+[2015-06-01 17:30:27.528 +02:00] [INFO] - Cookie: adxcs=[-] (domain=.nytimes.com, path=/, expire=*)
+[2015-06-01 17:30:27.528 +02:00] [INFO] - Cookie: circgroup=[inytdigi] (domain=.nytimes.com, path=/, expire=2015-06-01 18:30:23 +02:00)
+[2015-06-01 17:30:27.528 +02:00] [INFO] - Cookie: nyt-a=[e92df6575d767a8730b0c1c78a36939f] (domain=.nytimes.com, path=/, expire=2016-05-31 17:30:18 +02:00)
+[2015-06-01 17:30:27.528 +02:00] [INFO] - Cookie: rsi_segs=[] (domain=.nytimes.com, path=/, expire=2015-06-29 17:30:25 +02:00)
+[2015-06-01 17:30:27.528 +02:00] [INFO] - Cookie: walley=[GA1.2.1484316897.1433172625] (domain=.nytimes.com, path=/, expire=2017-05-31 17:30:25 +02:00)
+[2015-06-01 17:30:27.529 +02:00] [INFO] |2|Command#2: click("css=button.button.search-button")
+[2015-06-01 17:30:30.750 +02:00] [INFO] - [Success]
+[2015-06-01 17:30:30.750 +02:00] [INFO] - Cookie: [mod] WT_FPC=[id=36651e31-e589-4e08-a6ca-d108b30cd945:lv=1433147429439:ss=1433147425744] (domain=.nytimes.com, path=/, expire=2017-06-01 05:07:57 +02:00)
+[2015-06-01 17:30:30.751 +02:00] [INFO] |3|Command#3: type("id=search-input", "selenium")
+[2015-06-01 17:30:32.889 +02:00] [INFO] - [Success]
+[2015-06-01 17:30:32.889 +02:00] [INFO] |4|Command#4: clickAndWait("css=button.button.submit-button")
+[2015-06-01 17:30:38.431 +02:00] [INFO] - [Success] URL: [http://query.nytimes.com/search/sitesearch/?action=click&contentCollection&region=TopBar&WT.nav=searchWidget&module=SearchSubmit&pgtype=Homepage#/selenium] / Title: [NYTimes.com Search]
+[2015-06-01 17:30:38.444 +02:00] [INFO] - Cookie: NYT-mab=[%7B%222%22%3A%22A6%22%7D] (domain=.nytimes.com, path=/, expire=2015-06-01 20:30:11 +02:00)
+[2015-06-01 17:30:38.444 +02:00] [INFO] - Cookie: NYT-wpAB=[0002|0&0012|1&0033|4&0034|0&0035|0&0036|-2&0050|2&0051|0] (domain=.nytimes.com, path=/, expire=2016-05-31 17:30:18 +02:00)
+[2015-06-01 17:30:38.444 +02:00] [INFO] - Cookie: RMID=[007f010143d9556c7a810008] (domain=.nytimes.com, path=/, expire=2016-05-31 17:30:10 +02:00)
+[2015-06-01 17:30:38.444 +02:00] [INFO] - Cookie: WT_FPC=[id=36651e31-e589-4e08-a6ca-d108b30cd945:lv=1433147435202:ss=1433147425744] (domain=.nytimes.com, path=/, expire=2025-05-29 10:30:35 +02:00)
+[2015-06-01 17:30:38.444 +02:00] [INFO] - Cookie: _cb_ls=[1] (domain=query.nytimes.com, path=/, expire=2015-07-01 17:30:36 +02:00)
+[2015-06-01 17:30:38.444 +02:00] [INFO] - Cookie: _chartbeat2=[Crzc4dBtlZw-DET0Al.1433172636242.1433172636251.1] (domain=query.nytimes.com, path=/, expire=2017-05-31 17:30:36 +02:00)
+[2015-06-01 17:30:38.445 +02:00] [INFO] - Cookie: _dy_geo=[DE.EU.DE_.DE__] (domain=.nytimes.com, path=/, expire=2015-07-01 17:30:35 +02:00)
+[2015-06-01 17:30:38.445 +02:00] [INFO] - Cookie: _dy_toffset=[-9] (domain=.nytimes.com, path=/, expire=2015-07-01 17:30:35 +02:00)
+[2015-06-01 17:30:38.445 +02:00] [INFO] - Cookie: _dycst=[l.f.ws.frv2.frs.] (domain=.nytimes.com, path=/, expire=2015-07-01 17:30:35 +02:00)
+[2015-06-01 17:30:38.445 +02:00] [INFO] - Cookie: _dyid=[8201055060313799305] (domain=.nytimes.com, path=/, expire=2015-07-01 17:30:26 +02:00)
+[2015-06-01 17:30:38.445 +02:00] [INFO] - Cookie: _dyrc=[] (domain=.nytimes.com, path=/, expire=2015-06-02 17:30:33 +02:00)
+[2015-06-01 17:30:38.445 +02:00] [INFO] - Cookie: _dyus_8765260=[4%7C0%7C0%7C0%7C0%7C0.0.1433172626632.1433172635453.8.0%7C151%7C23%7C5%7C115%7C2%7C0%7C0%7C0%7C0%7C0%7C0%7C2%7C0%7C0%7C0%7C0%7C0%7C2%7C0%7C0%7C0%7C0%7C0] (domain=.nytimes.com, path=/, expire=2015-07-01 17:30:35 +02:00)
+[2015-06-01 17:30:38.446 +02:00] [INFO] - Cookie: _ga=[GA1.2.1188454901.1433172634] (domain=.nytimes.com, path=/, expire=2017-05-31 17:30:34 +02:00)
+[2015-06-01 17:30:38.446 +02:00] [INFO] - Cookie: _gat=[1] (domain=.nytimes.com, path=/, expire=2015-06-01 17:40:34 +02:00)
+[2015-06-01 17:30:38.446 +02:00] [INFO] - Cookie: _gat_r2d2=[1] (domain=.nytimes.com, path=/, expire=2015-06-01 17:40:25 +02:00)
+[2015-06-01 17:30:38.448 +02:00] [INFO] - Cookie: adxcs=[-] (domain=.nytimes.com, path=/, expire=*)
+[2015-06-01 17:30:38.448 +02:00] [INFO] - Cookie: circgroup=[inytdigi] (domain=.nytimes.com, path=/, expire=2015-06-01 18:30:23 +02:00)
+[2015-06-01 17:30:38.448 +02:00] [INFO] - Cookie: krux_segs=[] (domain=.nytimes.com, path=/, expire=2015-06-03 17:30:36 +02:00)
+[2015-06-01 17:30:38.448 +02:00] [INFO] - Cookie: nyt-a=[e92df6575d767a8730b0c1c78a36939f] (domain=.nytimes.com, path=/, expire=2016-05-31 17:30:26 +02:00)
+[2015-06-01 17:30:38.448 +02:00] [INFO] - Cookie: nyt5_disable=[true] (domain=.nytimes.com, path=/, expire=2015-07-01 17:30:34 +02:00)
+[2015-06-01 17:30:38.449 +02:00] [INFO] - Cookie: rsi_segs=[H07707_0] (domain=.nytimes.com, path=/, expire=2015-06-29 17:30:35 +02:00)
+[2015-06-01 17:30:38.449 +02:00] [INFO] - Cookie: walley=[GA1.2.1484316897.1433172625] (domain=.nytimes.com, path=/, expire=2017-05-31 17:30:34 +02:00)
+[2015-06-01 17:30:38.449 +02:00] [INFO] |5|Command#5: click("link=Oldest")
+[2015-06-01 17:30:52.441 +02:00] [INFO] - [Success] URL: [http://query.nytimes.com/search/sitesearch/?action=click&contentCollection&region=TopBar&WT.nav=searchWidget&module=SearchSubmit&pgtype=Homepage#/selenium/since1851/allresults/1/allauthors/oldest/] / Title: [NYTimes.com Search]
+[2015-06-01 17:30:52.441 +02:00] [INFO] |6|Command#6: verifyText("xpath=(/html/body/div[1]/div/div[3]/div/div/div[1]/div[2]/div/div[3]/ol/li[1]/div/h3/a)", "Norwegians in America.")
+[2015-06-01 17:30:53.135 +02:00] [INFO] - [Success]
+[2015-06-01 17:30:53.140 +02:00] [INFO] End(35,493sec): TestCase[nyt] (/var/tmp/selenior-testcase-86337D59-F97F-4456-ACAC-C8D8432312EB.html)
+[2015-06-01 17:30:53.140 +02:00] [INFO] End(0,000sec): TestSuite[nyt] (/var/tmp/selenior-testcase-86337D59-F97F-4456-ACAC-C8D8432312EB.html)
+[2015-06-01 17:30:53.141] [INFO] Exit code: 0
+[2015-06-01 17:30:53.439] [INFO] Quit: FirefoxDriver
