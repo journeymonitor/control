@@ -34,6 +34,11 @@ First, set up the target machine as described in the *infra-maschine-provisioner
     rm -rf app/cache/prod && chown -R selenior app/cache && chown -R selenior app/logs && sudo -u selenior php app/console server:run 127.0.0.1:5999 --env prod
     # Hit ctrl-a-d to leave screen
 
+### Other info
+
+At app/Resources/selenior-control.sqlite-dev.dist.gz is an sqlite3 database file that contains the User demo-user@journeymonitor.com with password 'demo123'.
+The user has some testcases and testresult data. Simply unzip to /var/tmp/selenior-control.sqlite-dev.
+
 ## Development with docker
 
 This project ships with some Dockerfiles for webserver and database that can be used for local development.
