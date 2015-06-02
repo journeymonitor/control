@@ -33,18 +33,18 @@
                                     <h4>
                                         <a {% if (not isDemoMode) %} href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}" {% else %} data-toggle="tooltip" data-placement="top" title="Not available in demo mode" {% endif %}>{{ testcase.title }}</a>
                                     </h4>
-                                    <div class="well">
+                                    <div class="well well-sm">
                                         {% if (testcase.limitedtestresults(100)|length > 0) %}
                                             {% spaceless %}
                                                 <div class="inline-block">
-                                                {% for testresult in testcase.limitedtestresults(100)|slice(0, 28)|reverse %}
+                                                {% for testresult in testcase.limitedtestresults(100)|slice(0, 30)|reverse %}
                                                     {% if loop.first %}
                                                         <small>
                                                             ┌ {{ testresult.datetimeRun|date("Y-m-d H:i:s") }}
                                                         </small>
                                                         <br>
                                                     {% endif %}
-                                                    <a class="journeymonitor-testresult-dot-anchor"
+                                                    <a class="journeymonitor-testresult-dot-anchor label-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}"
                                                        title="{{ testresult.datetimeRun|date("Y-m-d H:i:s") }}"
                                                        data-content="{% if (testresult.exitCode == 0) %}Journey completed without error.{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}Journey could not be completed.{% else %}There was a problem with the test case script.{% endif %}
                                                             <br>
@@ -61,9 +61,7 @@
                                                                 <span class='glyphicon glyphicon-align-left' aria-hidden='true'></span>&nbsp;
                                                                 <a target='_blank' href='http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': testresult.id}) }}'>Click for performance metrics</a>
                                                             {% endif %}"
-                                                       href="{% if (isDemoMode) %}/demo{% endif %}{{ path('testresults.show', {'testresultId': testresult.id}) }}">
-                                                            <span class="journeymonitor-testresult-dot label-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}">&nbsp;</span>
-                                                    </a>
+                                                       href="{% if (isDemoMode) %}/demo{% endif %}{{ path('testresults.show', {'testresultId': testresult.id}) }}"></a>
                                                     {% if loop.last %}
                                                         <br><small class="until pull-right">{{ testresult.datetimeRun|date("Y-m-d H:i:s") }} ┘</small>
                                                     {% endif %}
@@ -73,7 +71,7 @@
                                         {% else %}
                                             <small>No test run results yet.</small>
                                         {% endif %}
-                                        {% if (testcase.limitedtestresults(100)|length > 28) %}
+                                        {% if (testcase.limitedtestresults(100)|length > 30) %}
                                             <br>
                                             <br>
                                             <small>
@@ -81,7 +79,7 @@
                                             </small>
 
                                             <div class="collapse" id="testresults-{{ testcase.id }}">
-                                                {% for testresult in testcase.limitedtestresults(100)|slice(28, 100) %}
+                                                {% for testresult in testcase.limitedtestresults(100)|slice(30, 100) %}
                                                     <small>
                                                         <span class="label label-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}">{{ testresult.datetimeRun|date("Y-m-d H:i:s") }}</span>
                                                         &nbsp;&nbsp;
