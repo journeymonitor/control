@@ -73,7 +73,7 @@ class TestcasesControllerWebTest extends WebTestCase
 
         $this->assertEquals('You are currently in demo mode.', trim($crawler->filter('div.container div.alert.alert-info')->first()->text()));
         $this->assertEquals('Demo User Testcase One', trim($crawler->filter('h4')->eq(1)->text()));
-        $this->assertEquals('Not available in demo mode', trim($crawler->filter('div.row div.col-lg-12 a.pull-right')->first()->attr('title')));
+        $this->assertEquals('Not available in demo mode', trim($crawler->filter('div.row div.col-xs-12 a.pull-right')->first()->attr('title')));
     }
 
     public function testNotDemoMode() {

@@ -29,7 +29,7 @@
     {% endblock %}
 </head>
 <body>
-    {% if (isDemoMode is defined and isDemoMode) or app.session.flashbag.get('success') or app.session.flashbag.get('info') or app.session.flashbag.get('error') %}
+    {% if (isDemoMode is defined and isDemoMode) or app.session.flashbag.has('success') or app.session.flashbag.has('info') or app.session.flashbag.has('error') %}
         <div class="messages">
             <div class="container">
                 {% if (isDemoMode is defined and isDemoMode) %}
@@ -56,9 +56,15 @@
         </div>
     {% endif %}
 
+    {% if app.user %}
+        <div id="loggedin-info">
+            <small>Logged in as <strong>{{ app.user.username }}</strong></small>
+        </div>
+    {% endif %}
+
     <header class="clearfix">
         {# see http://getbootstrap.com/components/#navbar-default #}
-        <nav class="navbar navbar-default navbar-fixed-top">
+        <nav id="journeymonitor-header" class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -82,11 +88,6 @@
                 </div>
             </div>
         </nav>
-        {% if app.user %}
-            <div id="loggedin-info" class="pull-right">
-                <small>Logged in as <strong>{{ app.user.username }}</strong></small>
-            </div>
-        {% endif %}
     </header>
 
     {% block body %}{% endblock %}
