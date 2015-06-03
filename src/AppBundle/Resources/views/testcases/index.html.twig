@@ -69,9 +69,18 @@
                                                                 <a target='_blank' href='http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': testresult.id}) }}'>Click for performance metrics</a>
                                                             {% endif %}"
                                                        href="{% if (isDemoMode) %}/demo{% endif %}{{ path('testresults.show', {'testresultId': testresult.id}) }}"></a>
-                                                    {% if loop.last %}
-                                                        <br>
+
+                                                    {% if loop.last and not loop.first %}
+
+                                                        {% if loop.last and loop.index > 6 %}
+                                                            <br>
+                                                        {% endif %}
+
                                                         <small class="until pull-right">
+                                                            {% if loop.index <= 6 %}
+                                                                &nbsp;&nbsp;─&nbsp;
+                                                            {% endif %}
+
                                                             {% if "now"|date("Y-m-d") == testresult.datetimeRun|date("Y-m-d") %}
                                                                 today at {{ testresult.datetimeRun|date("H:i") }}
                                                             {% elseif "-1 day"|date("Y-m-d") == testresult.datetimeRun|date("Y-m-d") %}
@@ -79,9 +88,14 @@
                                                             {% else %}
                                                                 {{ testresult.datetimeRun|date("Y-m-d \\a\\t H:i") }}
                                                             {% endif %}
-                                                            ┘
+
+                                                            {% if loop.index > 6 %}
+                                                                ┘
+                                                            {% endif %}
                                                         </small>
+
                                                     {% endif %}
+
                                                 {% endfor %}
                                                 </div>
                                             {% endspaceless %}
