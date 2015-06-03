@@ -1,65 +1,81 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-
-<div class="jumbotron">
-<h1>Get a mail when your website breaks</h1>
-<p class="lead">
-    Upload your <span class="highlight">Selenium test script</span> and choose a check interval.<br>
-    <strong>If the test fails, we email you.</strong></p>
-    <p><small>This service is currently in beta and completely free of charge.</small></p>
-</div>
-
-<div class="row">
-    <div class="col-lg-12">
-
-        <h4 class="page-header">JourneyMonitor explained in 2 minutes</h4>
-
-        <div class="embed-responsive embed-responsive-16by9">
-            <iframe id="journeymonitor-productvideo" class="embed-responsive-item" src="https://www.youtube.com/embed/QUqRbSJnNzA?rel=0&amp;vq=hd720" frameborder="0" allowfullscreen></iframe>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Get an email when your website breaks</h1>
+            <p class="lead">
+                Upload your <mark>Selenium test script</mark> and choose a check
+                interval.<br>
+                <strong>If the test fails, we email you.</strong></p>
+            <p>
+                <small>This service is currently in beta and completely free of charge.</small>
+            </p>
         </div>
-
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-12">
-
-        <h4 class="page-header">Sign up by adding your first Selenium test case</h4>
-
-        {{ form_start(form) }}
-        {{ form_errors(form) }}
-        {{ form_widget(form) }}
-        {{ form_end(form) }}
-
-    </div>
-</div>
-
-<div class="row marketing">
-    <div class="col-lg-6">
-        <h4>What is JourneyMonitor?</h4>
-        <p>
-            JourneyMonitor keeps an eye on your website by regularly running your Selenium scripts.
-        </p>
-        <p>
-            Simply install <a target="_blank" href="http://release.seleniumhq.org/selenium-ide/2.9.0/selenium-ide-2.9.0.xpi">the Selenium IDE plugin for Firefox</a>
-            and record important user journeys on your site.
-        </p>
-        <p>
-            Then, upload the resulting <em>Selenese</em> HTML code to JourneyMonitor. We will execute your script accoring to the schedule you've set, and if a test run fails, we send you an alter e-mail. Additionally, you have access to a dashboard were you can access details of each test run.
-        </p>
     </div>
 
-    <div class="col-lg-6">
-        <h4>What is JourneyMonitor NOT?</h4>
-        <p>
-            JourneyMonitor is not meant to be integrated into your Continuous Integration workflow. There are better alternatives for this.
-        </p>
-        <p>
-            Instead, we fill the gap between watching your site with simple HTTP checks (think Pingdom) and your regression-tests in your CI workflow.
-            We watch for regressions <em>continuously</em>, so you know when things break even if you are not currently integrating.
-        </p>
-    </div>
-</div>
-
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h4>JourneyMonitor explained in 2 minutes</h4>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe id="journeymonitor-productvideo" class="embed-responsive-item" src="https://www.youtube.com/embed/QUqRbSJnNzA?rel=0&amp;vq=hd720" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h4>Sign up by adding your first Selenium test case</h4>
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <h4>What is JourneyMonitor?</h4>
+                    <p>
+                        JourneyMonitor keeps an eye on your website by regularly running your
+                        Selenium
+                        scripts.
+                    </p>
+                    <p>
+                        Simply install
+                        <a target="_blank" href="http://release.seleniumhq.org/selenium-ide/2.9.0/selenium-ide-2.9.0.xpi">the
+                            Selenium IDE plugin for Firefox</a>
+                        and record important user journeys on your site.
+                    </p>
+                    <p>
+                        Then, upload the resulting <em>Selenese</em> HTML code to JourneyMonitor. We
+                        will
+                        execute your script accoring to the schedule you've set, and if a test run
+                        fails, we
+                        send you an alter e-mail. Additionally, you have access to a dashboard were
+                        you
+                        can
+                        access details of each test run.
+                    </p>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <h4>What is JourneyMonitor NOT?</h4>
+                    <p>
+                        JourneyMonitor is not meant to be integrated into your Continuous
+                        Integration
+                        workflow. There are better alternatives for this.
+                    </p>
+                    <p>
+                        Instead, we fill the gap between watching your site with simple HTTP checks
+                        (think
+                        Pingdom) and your regression-tests in your CI workflow.
+                        We watch for regressions <em>continuously</em>, so you know when things
+                        break
+                        even
+                        if you are not currently integrating.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
 {% endblock %}
