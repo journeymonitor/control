@@ -39,12 +39,11 @@ main {
     background-color: #abd450;
     border-radius: 0 0 0 7px;
     color: #49146b;
-    font-size: 10px;
     font-weight: lighter;
     padding: 0 4px 1px 7px;
     position: fixed;
     right: 0;
-    top: 0;
+    top: 50px;
     z-index: 1031;
 }
 
