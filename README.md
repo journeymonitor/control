@@ -108,3 +108,8 @@ browser.
 For convience there is also a shortcut to get into the mysql-shell in the db container:
 
     selenior-docker mysql-console
+
+
+## Styleguide
+
+See http://paletton.com/#uid=34F0u0kjOsj9YJ-fixUobpartjZ for the color scheme.

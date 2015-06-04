@@ -92,15 +92,15 @@
 
     {% block body %}{% endblock %}
 
-    <footer>
-        <div class="container">
-            <p>
-                &copy; 2015 The JourneyMonitor Team
-                -
+    <div class="journeymonitor-content-container journeymonitor-content-container-footer container-fluid">
+        <footer>
+            <div class="container">
+                &copy; {{ "now"|date("Y") }} The JourneyMonitor Team
+                &nbsp;
                 <a href="mailto:replies-welcome@journeymonitor.com">Get in touch</a>
-            </p>
-        </div>
-    </footer>
+            </div>
+        </footer>
+    </div>
 
     {% block javascripts_foot %}
         <script src="{{ asset('bundles/app/vendor/jquery/dist/jquery.js') }}"></script>
