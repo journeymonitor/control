@@ -122,8 +122,19 @@ mark {
     color: #aaa;
 }
 
-.journeymonitor-testcase-entry {
+.table td.journeymonitor-testcase-entry-cell {
+    padding: 48px 8px 36px 8px;
+    border-top: none;
+    /*border-bottom: 8px solid #ddd;*/
+}
 
+.journeymonitor-testcase-entry-metainfo {
+    margin-top: 0px;
+    margin-right: 2px;
+}
+
+.journeymonitor-testcase-entry-timeline-container {
+    margin-bottom: 6px;
 }
 
 .journeymonitor-testresult-output {
