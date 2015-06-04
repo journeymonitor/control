@@ -29,6 +29,12 @@
     {% endblock %}
 </head>
 <body>
+    {% if app.user %}
+        <div id="loggedin-info">
+            <small>Logged in as <b>{{ app.user.username }}</b></small>
+        </div>
+    {% endif %}
+
     {% if (isDemoMode is defined and isDemoMode) or app.session.flashbag.has('success') or app.session.flashbag.has('info') or app.session.flashbag.has('error') %}
         <div class="messages">
             <div class="container">
@@ -53,12 +59,6 @@
                     </div>
                 {% endfor %}
             </div>
-        </div>
-    {% endif %}
-
-    {% if app.user %}
-        <div id="loggedin-info">
-            <small>Logged in as <strong>{{ app.user.username }}</strong></small>
         </div>
     {% endif %}
 
