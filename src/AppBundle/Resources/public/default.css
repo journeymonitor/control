@@ -1,7 +1,7 @@
 /* Space out content a bit */
 body {
     padding-top: 50px;
-    padding-bottom: 12px;
+    background-color: #1E022F;
 }
 
 /* Custom page header */
@@ -10,11 +10,17 @@ header {
 }
 
 main {
-    margin-top: 12px;
 }
 
 #journeymonitor-header {
-    background-color: #49146b;
+    background: rgb(73,20,107);
+    background: -moz-linear-gradient(-45deg, rgb(73,20,107) 0%, rgb(34,2,54) 100%);
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgb(73,20,107)), color-stop(100%,rgb(34,2,54)));
+    background: -webkit-linear-gradient(-45deg, rgb(73,20,107) 0%,rgb(34,2,54) 100%);
+    background: -o-linear-gradient(-45deg, rgb(73,20,107) 0%,rgb(34,2,54) 100%);
+    background: -ms-linear-gradient(-45deg, rgb(73,20,107) 0%,rgb(34,2,54) 100%);
+    background: linear-gradient(135deg, rgb(73,20,107) 0%,rgb(34,2,54) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#49146b', endColorstr='#220236',GradientType=1 );
 }
 
 #journeymonitor-header a {
@@ -25,14 +31,15 @@ main {
 #brandname span {
     margin-top: 0;
     margin-bottom: 0;
-    color: #fff;
+    color: #FFE985;
     font-weight: bold;
     font-size: 24px;
     line-height: 20px;
 }
 
 .messages {
-    margin-top: 12px;
+    padding-top: 12px;
+    background-color: #fff;
 }
 
 #loggedin-info {
@@ -47,12 +54,17 @@ main {
     z-index: 1031;
 }
 
-/* Custom page footer */
+main {
+    padding-top: 48px;
+    padding-bottom: 48px;
+    background-color: #fff;
+}
+
+#journeymonitor-homepage-main {
+    padding: 0;
+}
+
 footer {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid #e5e5e5;
-    color: #777;
 }
 
 /* Customize container */
@@ -69,7 +81,6 @@ footer {
 /* Main marketing message and sign up button */
 .jumbotron {
     margin-bottom: 0;
-    border-bottom: 1px solid #e5e5e5;
     background-color: #abd450;
     color: #000;
     text-align: center;
@@ -92,11 +103,55 @@ footer {
     font-size: 60px;
 }
 
+#video-headline {
+    text-align: center;
+}
+
+.journeymonitor-content-container {
+    margin: 0;
+    padding-bottom: 48px;
+    padding-top: 48px;
+}
+
+.journeymonitor-content-container-bright {
+    background-color: #DEF6A9;
+}
+
+.journeymonitor-content-container-dark-radial {
+    background: rgb(34,2,54);
+    background: -moz-radial-gradient(center, ellipse cover, rgb(34,2,54) 0%, rgb(117,63,151) 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgb(34,2,54)), color-stop(100%,rgb(117,63,151)));
+    background: -webkit-radial-gradient(center, ellipse cover, rgb(34,2,54) 0%,rgb(117,63,151) 100%);
+    background: -o-radial-gradient(center, ellipse cover, rgb(34,2,54) 0%,rgb(117,63,151) 100%);
+    background: -ms-radial-gradient(center, ellipse cover, rgb(34,2,54) 0%,rgb(117,63,151) 100%);
+    background: radial-gradient(ellipse at center, rgb(34,2,54) 0%,rgb(117,63,151) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#220236', endColorstr='#753f97',GradientType=1 );
+    color: #fff;
+}
+
+.journeymonitor-content-container-middle {
+    background-color: #abd450;
+    color: #000;
+}
+
+.journeymonitor-content-container-footer {
+    text-align: center;
+    background-color: #6C9216;
+    color: #fff;
+}
+
+.journeymonitor-content-container-footer a {
+    color: #fff;
+    border-bottom: 1px dotted #eee;
+}
+
+.journeymonitor-content-container-footer a:hover {
+    color: #fff;
+    border-bottom: 1px solid #eee;
+    text-decoration: none;
+}
+
 #journeymonitor-homepage-form {
-    background: #DEF6A9;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    padding: 20px;
 }
 
 textarea.codeform {
@@ -107,7 +162,7 @@ textarea.codeform {
 
 mark {
     padding: 0 4px;
-    background-color: #ee4;
+    background-color: #FFE985;
 }
 
 .inline-block {
