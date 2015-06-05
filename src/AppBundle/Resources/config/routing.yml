@@ -3,6 +3,10 @@ homepage:
     defaults: { _controller: AppBundle:Testcases:newWithReg }
     methods:  [GET, POST]
 
+imprint:
+    path:     /imprint
+    defaults: { _controller: AppBundle:Content:imprint }
+
 testcases.index:
     path:     /testcases/
     defaults: { _controller: AppBundle:Testcases:index }
