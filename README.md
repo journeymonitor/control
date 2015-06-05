@@ -112,4 +112,8 @@ For convience there is also a shortcut to get into the mysql-shell in the db con
 
 ## Styleguide
 
-See http://paletton.com/#uid=34F0u0kjOsj9YJ-fixUobpartjZ for the color scheme.
+See
+normal: http://paletton.com/#uid=4000K0k1Xqw4Fvi3tot56l+76k8
+darker: http://paletton.com/#uid=4000K0k8D737vgT7pc2dz6-hq5V
+bright: http://paletton.com/#uid=42P0K0k4Fvdb8K-75ue9QrTcIp+
+for color schemes.

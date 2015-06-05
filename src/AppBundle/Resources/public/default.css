@@ -1,7 +1,7 @@
 /* Space out content a bit */
 body {
     padding-top: 50px;
-    background-color: #1E022F;
+    background-color: #525E68;
 }
 
 /* Custom page header */
@@ -13,14 +13,7 @@ main {
 }
 
 #journeymonitor-header {
-    background: rgb(73,20,107);
-    background: -moz-linear-gradient(-45deg, rgb(73,20,107) 0%, rgb(34,2,54) 100%);
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgb(73,20,107)), color-stop(100%,rgb(34,2,54)));
-    background: -webkit-linear-gradient(-45deg, rgb(73,20,107) 0%,rgb(34,2,54) 100%);
-    background: -o-linear-gradient(-45deg, rgb(73,20,107) 0%,rgb(34,2,54) 100%);
-    background: -ms-linear-gradient(-45deg, rgb(73,20,107) 0%,rgb(34,2,54) 100%);
-    background: linear-gradient(135deg, rgb(73,20,107) 0%,rgb(34,2,54) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#49146b', endColorstr='#220236',GradientType=1 );
+    background-color: #1B2024;
 }
 
 #journeymonitor-header a {
@@ -28,13 +21,18 @@ main {
 }
 
 /* Make the masthead heading the same height as the navigation */
-#brandname span {
+.brandname {
     margin-top: 0;
-    margin-bottom: 0;
-    color: #FFE985;
+    margin-bottom: 10px;
+    color: #fff;
+    font-family: 'Fugaz One', cursive;
     font-weight: bold;
     font-size: 24px;
     line-height: 20px;
+}
+
+.journeymonitor-brandname-journey {
+    margin-right: 3px;
 }
 
 .messages {
@@ -43,9 +41,9 @@ main {
 }
 
 #loggedin-info {
-    background-color: #abd450;
+    background-color: #ddd;
     border-radius: 0 0 0 7px;
-    color: #49146b;
+    color: #1B2024;
     font-weight: lighter;
     padding: 0 4px 1px 7px;
     position: fixed;
@@ -81,7 +79,7 @@ footer {
 /* Main marketing message and sign up button */
 .jumbotron {
     margin-bottom: 0;
-    background-color: #abd450;
+    background-color: #95E595;
     color: #000;
     text-align: center;
 }
@@ -114,29 +112,29 @@ footer {
 }
 
 .journeymonitor-content-container-bright {
-    background-color: #DEF6A9;
+    background-color: #eee;
 }
 
 .journeymonitor-content-container-dark-radial {
-    background: rgb(34,2,54);
-    background: -moz-radial-gradient(center, ellipse cover, rgb(34,2,54) 0%, rgb(117,63,151) 100%);
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgb(34,2,54)), color-stop(100%,rgb(117,63,151)));
-    background: -webkit-radial-gradient(center, ellipse cover, rgb(34,2,54) 0%,rgb(117,63,151) 100%);
-    background: -o-radial-gradient(center, ellipse cover, rgb(34,2,54) 0%,rgb(117,63,151) 100%);
-    background: -ms-radial-gradient(center, ellipse cover, rgb(34,2,54) 0%,rgb(117,63,151) 100%);
-    background: radial-gradient(ellipse at center, rgb(34,2,54) 0%,rgb(117,63,151) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#220236', endColorstr='#753f97',GradientType=1 );
+    background: rgb(140,151,161);
+    background: -moz-radial-gradient(center, ellipse cover, rgb(140,151,161) 0%, rgb(82,94,104) 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgb(140,151,161)), color-stop(100%,rgb(82,94,104)));
+    background: -webkit-radial-gradient(center, ellipse cover, rgb(140,151,161) 0%,rgb(82,94,104) 100%);
+    background: -o-radial-gradient(center, ellipse cover, rgb(140,151,161) 0%,rgb(82,94,104) 100%);
+    background: -ms-radial-gradient(center, ellipse cover, rgb(140,151,161) 0%,rgb(82,94,104) 100%);
+    background: radial-gradient(ellipse at center, rgb(140,151,161) 0%,rgb(82,94,104) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8c97a1', endColorstr='#525e68',GradientType=1 );
     color: #fff;
 }
 
 .journeymonitor-content-container-middle {
-    background-color: #abd450;
+    background-color: #fff;
     color: #000;
 }
 
 .journeymonitor-content-container-footer {
     text-align: center;
-    background-color: #6C9216;
+    background-color: #525E68;
     color: #fff;
 }
 
@@ -162,7 +160,7 @@ textarea.codeform {
 
 mark {
     padding: 0 4px;
-    background-color: #FFE985;
+    background-color: #EDF2CF;
 }
 
 .inline-block {
