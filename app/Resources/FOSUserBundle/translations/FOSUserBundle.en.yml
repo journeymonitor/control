@@ -1,8 +1,9 @@
 # Registration
 security:
     login:
-        username: Your e-mail address:
+        username: Your email address:
         password: Your password:
+        forgot_password: Forgot password?
 registration:
     email:
         subject: Welcome to JourneyMonitor!
@@ -11,6 +12,30 @@ registration:
 
             In order to activate your account and enable your monitoring,
             please visit %confirmationUrl%
+
+            Regards,
+
+            --
+              The JourneyMonitor Team
+
+# Password resetting
+resetting:
+    password_already_requested: The password for this user has already been requested within the last 24 hours.
+    check_email: An email has been sent to %email%. It contains a link you must click to reset your password.
+    request:
+        invalid_username: The email address "%username%" does not exist.
+        username: Your email address:
+        submit: Reset password
+    reset:
+        submit: Change password
+    flash:
+        success: The password has been reset successfully
+    email:
+        subject: JourneyMonitor Reset Password
+        message: |
+            Hello %username%!
+
+            To reset your password - please visit %confirmationUrl%
 
             Regards,
 
