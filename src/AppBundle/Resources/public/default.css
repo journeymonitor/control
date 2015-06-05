@@ -108,11 +108,21 @@ footer {
 }
 
 .jumbotron h1 {
-    font-size: 60px;
+    font-size: 44px;
 }
 
 #video-headline {
     text-align: center;
+}
+
+#journeymonitor-demo-note {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#journeymonitor-demo-note a {
+    color: #fff;
+    text-decoration: underline;
 }
 
 .journeymonitor-content-container {
