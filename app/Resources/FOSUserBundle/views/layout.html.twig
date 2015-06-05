@@ -1,5 +1,21 @@
 {% extends '::base.html.twig' %}
 
+{% block messages %}
+    {% if error is defined and error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
+    {% endif %}
+{% endblock %}
+
 {% block body %}
-    {% block fos_user_content %}{% endblock %}
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    {% block fos_user_content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </main>
 {% endblock %}
