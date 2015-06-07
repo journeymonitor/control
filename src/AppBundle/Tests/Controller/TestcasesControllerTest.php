@@ -62,11 +62,37 @@ class TestcasesControllerWebTest extends WebTestCase
         $this->assertSame('manuel@kiessling.net', $testcase->getUser()->getEmail());
     }
 
+    public function testAddingTestcaseWithExistingUserHappyPath()
+    {
+        $this->resetDatabase();
+        $client = $this->createAndActivateDemoUser();
+
+        $crawler = $client->request('GET', '/testcases/');
+
+        $link = $crawler->filter('a:contains("＋ Add another testcase")')->eq(0)->link();
+        $crawler = $client->click($link);
+
+        $buttonNode = $crawler->selectButton('Start monitoring');
+        $form = $buttonNode->form();
+
+        $crawler = $client->submit($form, array(
+            'testcase[title]' => 'Blafasel',
+            'testcase[cadence]' => '*/5',
+            'testcase[script]' => 'bar',
+        ));
+
+        $this->assertSame('The new testcase has been added.', trim($crawler->filter('div.messages div.alert.alert-success')->first()->text()));
+
+        $link = $crawler->filter('a:contains("◀ Back to testcases list")')->eq(0)->link();
+        $crawler = $client->click($link);
+
+        $this->assertSame(1, count($crawler->filter('h4 a:contains("Blafasel")')));
+    }
+
     public function testDemoMode() {
         $this->resetDatabase();
-        $this->createDemoUser();
+        $client = $this->createAndActivateDemoUser();
 
-        $client = static::createClient();
         $crawler = $client->request('GET', '/demo/testcases/');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
@@ -78,10 +104,10 @@ class TestcasesControllerWebTest extends WebTestCase
 
     public function testNotDemoMode() {
         $this->resetDatabase();
-        $this->createDemoUser();
+        $this->createAndActivateDemoUser();
 
         $client = static::createClient();
-        $crawler = $client->request('GET', '/testcases/');
+        $client->request('GET', '/testcases/');
 
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
