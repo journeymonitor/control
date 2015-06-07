@@ -28,7 +28,10 @@ trait TestHelpers
         $application->run($input, $output);
     }
 
-    protected function createDemoUser()
+    /**
+     * @return \Symfony\Bundle\FrameworkBundle\Client A client where the demo user is already logged in
+     */
+    protected function createAndActivateDemoUser()
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/');
@@ -37,7 +40,7 @@ trait TestHelpers
 
         $form = $buttonNode->form();
 
-        $crawler = $client->submit($form, array(
+        $client->submit($form, array(
             'testcase_and_user[user][email]' => 'demo-user@journeymonitor.com',
             'testcase_and_user[user][password]' => 'foo',
             'testcase_and_user[testcase][title]' => 'Demo User Testcase One',
@@ -49,6 +52,7 @@ trait TestHelpers
         $um = $container->get('fos_user.user_manager');
 
         $user = $um->findUserBy(['email' => 'demo-user@journeymonitor.com']);
-        $crawler = $client->request('GET', '/register/confirm/' . $user->getConfirmationToken());
+        $client->request('GET', '/register/confirm/' . $user->getConfirmationToken());
+        return $client;
     }
 }
