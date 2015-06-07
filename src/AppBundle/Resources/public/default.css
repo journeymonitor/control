@@ -160,7 +160,7 @@ footer {
 
 .journeymonitor-content-container-footer a {
     color: #fff;
-    border-bottom: 1px dotted #eee;
+    text-decoration: underline;
 }
 
 .journeymonitor-content-container-footer a:hover {
