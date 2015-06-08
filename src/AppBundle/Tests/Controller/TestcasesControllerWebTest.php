@@ -9,24 +9,6 @@ class TestcasesControllerWebTest extends WebTestCase
 {
     use TestHelpers;
 
-    public function testIndex()
-    {
-        $client = static::createClient();
-
-        $client->request('GET', '/');
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-    }
-
-    public function testIndexContainsPasswordField()
-    {
-        $client = static::createClient();
-
-        $crawler = $client->request('GET', '/');
-
-        $this->assertTrue($crawler->filter('#testcase_and_user_user_password')->attr('type') == 'password');
-    }
-
     public function testAddingTestcaseWithNewUserHappyPath()
     {
         $this->resetDatabase();
@@ -37,6 +19,8 @@ class TestcasesControllerWebTest extends WebTestCase
         $buttonNode = $crawler->selectButton('Start monitoring');
 
         $form = $buttonNode->form();
+
+        $client->enableProfiler();
 
         $crawler = $client->submit($form, array(
             'testcase_and_user[user][email]' => 'manuel@kiessling.net',
@@ -60,6 +44,27 @@ class TestcasesControllerWebTest extends WebTestCase
         $this->assertSame('bar', $testcase->getScript());
 
         $this->assertSame('manuel@kiessling.net', $testcase->getUser()->getEmail());
+
+        $mailCollector = $client->getProfile()->getCollector('swiftmailer');
+        $this->assertEquals(1, $mailCollector->getMessageCount());
+
+        $collectedMessages = $mailCollector->getMessages();
+        $message = $collectedMessages[0];
+
+        $this->assertSame('Welcome to JourneyMonitor!', $message->getSubject());
+        $this->assertEquals('manuel@kiessling.net', key($message->getTo()));
+
+        $expectedBody = 'Hello,
+
+In order to activate your account and enable your monitoring,
+please visit http://localhost/register/confirm/' . $testcase->getUser()->getConfirmationToken() . '
+
+Regards,
+
+--
+  The JourneyMonitor Team';
+
+        $this->assertEquals($expectedBody, $message->getBody());
     }
 
     public function testAddingTestcaseWithExistingUserHappyPath()
@@ -89,26 +94,58 @@ class TestcasesControllerWebTest extends WebTestCase
         $this->assertSame(1, count($crawler->filter('h4 a:contains("Blafasel")')));
     }
 
-    public function testDemoMode() {
+    public function testIndexWithTestcase()
+    {
         $this->resetDatabase();
         $client = $this->createAndActivateDemoUser();
 
-        $crawler = $client->request('GET', '/demo/testcases/');
+        $crawler = $client->request('GET', '/testcases/');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertSame(1, count($crawler->filter('h4 a')));
 
-        $this->assertEquals('You are currently in demo mode.', trim($crawler->filter('div.container div.alert.alert-info')->first()->text()));
-        $this->assertEquals('Demo User Testcase One', trim($crawler->filter('h4')->eq(1)->text()));
-        $this->assertEquals('Not available in demo mode', trim($crawler->filter('div.row div.col-xs-12 a.pull-right')->first()->attr('title')));
+        $this->assertSame(1, count($crawler->filter('h4 a:contains("Demo User Testcase One")')));
+
+        $this->assertSame(
+            1,
+            count($crawler->filter('table.testcases small:contains("No test run results yet.")'))
+        );
+
+        $this->assertSame(
+            1,
+            count($crawler->filter('table.testcases span.label-success:contains("Enabled")'))
+        );
+
+        $this->assertSame(
+            1,
+            count($crawler->filter('table.testcases span.label-default:contains("*/5")'))
+        );
     }
 
-    public function testNotDemoMode() {
+    public function testIndexDisableAndEnableTestcase()
+    {
         $this->resetDatabase();
-        $this->createAndActivateDemoUser();
+        $client = $this->createAndActivateDemoUser();
 
-        $client = static::createClient();
-        $client->request('GET', '/testcases/');
+        $crawler = $client->request('GET', '/testcases/');
 
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $link = $crawler->filter('a:contains("Disable")')->first()->link();
+
+        $client->click($link);
+        $crawler = $client->followRedirect();
+
+        $this->assertSame(
+            1,
+            count($crawler->filter('table.testcases span.label-default:contains("Disabled")'))
+        );
+
+        $link = $crawler->filter('a:contains("Enable")')->first()->link();
+
+        $client->click($link);
+        $crawler = $client->followRedirect();
+
+        $this->assertSame(
+            1,
+            count($crawler->filter('table.testcases span.label-success:contains("Enabled")'))
+        );
     }
 }

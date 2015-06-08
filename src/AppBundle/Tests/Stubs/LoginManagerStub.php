@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Tests\Stubs;
 
 use FOS\UserBundle\Model\UserInterface;
