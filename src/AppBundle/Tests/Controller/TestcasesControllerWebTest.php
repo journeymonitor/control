@@ -93,4 +93,59 @@ Regards,
 
         $this->assertSame(1, count($crawler->filter('h4 a:contains("Blafasel")')));
     }
+
+    public function testIndexWithTestcase()
+    {
+        $this->resetDatabase();
+        $client = $this->createAndActivateDemoUser();
+
+        $crawler = $client->request('GET', '/testcases/');
+
+        $this->assertSame(1, count($crawler->filter('h4 a')));
+
+        $this->assertSame(1, count($crawler->filter('h4 a:contains("Demo User Testcase One")')));
+
+        $this->assertSame(
+            1,
+            count($crawler->filter('table.testcases small:contains("No test run results yet.")'))
+        );
+
+        $this->assertSame(
+            1,
+            count($crawler->filter('table.testcases span.label-success:contains("Enabled")'))
+        );
+
+        $this->assertSame(
+            1,
+            count($crawler->filter('table.testcases span.label-default:contains("*/5")'))
+        );
+    }
+
+    public function testIndexDisableAndEnableTestcase()
+    {
+        $this->resetDatabase();
+        $client = $this->createAndActivateDemoUser();
+
+        $crawler = $client->request('GET', '/testcases/');
+
+        $link = $crawler->filter('a:contains("Disable")')->first()->link();
+
+        $client->click($link);
+        $crawler = $client->followRedirect();
+
+        $this->assertSame(
+            1,
+            count($crawler->filter('table.testcases span.label-default:contains("Disabled")'))
+        );
+
+        $link = $crawler->filter('a:contains("Enable")')->first()->link();
+
+        $client->click($link);
+        $crawler = $client->followRedirect();
+
+        $this->assertSame(
+            1,
+            count($crawler->filter('table.testcases span.label-success:contains("Enabled")'))
+        );
+    }
 }
