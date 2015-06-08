@@ -89,7 +89,8 @@ class TestcasesControllerWebTest extends WebTestCase
         $this->assertSame(1, count($crawler->filter('h4 a:contains("Blafasel")')));
     }
 
-    public function testDemoMode() {
+    public function testDemoMode()
+    {
         $this->resetDatabase();
         $client = $this->createAndActivateDemoUser();
 
@@ -102,7 +103,8 @@ class TestcasesControllerWebTest extends WebTestCase
         $this->assertEquals('Not available in demo mode', trim($crawler->filter('div.row div.col-xs-12 a.pull-right')->first()->attr('title')));
     }
 
-    public function testNotDemoMode() {
+    public function testNotDemoMode()
+    {
         $this->resetDatabase();
         $this->createAndActivateDemoUser();
 
