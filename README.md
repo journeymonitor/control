@@ -11,8 +11,8 @@ Application for the service homepage
 
 Assumes that you have PHP 5.5, Git, Bower, and Composer installed.
 
-    git clone git@bitbucket.org:selenior/control-web-frontend.git
-    cd control-web-frontend
+    git clone git@bitbucket.org:selenior/control.git
+    cd control
     composer install
     bower install
     php app/console doctrine:migrations:migrate
@@ -25,8 +25,8 @@ First, set up the target machine as described in the *infra-maschine-provisioner
 
     sudo su -
     cd /opt/selenior
-    git clone git@bitbucket.org:selenior/control-web-frontend.git
-    cd control-web-frontend
+    git clone git@bitbucket.org:selenior/control.git
+    cd control
     composer install
     bower install
     chown -R selenior app/cache
@@ -42,8 +42,8 @@ First, set up the target machine as described in the *infra-maschine-provisioner
 
     First install git: https://git-scm.com/download/win
     now set up User, SSH both locally and in bitbucket
-    git clone git@bitbucket.org:selenior/control-web-frontend.git
-    cd control-web-frontend
+    git clone git@bitbucket.org:selenior/control.git
+    cd control
     now download php http://windows.php.net/download/#php-5.5 (x64 Threadsafe) and unzip to C:\Program Files\php
     now add php to your PATH Variable (Windows+Pause --> Advanced --> Environment Variables --> PATH (Edit / New) --> Add 'C:\Program Files\php;' without quotes)
     now copy 'C:\Program Files\php\php.ini-development' to 'C:\Program Files\php\php.ini'
