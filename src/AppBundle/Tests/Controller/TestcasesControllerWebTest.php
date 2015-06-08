@@ -2,7 +2,9 @@
 
 namespace AppBundle\Tests\Controller;
 
+use AppBundle\Entity\Testresult;
 use AppBundle\Tests\TestHelpers;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TestcasesControllerWebTest extends WebTestCase
@@ -94,7 +96,7 @@ Regards,
         $this->assertSame(1, count($crawler->filter('h4 a:contains("Blafasel")')));
     }
 
-    public function testIndexWithTestcase()
+    public function testIndexWithTestcaseWithoutResults()
     {
         $this->resetDatabase();
         $client = $this->createAndActivateDemoUser();
@@ -118,6 +120,47 @@ Regards,
         $this->assertSame(
             1,
             count($crawler->filter('table.testcases span.label-default:contains("*/5")'))
+        );
+    }
+
+    public function testIndexWithTestcaseWithResults()
+    {
+        $this->resetDatabase();
+        $client = $this->createAndActivateDemoUser();
+
+        $container = $client->getContainer();
+        $em = $container->get('doctrine.orm.entity_manager');
+        $tcRepo = $em->getRepository('AppBundle\Entity\Testcase');
+        $trRepo = $em->getRepository('AppBundle\Entity\Testresult');
+
+        $testresult = new Testresult();
+        $testresult->setId('abc');
+        $datetimeRun = new \DateTime('now');
+        $testresult->setDatetimeRun($datetimeRun);
+        $testresult->setExitCode(0);
+        $testresult->setTestcase($tcRepo->findOneBy(['title' => 'Demo User Testcase One']));
+        $testresult->setOutput('foo');
+        $testresult->setHar('bar');
+        $testresult->setFailScreenshotFilename('baz');
+        $em->persist($testresult);
+        $em->flush();
+
+        $crawler = $client->request('GET', '/testcases/');
+
+        $this->assertSame(
+            0,
+            count($crawler->filter('table.testcases small:contains("No test run results yet.")'))
+        );
+
+        //┌ 2015-06-01 at 14:35
+        $this->assertContains(
+            '┌',
+            $crawler->filter('div.journeymonitor-testcase-entry-timeline-container')->first()->text()
+        );
+
+        $this->assertContains(
+            'today at ' . $datetimeRun->format('H:i'),
+            $crawler->filter('div.journeymonitor-testcase-entry-timeline-container')->first()->text()
         );
     }
 
