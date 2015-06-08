@@ -148,4 +148,43 @@ Regards,
             count($crawler->filter('table.testcases span.label-success:contains("Enabled")'))
         );
     }
+
+    public function testEdit()
+    {
+        $this->resetDatabase();
+        $client = $this->createAndActivateDemoUser();
+
+        $crawler = $client->request('GET', '/testcases/');
+
+        $link = $crawler->filter('a:contains("Edit")')->first()->link();
+
+        $crawler = $client->click($link);
+
+        $buttonNode = $crawler->selectButton('Update testcase');
+        $form = $buttonNode->form();
+
+        $crawler = $client->submit($form, array(
+            'testcase[title]' => 'Updated testcase',
+            'testcase[cadence]' => '*/15',
+            'testcase[script]' => 'foo',
+        ));
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $this->assertSame(
+            'The testcase has been updated.',
+            trim($crawler->filter('div.alert.alert-success')->first()->text())
+        );
+
+        $link = $crawler->filter('a:contains("◀ Back to testcases list")')->first()->link();
+
+        $crawler = $client->click($link);
+
+        $this->assertSame(1, count($crawler->filter('h4 a:contains("Updated testcase")')));
+
+        $this->assertSame(
+            1,
+            count($crawler->filter('table.testcases span.label-default:contains("*/15")'))
+        );
+    }
 }
