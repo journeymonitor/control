@@ -2,37 +2,38 @@
 
 {% block body %}
     <div class="jumbotron">
-        <div class="container">
+        <section class="container">
             <h1>Get an email when your website breaks</h1>
-            <p class="lead">
-                Upload your <mark>Selenium test script</mark> and choose a check interval.<br>
-                <strong>If the test fails, we email you.</strong>
-            </p>
+            <p class="lead">Upload your <b><i>Selenium test script</i></b> and choose a check
+                interval.<br><strong>If
+                    the test fails, we email you.</strong></p>
             <p>
-                You also get ridiculously detailed Firebug-style waterfall statistics for each request your script makes.
+                You also get ridiculously detailed Firebug-style waterfall statistics for each
+                request your script makes.
             </p>
-        </div>
+        </section>
     </div>
 
-    <main id="journeymonitor-homepage-main">
-        <div class="journeymonitor-content-container journeymonitor-content-container-dark-radial container-fluid">
-            <div class="container">
+    <main>
+        <div class="video-intro">
+            <section class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h3 id="video-headline">Watch the video for a short introduction:</h3>
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe id="journeymonitor-productvideo" class="embed-responsive-item" src="https://www.youtube.com/embed/QUqRbSJnNzA?rel=0&amp;vq=hd720" frameborder="0" allowfullscreen></iframe>
+                        <h2>Watch the video for a short introduction:</h2>
+                        <div class="embed-responsive embed-responsive-16by9" id="journeymonitor-productvideo">
+                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/QUqRbSJnNzA?rel=0&amp;vq=hd720" frameborder="0" allowfullscreen></iframe>
                         </div>
-                        <div id="journeymonitor-demo-note">
-                            Or check out the <a href="{{ path('testcases.demo.index') }}">demo user account</a> in order to browse and view real test results.
-                        </div>
+                        <p>
+                            Or check out the <a href="{{ path('testcases.demo.index') }}">demo user
+                                account</a> in order to browse and view real test results.
+                        </p>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
-        <div class="journeymonitor-content-container journeymonitor-content-container-bright container-fluid">
-            <div class="container">
-                <div id="journeymonitor-homepage-form" class="row">
+        <div class="hp-form">
+            <section class="container">
+                <div class="row">
                     <div class="col-xs-12">
                         <h4>Sign up by adding your first Selenium test case</h4>
                         {{ form_start(form) }}
@@ -41,10 +42,10 @@
                         {{ form_end(form) }}
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
-        <div class="journeymonitor-content-container journeymonitor-content-container-middle container-fluid">
-            <div class="container">
+        <div class="what-is">
+            <section class="container">
                 <div class="row">
                     <div class="col-xs-12 col-md-6">
                         <h4>What is JourneyMonitor?</h4>
@@ -60,11 +61,14 @@
                             and record important user journeys on your site.
                         </p>
                         <p>
-                            Then, upload the resulting <em>Selenese</em> HTML code to JourneyMonitor. We
+                            Then, upload the resulting <em>Selenese</em> HTML code to
+                            JourneyMonitor. We
                             will
-                            execute your script accoring to the schedule you've set, and if a test run
+                            execute your script accoring to the schedule you've set, and if a test
+                            run
                             fails, we
-                            send you an alter e-mail. Additionally, you have access to a dashboard were
+                            send you an alter e-mail. Additionally, you have access to a dashboard
+                            were
                             you
                             can
                             access details of each test run.
@@ -78,7 +82,8 @@
                             workflow. There are better alternatives for this.
                         </p>
                         <p>
-                            Instead, we fill the gap between watching your site with simple HTTP checks
+                            Instead, we fill the gap between watching your site with simple HTTP
+                            checks
                             (think
                             Pingdom) and your regression-tests in your CI workflow.
                             We watch for regressions <em>continuously</em>, so you know when things
@@ -88,7 +93,7 @@
                         </p>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
     </main>
 {% endblock %}
