@@ -36,9 +36,7 @@ h3, .h3 {
 }
 
 h1, h2,
-.h1, .h2,
-b, strong,
-label {
+.h1, .h2, {
     font-weight: 700;
 }
 
@@ -73,22 +71,8 @@ header a.brand:focus {
     border-color: #348cb2;
 }
 
-.navbar-toggle {
+button.navbar-toggle {
     margin-top: 12px;
-}
-
-.navbar-toggle,
-.btn-primary {
-    border-color: #0b2a38;
-    background-color: #144d66;
-}
-
-.navbar-toggle {
-    background-color: #348cb2;
-}
-
-.icon-bar {
-    background-color: #0b2a38;
 }
 
 main {
@@ -182,11 +166,7 @@ textarea.codeform {
     font-family: "Courier New", Courier, monospace;
 }
 
-.testcase-entry-metainfo {
-    margin-bottom: 12px;
-}
-
-.testresult-dot-anchor {
+.journeymonitor-testresult-dot-anchor {
     display: inline-block;
     margin: 0 1px 0 0;
     padding: 0;
@@ -205,8 +185,4 @@ footer {
 /*Helpers*/
 .inline-block {
     display: inline-block;
-}
-
-.clear {
-    clear: both;
 }
