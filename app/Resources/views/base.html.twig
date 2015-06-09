@@ -30,6 +30,12 @@
     {% endblock %}
 </head>
 <body>
+    {% if app.user %}
+        <div id="loggedin-info">
+            <small>Logged in as <b>{{ app.user.username }}</b></small>
+        </div>
+    {% endif %}
+
     <header class="clearfix">
         <nav class="navbar navbar-fixed-top">
             <div class="wrapper">
@@ -44,11 +50,6 @@
                         <a class="brandname brand navbar-brand" href="{{ path('homepage') }}">JourneyMonitor</a>
                     </div>
                     <div class="collapse navbar-collapse" id="navbar">
-                        {% if app.user %}
-                            <div id="loggedin-info">
-                                <small>Logged in as <b>{{ app.user.username }}</b></small>
-                            </div>
-                        {% endif %}
                         <ul class="nav navbar-nav pull-right">
                             <li><a href="{{ path('testcases.demo.index') }}">Demo</a></li>
                             {% if app.user %}

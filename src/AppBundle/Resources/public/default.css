@@ -91,10 +91,6 @@ header a.brand:focus {
     background-color: #0b2a38;
 }
 
-header + main {
-    margin-top: 40px;
-}
-
 main {
     padding: 0 0 48px;
     min-height: 400px;
@@ -130,7 +126,7 @@ section:empty {
 
 #loggedin-info {
     position: fixed;
-    top: 68px;
+    top: 60px;
     right: 0;
     z-index: 1031;
     padding: 0 4px 1px 7px;
@@ -138,14 +134,6 @@ section:empty {
     background-color: #ddd;
     color: #1b2024;
     font-weight: 300;
-}
-
-#navbar.collapsing #loggedin-info {
-    display: none;
-}
-
-#navbar.in #loggedin-info {
-    top: 204px;
 }
 
 .jumbotron {
