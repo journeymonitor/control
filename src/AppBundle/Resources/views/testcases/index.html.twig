@@ -124,7 +124,7 @@
                                             <div class="collapse" id="testresults-{{ testcase.id }}">
                                                 {% for testresult in testcase.limitedtestresults(100)|slice(50, 100) %}
                                                     <small>
-                                                        <span class="label label-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}">{{ testresult.datetimeRun|date("Y-m-d H:i") }}</span>
+                                                        <span class="datetime label label-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}">{{ testresult.datetimeRun|date("Y-m-d H:i") }}</span>
                                                         &nbsp;&nbsp;
                                                         <span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span>
                                                         <a href="{% if (isDemoMode) %}/demo{% endif %}{{ path('testresults.show', {'testresultId': testresult.id}) }}">Log</a>

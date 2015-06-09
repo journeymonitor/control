@@ -228,6 +228,12 @@ table tr td.testcase-entry-cell {
     margin-top: 0;
 }
 
+.datetime.label {
+    display: inline-block;
+    line-height: 1.4;
+    width: 82px;
+}
+
 footer {
     text-align: center;
 }
