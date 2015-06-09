@@ -17,29 +17,9 @@ class LoggedInLoggedOutFunctionalWebTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-        $this->assertContains(
-            'JourneyMonitor',
-            $crawler->filter('#journeymonitor-header')->first()->text()
-        );
-
-        $this->assertSame(
-            '/demo/testcases/',
-            $crawler->filter('#navbar a:contains("Demo")')->first()->attr('href')
-        );
-
-        $this->assertSame(
-            '/demo/testcases/',
-            $crawler->filter('a:contains("demo user account")')->first()->attr('href')
-        );
-
-        $this->assertContains(
-            '© ' . date('Y'),
-            $crawler->filter('footer')->first()->text()
-        );
-
-        $this->assertSame(
-            'mailto:replies-welcome@journeymonitor.com',
-            $crawler->filter('#journeymonitor-contact-link')->first()->attr('href')
+        $this->assertNotContains(
+            'Logged in as',
+            $crawler->filter('body')->first()->text()
         );
     }
 
@@ -48,13 +28,19 @@ class LoggedInLoggedOutFunctionalWebTest extends WebTestCase
         $this->resetDatabase();
         $client = $this->createAndActivateDemoUser();
 
-        $crawler = $client->request('GET', '/');
+        $client->request('GET', '/');
 
         $this->assertSame(302, $client->getResponse()->getStatusCode());
+        $crawler = $client->followRedirect();
 
-        $this->assertSame(
-            '/testcases/',
-            $crawler->filter('a:contains("/testcases/")')->first()->attr('href')
+        $this->assertContains(
+            'Logged in as',
+            $crawler->filter('#loggedin-info')->first()->text()
+        );
+
+        $this->assertContains(
+            'demo-user@journeymonitor.com',
+            $crawler->filter('#loggedin-info')->first()->text()
         );
 
         $crawler = $client->request('GET', '/imprint');

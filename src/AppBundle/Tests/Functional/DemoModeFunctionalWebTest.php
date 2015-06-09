@@ -18,7 +18,7 @@ class DemoModeFunctionalWebTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-        $this->assertEquals('You are currently in demo mode.', trim($crawler->filter('div.container div.alert.alert-info')->first()->text()));
+        $this->assertEquals('You are currently in demo mode.', trim($crawler->filter('div.alert.alert-info')->first()->text()));
         $this->assertEquals('Demo User Testcase One', trim($crawler->filter('h4')->eq(1)->text()));
         $this->assertEquals('Not available in demo mode', trim($crawler->filter('div.row div.col-xs-12 a.pull-right')->first()->attr('title')));
     }

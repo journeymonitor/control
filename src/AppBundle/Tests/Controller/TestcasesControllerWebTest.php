@@ -88,7 +88,7 @@ Regards,
             'testcase[script]' => 'bar',
         ));
 
-        $this->assertSame('The new testcase has been added.', trim($crawler->filter('div.messages div.alert.alert-success')->first()->text()));
+        $this->assertSame('The new testcase has been added.', trim($crawler->filter('aside.messages div.alert.alert-success')->first()->text()));
 
         $link = $crawler->filter('a:contains("◀ Back to testcases list")')->eq(0)->link();
         $crawler = $client->click($link);
@@ -155,12 +155,12 @@ Regards,
         //┌ 2015-06-01 at 14:35
         $this->assertContains(
             '┌',
-            $crawler->filter('div.journeymonitor-testcase-entry-timeline-container')->first()->text()
+            $crawler->filter('.testcase-entry-row')->first()->text()
         );
 
         $this->assertContains(
             'today at ' . $datetimeRun->format('H:i'),
-            $crawler->filter('div.journeymonitor-testcase-entry-timeline-container')->first()->text()
+            $crawler->filter('.testcase-entry-row')->first()->text()
         );
     }
 
