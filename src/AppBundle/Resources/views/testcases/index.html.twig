@@ -22,12 +22,12 @@
                         ＋ Add another testcase</a>
                     <table class="table testcases">
                         {% for testcase in testcases %}
-                            <tr class="testcase-entry-row">
-                                <td class="testcase-entry-cell">
-                                    <h4 class="pull-left">
+                            <tr class="journeymonitor-testcase-entry-row">
+                                <td class="journeymonitor-testcase-entry-cell">
+                                    <h4>
                                         <a {% if (not isDemoMode) %} href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}" {% else %} data-toggle="tooltip" data-placement="top" title="Not available in demo mode" {% endif %}>{{ testcase.title }}</a>
                                     </h4>
-                                    <div class="pull-right testcase-entry-metainfo">
+                                    <div class="pull-right journeymonitor-testcase-entry-metainfo">
                                         <span class="label label-default">{{ testcase.cadence }}</span>
                                         {% if (testcase.enabled) %}
                                             <span class="label label-success">Enabled</span>
@@ -35,7 +35,7 @@
                                             <span class="label label-default">Disabled</span>
                                         {% endif %}
                                     </div>
-                                    <div class="clear well well-sm">
+                                    <div class="well well-sm journeymonitor-testcase-entry-timeline-container">
                                         {% if (testcase.limitedtestresults(100)|length > 0) %}
                                             {% spaceless %}
                                                 <div class="inline-block">
@@ -53,7 +53,7 @@
                                                         </small>
                                                         <br>
                                                     {% endif %}
-                                                    <a class="testresult-dot-anchor label-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}"
+                                                    <a class="journeymonitor-testresult-dot-anchor label-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}"
                                                        title="{{ testresult.datetimeRun|date("Y-m-d H:i") }}"
                                                        data-content="
                                                            {% if (testresult.exitCode == 0) %}
@@ -179,7 +179,7 @@
 
 {% block javascripts_additional %}
     <script>
-        $('.testresult-dot-anchor').popover({
+        $('.journeymonitor-testresult-dot-anchor').popover({
             html: true,
             trigger: 'manual',
             container: $(this).attr('id'),

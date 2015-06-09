@@ -1,115 +1,32 @@
-colors {
-    _Main: #348cb2;
-    _Accent: #144d66;
-    _Primary: #74c6e8;
-    _Secondary: #eb4313;
-    _Highlight: #b28626;
-}
-
 /* Space out content a bit */
 body {
-    padding-top: 68px;
-    background-color: #fff;
-    color: #144d66;
-    white-space: normal;
-    font-weight: 300;
-    font-family: 'Roboto Slab', serif;
-}
-
-a:focus {
-    outline: none;
-}
-
-h1, .h1,
-h2, .h2,
-h3, .h3,
-h4, .h4,
-h5, .h5,
-h6, .h6 {
-    margin-top: 0;
-}
-
-h1, .h1,
-h2, .h2,
-h3, .h3 {
-    margin-bottom: 20px;
-}
-
-h1, h2,
-.h1, .h2,
-b, strong,
-label {
-    font-weight: 700;
-}
-
-h3, h4, h5, h6,
-.h3, .h4, .h5, .h6 {
-    font-weight: 400;
+    padding-top: 50px;
+    background-color: #525E68;
 }
 
 /* Custom page header */
-header nav {
+header {
     margin-bottom: 0;
-    background-color: #144d66;
 }
 
-header .wrapper {
-    border-bottom: 1px solid #0b2a38;
-}
-
-header a {
-    color: #fff;
-}
-
-header a.brand:hover,
-header a.brand:focus {
-    color: #fff;
-    text-shadow: 0 0 10px #fff;
-}
-
-.navbar {
-    margin: 0;
+#navbar {
     padding-top: 6px;
-    border-color: #348cb2;
 }
 
-.navbar-toggle {
+button.navbar-toggle {
     margin-top: 12px;
 }
 
-.navbar-toggle,
-.btn-primary {
-    border-color: #0b2a38;
-    background-color: #144d66;
-}
-
-.navbar-toggle {
-    background-color: #348cb2;
-}
-
-.icon-bar {
-    background-color: #0b2a38;
-}
-
-header + main {
-    margin-top: 40px;
-}
-
 main {
-    padding: 0 0 48px;
     min-height: 400px;
 }
 
-section {
-    padding: 40px 0;
+#journeymonitor-header {
+    background-color: #1B2024;
 }
 
-section:empty {
-    display: none;
-}
-
-.brand {
-    font-family: 'Pacifico', cursive;
+#journeymonitor-header a {
+    color: #fff;
 }
 
 /* Make the masthead heading the same height as the navigation */
@@ -117,41 +34,63 @@ section:empty {
     margin-top: 0;
     margin-bottom: 10px;
     color: #fff;
+    font-family: 'Fugaz One', cursive;
     font-weight: bold;
     font-size: 23px;
     line-height: 20px;
 }
 
+.journeymonitor-brandname-journey {
+    margin-right: 3px;
+}
+
 .messages {
-    margin-bottom: -20px;
     padding-top: 0;
+    margin-bottom: -20px;
     background-color: #fff;
 }
 
 #loggedin-info {
-    position: fixed;
-    top: 68px;
-    right: 0;
-    z-index: 1031;
-    padding: 0 4px 1px 7px;
-    border-radius: 0 0 0 7px;
     background-color: #ddd;
-    color: #1b2024;
-    font-weight: 300;
+    border-radius: 0 0 0 7px;
+    color: #1B2024;
+    font-weight: lighter;
+    padding: 0 4px 1px 7px;
+    position: fixed;
+    right: 0;
+    top: 60px;
+    z-index: 1031;
 }
 
-#navbar.collapsing #loggedin-info {
-    display: none;
+main {
+    padding-top: 48px;
+    padding-bottom: 48px;
+    background-color: #fff;
 }
 
-#navbar.in #loggedin-info {
-    top: 204px;
+#journeymonitor-homepage-main {
+    padding: 0;
 }
 
+footer {
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+    .container {
+        max-width: 730px;
+    }
+}
+
+.container-narrow > hr {
+    margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
 .jumbotron {
     margin-bottom: 0;
-    background-color: #74c6e8;
-    color: #144d66;
+    background-color: #95E595;
+    color: #000;
     text-align: center;
 }
 
@@ -160,32 +99,77 @@ section:empty {
     font-size: 21px;
 }
 
-/*.jumbotron h1 {
-    font-size: 44px;
-}*/
-
-.video-intro {
-    background-color: #348cb2;
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    /* Remove the bottom border on the jumbotron for visual effect */
+    .jumbotron {
+        border-bottom: 0;
+    }
 }
 
-.video-intro p {
+.jumbotron h1 {
+    font-size: 44px;
+}
+
+#video-headline {
+    text-align: center;
+}
+
+#journeymonitor-demo-note {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#journeymonitor-demo-note a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.journeymonitor-content-container {
+    margin: 0;
+    padding-bottom: 48px;
+    padding-top: 48px;
+}
+
+.journeymonitor-content-container-bright {
+    background-color: #eee;
+}
+
+.journeymonitor-content-container-dark-radial {
+    background: rgb(140,151,161);
+    background: -moz-radial-gradient(center, ellipse cover, rgb(140,151,161) 0%, rgb(82,94,104) 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgb(140,151,161)), color-stop(100%,rgb(82,94,104)));
+    background: -webkit-radial-gradient(center, ellipse cover, rgb(140,151,161) 0%,rgb(82,94,104) 100%);
+    background: -o-radial-gradient(center, ellipse cover, rgb(140,151,161) 0%,rgb(82,94,104) 100%);
+    background: -ms-radial-gradient(center, ellipse cover, rgb(140,151,161) 0%,rgb(82,94,104) 100%);
+    background: radial-gradient(ellipse at center, rgb(140,151,161) 0%,rgb(82,94,104) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8c97a1', endColorstr='#525e68',GradientType=1 );
     color: #fff;
 }
 
-.video-intro p a {
+.journeymonitor-content-container-middle {
+    background-color: #fff;
     color: #000;
 }
 
-#journeymonitor-productvideo {
-    margin-bottom: 20px;
+.journeymonitor-content-container-footer {
+    text-align: center;
+    background-color: #525E68;
+    color: #fff;
 }
 
-.hp-form {
-    background-color: #74c6e8;
+.journeymonitor-content-container-footer a {
+    color: #fff;
+    text-decoration: underline;
 }
 
-.what-is {
-    background-color: #fff;
+.journeymonitor-content-container-footer a:hover {
+    color: #fff;
+    border-bottom: 1px solid #eee;
+    text-decoration: none;
+}
+
+#journeymonitor-homepage-form {
 }
 
 textarea.codeform {
@@ -194,11 +178,54 @@ textarea.codeform {
     font-family: "Courier New", Courier, monospace;
 }
 
-.testcase-entry-metainfo {
-    margin-bottom: 12px;
+mark {
+    padding: 0 4px;
+    background-color: #EDF2CF;
 }
 
-.testresult-dot-anchor {
+.inline-block {
+    display: inline-block;
+}
+
+.journeymonitor-testcase-entry.journeymonitor-even {
+    background-color: #eee;
+}
+
+.journeymonitor-testcase-entry small {
+    color: #aaa;
+}
+
+.table td.journeymonitor-testcase-entry-cell {
+    padding: 48px 8px 36px 8px;
+    border-top: none;
+    /*border-bottom: 8px solid #ddd;*/
+}
+
+.journeymonitor-testcase-entry-metainfo {
+    margin-top: 0px;
+    margin-right: 2px;
+}
+
+.journeymonitor-testcase-entry-timeline-container {
+    margin-bottom: 6px;
+}
+
+.journeymonitor-testresult-output {
+    white-space: pre-wrap;
+    font-size: 6pt;
+}
+
+#journeymonitor-productvideo {
+    border: 1px solid #eee;
+}
+
+/*#journeymonitor-beta-badge {
+    margin-left: -24px;
+    background-color: #90bd2d;
+    font-size: 8px;
+}*/
+
+.journeymonitor-testresult-dot-anchor {
     display: inline-block;
     margin: 0 1px 0 0;
     padding: 0;
@@ -206,19 +233,6 @@ textarea.codeform {
     height: 21px;
 }
 
-.testcases .popover {
+.testcases .popover{
     margin-top: 0;
-}
-
-footer {
-    text-align: center;
-}
-
-/*Helpers*/
-.inline-block {
-    display: inline-block;
-}
-
-.clear {
-    clear: both;
 }

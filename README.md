@@ -1,32 +1,38 @@
-# Selenior - CONTROL - web-frontend
+# JourneyMonitor - CONTROL
 
 ## About
 
-Application for the service homepage
+Application that provides the JourneyMonitor website.
 
 
 ## Setup instructions
+
+### Using Vagrant (recommended)
+
+See https://bitbucket.org/selenior/infra/src/master/README.md?at=master
+
 
 ### Mac OS X
 
 Assumes that you have PHP 5.5, Git, Bower, and Composer installed.
 
-    git clone git@bitbucket.org:selenior/control-web-frontend.git
-    cd control-web-frontend
+    git clone git@bitbucket.org:selenior/control.git
+    cd control
     composer install
     bower install
     php app/console doctrine:migrations:migrate
     php app/console assets:install
     php app/console server:run
 
+
 ### Ubuntu 14.04 64bit
 
-First, set up the target machine as described in the *infra-maschine-provisioner* README.
+First, set up the target machine as described in the *infra* README.
 
     sudo su -
     cd /opt/selenior
-    git clone git@bitbucket.org:selenior/control-web-frontend.git
-    cd control-web-frontend
+    git clone git@bitbucket.org:selenior/control.git
+    cd control
     composer install
     bower install
     chown -R selenior app/cache
@@ -38,12 +44,13 @@ First, set up the target machine as described in the *infra-maschine-provisioner
     rm -rf app/cache/prod && chown -R selenior app/cache && chown -R selenior app/logs && sudo -u selenior php app/console server:run 127.0.0.1:5999 --env prod
     # Hit ctrl-a-d to leave screen
 
+
 ### Windows (tested on Windows 8.1 Pro x64 WMC)
 
     First install git: https://git-scm.com/download/win
     now set up User, SSH both locally and in bitbucket
-    git clone git@bitbucket.org:selenior/control-web-frontend.git
-    cd control-web-frontend
+    git clone git@bitbucket.org:selenior/control.git
+    cd control
     now download php http://windows.php.net/download/#php-5.5 (x64 Threadsafe) and unzip to C:\Program Files\php
     now add php to your PATH Variable (Windows+Pause --> Advanced --> Environment Variables --> PATH (Edit / New) --> Add 'C:\Program Files\php;' without quotes)
     now copy 'C:\Program Files\php\php.ini-development' to 'C:\Program Files\php\php.ini'
@@ -78,10 +85,12 @@ First, set up the target machine as described in the *infra-maschine-provisioner
     php app/console assets:install
     php app/console server:run
 
+
 ### Other info
 
 At app/Resources/selenior-control.sqlite-dev.dist.gz you'll find an sqlite3 database file that contains the user 'demo-user@journeymonitor.com' with password 'demo123'.
 The user has some testcases and testresult data. Simply unzip to /var/tmp/selenior-control.sqlite-dev.
+
 
 ## Development with docker
 
