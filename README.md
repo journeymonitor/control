@@ -1,11 +1,16 @@
-# Selenior - CONTROL - web-frontend
+# JourneyMonitor - CONTROL
 
 ## About
 
-Application for the service homepage
+Application that provides the JourneyMonitor website.
 
 
 ## Setup instructions
+
+### Using Vagrant (recommended)
+
+See https://bitbucket.org/selenior/infra/src/master/README.md?at=master
+
 
 ### Mac OS X
 
@@ -19,9 +24,10 @@ Assumes that you have PHP 5.5, Git, Bower, and Composer installed.
     php app/console assets:install
     php app/console server:run
 
+
 ### Ubuntu 14.04 64bit
 
-First, set up the target machine as described in the *infra-maschine-provisioner* README.
+First, set up the target machine as described in the *infra* README.
 
     sudo su -
     cd /opt/selenior
@@ -37,6 +43,7 @@ First, set up the target machine as described in the *infra-maschine-provisioner
     screen
     rm -rf app/cache/prod && chown -R selenior app/cache && chown -R selenior app/logs && sudo -u selenior php app/console server:run 127.0.0.1:5999 --env prod
     # Hit ctrl-a-d to leave screen
+
 
 ### Windows (tested on Windows 8.1 Pro x64 WMC)
 
@@ -78,10 +85,12 @@ First, set up the target machine as described in the *infra-maschine-provisioner
     php app/console assets:install
     php app/console server:run
 
+
 ### Other info
 
 At app/Resources/selenior-control.sqlite-dev.dist.gz you'll find an sqlite3 database file that contains the user 'demo-user@journeymonitor.com' with password 'demo123'.
 The user has some testcases and testresult data. Simply unzip to /var/tmp/selenior-control.sqlite-dev.
+
 
 ## Development with docker
 
