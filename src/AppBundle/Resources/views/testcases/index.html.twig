@@ -18,8 +18,10 @@
                             </div>
                         </div>
                     </div>
-                    <a class="pull-right" {% if (not isDemoMode) %} href="{{ path('testcases.new') }}" {% else %} data-toggle="tooltip" data-placement="top" title="Not available in demo mode" {% endif %}>
-                        ＋ Add another testcase</a>
+                    <div class="pagenav">
+                        <a class="pull-right" {% if (not isDemoMode) %} href="{{ path('testcases.new') }}" {% else %} data-toggle="tooltip" data-placement="top" title="Not available in demo mode" {% endif %}>＋ Add another testcase</a>
+                    </div>
+
                     <table class="table testcases">
                         {% for testcase in testcases %}
                             <tr class="testcase-entry-row">
@@ -39,7 +41,7 @@
                                         {% if (testcase.limitedtestresults(100)|length > 0) %}
                                             {% spaceless %}
                                                 <div class="inline-block">
-                                                {% for testresult in testcase.limitedtestresults(100)|slice(0, 30)|reverse %}
+                                                {% for testresult in testcase.limitedtestresults(100)|slice(0, 50)|reverse %}
                                                     {% if loop.first %}
                                                         <small>
                                                             ┌
@@ -112,7 +114,7 @@
                                         {% else %}
                                             <small>No test run results yet.</small>
                                         {% endif %}
-                                        {% if (testcase.limitedtestresults(100)|length > 30) %}
+                                        {% if (testcase.limitedtestresults(100)|length > 50) %}
                                             <br>
                                             <br>
                                             <small>
@@ -120,7 +122,7 @@
                                             </small>
 
                                             <div class="collapse" id="testresults-{{ testcase.id }}">
-                                                {% for testresult in testcase.limitedtestresults(100)|slice(30, 100) %}
+                                                {% for testresult in testcase.limitedtestresults(100)|slice(50, 100) %}
                                                     <small>
                                                         <span class="label label-{% if (testresult.exitCode == 0) %}success{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}danger{% else %}warning{% endif %}">{{ testresult.datetimeRun|date("Y-m-d H:i") }}</span>
                                                         &nbsp;&nbsp;

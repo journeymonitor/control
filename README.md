@@ -137,8 +137,4 @@ You can now browse to http://192.168.99.99/. Run the tests via `php ./vendor/php
 
 ## Styleguide
 
-See
-normal: http://paletton.com/#uid=4000K0k1Xqw4Fvi3tot56l+76k8
-darker: http://paletton.com/#uid=4000K0k8D737vgT7pc2dz6-hq5V
-bright: http://paletton.com/#uid=42P0K0k4Fvdb8K-75ue9QrTcIp+
-for color schemes.
+See http://paletton.com/#uid=33r0u0knJASdGPbjcHDs+wBvDpF for color scheme.

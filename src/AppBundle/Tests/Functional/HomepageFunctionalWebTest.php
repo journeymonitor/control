@@ -19,7 +19,7 @@ class HomepageFunctionalWebTest extends WebTestCase
 
         $this->assertContains(
             'JourneyMonitor',
-            $crawler->filter('#journeymonitor-header')->first()->text()
+            $crawler->filter('a.brandname')->first()->text()
         );
 
         $this->assertSame(
@@ -43,7 +43,7 @@ class HomepageFunctionalWebTest extends WebTestCase
 
         $this->assertSame(
             'mailto:replies-welcome@journeymonitor.com',
-            $crawler->filter('#journeymonitor-contact-link')->first()->attr('href')
+            $crawler->filter('a:contains("Get in touch")')->first()->attr('href')
         );
     }
 }

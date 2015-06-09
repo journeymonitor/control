@@ -4,6 +4,7 @@ colors {
     _Primary: #74c6e8;
     _Secondary: #eb4313;
     _Highlight: #b28626;
+    _Bam: #ffd466;
 }
 
 /* Space out content a bit */
@@ -64,7 +65,7 @@ header a {
 header a.brand:hover,
 header a.brand:focus {
     color: #fff;
-    text-shadow: 0 0 10px #fff;
+    text-shadow: 0 0 5px #fff;
 }
 
 .navbar {
@@ -117,9 +118,17 @@ section:empty {
     margin-top: 0;
     margin-bottom: 10px;
     color: #fff;
-    font-weight: bold;
+    font-weight: 100;
     font-size: 23px;
     line-height: 20px;
+}
+
+.brandname .glyphicon {
+    top: 3px;
+}
+
+.brandname .right-word {
+    margin-left: -4px;
 }
 
 .messages {
@@ -150,7 +159,7 @@ section:empty {
 
 .jumbotron {
     margin-bottom: 0;
-    background-color: #74c6e8;
+    background-color: #FFD466;
     color: #144d66;
     text-align: center;
 }
@@ -169,11 +178,11 @@ section:empty {
 }
 
 .video-intro p {
-    color: #fff;
+    color: #144d66;
 }
 
 .video-intro p a {
-    color: #000;
+    color: #144d66;
 }
 
 #journeymonitor-productvideo {
@@ -188,10 +197,19 @@ section:empty {
     background-color: #fff;
 }
 
+.pagenav {
+    margin-bottom: 30px;
+}
+
 textarea.codeform {
     height: 200px;
     font-size: 8pt;
     font-family: "Courier New", Courier, monospace;
+}
+
+table tr td.testcase-entry-cell {
+    border-top: none;
+    padding-top: 80px;
 }
 
 .testcase-entry-metainfo {
@@ -212,6 +230,14 @@ textarea.codeform {
 
 footer {
     text-align: center;
+}
+
+.brand .left-word {
+    margin-left: -3px;
+}
+
+.brand .right-word {
+    margin-left: -2px;
 }
 
 /*Helpers*/

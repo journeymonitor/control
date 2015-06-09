@@ -41,7 +41,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="brandname brand navbar-brand" href="{{ path('homepage') }}">JourneyMonitor</a>
+                        <a class="brandname brand navbar-brand" href="{{ path('homepage') }}">Journey<span class="glyphicon glyphicon glyphicon-check" aria-hidden="true"></span><span class="right-word">Monitor</span></a>
                     </div>
                     <div class="collapse navbar-collapse" id="navbar">
                         {% if app.user %}
@@ -97,8 +97,8 @@
 
     <footer>
         <section class="container">
-            &copy; {{ "now"|date("Y") }} The<strong class="brand">JourneyMonitor</strong> Team<br>
-            <a href="mailto:replies-welcome@journeymonitor.com">Get&nbsp;in&nbsp;touch</a>
+            &copy; {{ "now"|date("Y") }} The<span class="brand"><span class="left-word">Journey</span><span class="glyphicon glyphicon glyphicon-check" aria-hidden="true"></span><span class="right-word">Monitor</span></span> Team<br>
+            <a href="mailto:replies-welcome@journeymonitor.com">Get in touch</a>
             &nbsp;
             <a href="{{ path('imprint') }}">Imprint</a>
         </section>
