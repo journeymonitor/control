@@ -1,15 +1,15 @@
-# JourneyMonitor - CONTROL
+# JourneyMonitor - CONTROL component
 
 ## About
 
 Application that provides the JourneyMonitor website.
 
 
-## Setup instructions
+## Development setup instructions
 
 ### Using Vagrant (recommended)
 
-See https://bitbucket.org/selenior/infra/src/master/README.md?at=master
+See https://github.com/journeymonitor/infra/blob/master/README.md?at=master
 
 Afterwards, come back here and continue at *Development workflow*.
 
@@ -18,7 +18,7 @@ Afterwards, come back here and continue at *Development workflow*.
 
 Assumes that you have PHP 5.5, Git, Bower, and Composer installed.
 
-    git clone git@bitbucket.org:selenior/control.git
+    git clone git@github.com:journeymonitor/control.git
     cd control
     composer install
     bower install
@@ -27,29 +27,49 @@ Assumes that you have PHP 5.5, Git, Bower, and Composer installed.
     php app/console server:run
 
 
-### Ubuntu 14.04 64bit
+### Windows
 
-First, set up the target machine as described in the *infra* README.
+We do not officially support installing and running this application on Windows environments, but the following might be
+helpful if you want to give it a try. The described steps have been tested on Windows 8.1 Pro x64 WMC).
 
-    sudo su -
-    cd /opt/selenior
-    git clone git@bitbucket.org:selenior/control.git
-    cd control
-    composer install
-    bower install
-    chown -R selenior app/cache
-    chown -R selenior app/logs
-    rm -rf app/cache/prod
-    sudo -u selenior php app/console doctrine:migrations:migrate --env prod
-    php app/console assets:install
-    screen
-    rm -rf app/cache/prod && chown -R selenior app/cache && chown -R selenior app/logs && sudo -u selenior php app/console server:run 127.0.0.1:5999 --env prod
-    # Hit ctrl-a-d to leave screen
+- First install git: https://git-scm.com/download/win
+- `git clone git@github.com:journeymonitor/control.git`
+- `cd control`
+- Download PHP from http://windows.php.net/download/#php-5.5 (x64 Threadsafe) and unzip to `C:\Program Files\php`
+- Add php to your PATH Variable (Windows+Pause --> Advanced --> Environment Variables --> PATH (Edit / New) --> Add 'C:\Program Files\php;' without quotes)
+- Copy `C:\Program Files\php\php.ini-development` to `C:\Program Files\php\php.ini`
+- Start an editor of your choice in elevated (admin) mode and make sure the following extensions are activated (remove `;` in front):
+- `extension_dir = "ext"`
+- `extension=php_curl.dll`
+- `extension=php_mbstring.dll`
+- `extension=php_openssl.dll`
+- `extension=php_pdo_sqlite.dll`
+- `extension=php_sqlite3.dll`
+- Also add `date.timezone = Europe/Berlin` to the file
+- Open a cmd console and try to run `php` - if you see no output at all thats's good!
+- Next you need to install Composer from https://getcomposer.org/download/
+- change into the cloned directory and run `composer install`
+- Login or create a github user and stay logged in in your browser
+- While running Composer it will fail saying you need to create an auth token - it will generate a link for you redirecting you in your already logged in github account
+- After generating the auth token rerun `composer install` to get the backend vendor files
+- Install Node.js from https://nodejs.org/download/
+- Make sure to let the installer add PATH variables
+- If Node.js was installed successfully try running `npm` in your console - if the command was not found try rebooting
+- Head back to the checked out folder and run `npm install -g bower`
+- Then run `bower install` to get the frontend vendor files
+- Edit `app/config/parameters.yml` - set database_path: C:\Temp\journeymonitor-control.sqlite
+- Edit `app/config/config.yml` - set path: "C:\Temp\journeymonitor-control.sqlite"    
+- Run `php app/console doctrine:migrations:migrate`
+- Run `php app/console assets:install`
+- Run `php app/console server:run
 
 
 ### Docker
 
-This project ships with some Dockerfiles for webserver and database that can be used for local development.
+We do not officially support installing and running this application in a Docker environment,
+but the following might be helpful if you want to give it a try.
+
+The project ships with some Dockerfiles for webserver and database that can be used for local development.
 
     cd docker && bash build.sh
     chmod a+x selenior-docker.sh
@@ -72,48 +92,6 @@ browser.
 For convience there is also a shortcut to get into the mysql-shell in the db container:
 
     selenior-docker mysql-console
-
-
-### Windows (tested on Windows 8.1 Pro x64 WMC)
-
-    First install git: https://git-scm.com/download/win
-    now set up User, SSH both locally and in bitbucket
-    git clone git@bitbucket.org:selenior/control.git
-    cd control
-    now download php http://windows.php.net/download/#php-5.5 (x64 Threadsafe) and unzip to C:\Program Files\php
-    now add php to your PATH Variable (Windows+Pause --> Advanced --> Environment Variables --> PATH (Edit / New) --> Add 'C:\Program Files\php;' without quotes)
-    now copy 'C:\Program Files\php\php.ini-development' to 'C:\Program Files\php\php.ini'
-    start an editor of your choice in elevated (admin) mode and make sure the following extensions are activated (remove ; in front):
-        extension_dir = "ext"
-        extension=php_curl.dll
-        extension=php_mbstring.dll
-        extension=php_openssl.dll
-        extension=php_pdo_sqlite.dll
-        extension=php_sqlite3.dll
-        also add 'date.timezone = Europe/Berlin' to the file
-    now open a cmd console and try to run 'php' - if you see no output at all thats's good!
-    next you need to install composer https://getcomposer.org/download/
-    now you need to cd into the cloned directory and run composer install
-    now login or create a github user and stay logged in in your browser
-    while running composer it will fail saying you need to create an auth token - it will generate a link for you redirecting you in your already logged in github account ;)
-    after generating the auth token rerun composer install to get the BE vendor files
-    now install node.js https://nodejs.org/download/
-    make sure to let the installer add PATH variables
-        if installer fails with error code 2503/2502 open the task Manager with CTRL+SHIFT+ESC
-            - now head over to details and kill explorer.exe (your taskbar will die)
-            - now go to File --> new Task and type in explorer.exe but make sure "run as admin" is checked
-            - then rerun the installation process
-    if node was installed sucessfully try "npm" in your console - if the command was not found try rebooting (yay Windows!)
-    now head back in the checked out folder and run "npm install -g bower"
-    then run "bower install" to get the FE vendor files
-    now edit app/config/parameters.yml - set database_path: C:\Temp\selenior-control.sqlite
-    now edit app/config/config.yml - set path: "C:\Temp\selenior-control.sqlite"
-    DO NOT COMMIT THESE FILES
-    
-    php app/console doctrine:migrations:migrate
-    php app/console assets:install
-    php app/console server:run
-
 
 ### Other info
 
