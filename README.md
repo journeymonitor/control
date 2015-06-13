@@ -12,7 +12,7 @@ Application that provides the JourneyMonitor website.
 Set up a development VM as described at https://github.com/journeymonitor/infra/blob/master/README.md
 
 - SSH into the development VM by running `vagrant ssh` from the *infra* folder
-- `cd /opt/selenior/control`
+- `cd /opt/journeymonitor/control`
 - `composer install`
 - `bower install`
 - `php app/console doctrine:migrations:migrate`
@@ -79,10 +79,10 @@ but the following might be helpful if you want to give it a try.
 The project ships with some Dockerfiles for webserver and database that can be used for local development.
 
     cd docker && bash build.sh
-    chmod a+x selenior-docker.sh
-    sudo ln -s `pwd`/selenior-docker.sh /usr/local/bin/selenior-docker
+    chmod a+x journeymonitor-docker.sh
+    sudo ln -s `pwd`/journeymonitor-docker.sh /usr/local/bin/journeymonitor-docker
     cd ..
-    selenior-docker -xdebug start
+    journeymonitor-docker -xdebug start
     docker/shell sudo -uwww-data composer install
         
 This will launch a container for the database and one for the web-application, linked to the database container.
@@ -97,13 +97,13 @@ If everything works fine, you should be able to open `http://frontend.journeymon
 browser.
 For convience there is also a shortcut to get into the mysql-shell in the db container:
 
-    selenior-docker mysql-console
+    journeymonitor-docker mysql-console
 
 
 ### Other info
 
-At app/Resources/selenior-control.sqlite-dev.dist.gz you'll find an sqlite3 database file that contains the user 'demo-user@journeymonitor.com' with password 'demo123'.
-The user has some testcases and testresult data. Simply unzip to /var/tmp/selenior-control.sqlite-dev.
+At `app/Resources/journeymonitor-control-dev.sqlite3.dist.gz` you'll find an sqlite3 database file that contains the user 'demo-user@journeymonitor.com' with password 'demo123'.
+The user has some testcases and testresult data. Simply unzip to `/var/tmp/journeymonitor-control-dev.sqlite3` if you want to use it.
 
 
 ## Styleguide

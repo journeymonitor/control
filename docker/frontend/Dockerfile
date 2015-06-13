@@ -1,6 +1,6 @@
-FROM selenior/base
+FROM journeymonitor/base
 
-MAINTAINER Selenior “dev@journeymonitor.com”
+MAINTAINER JourneyMonitor "info@journeymonitor.com"
 
 # Install nginx
 RUN add-apt-repository ppa:nginx/stable

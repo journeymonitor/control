@@ -15,7 +15,7 @@ class ImportTestresultsCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('selenior:control:import:testresults')
+            ->setName('journeymonitor:control:import:testresults')
             ->setDescription('Import test results from MONITOR')
             ->addArgument(
                 'url',

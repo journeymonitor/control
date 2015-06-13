@@ -2,10 +2,10 @@
 [2015-05-28 23:46:16.383] [INFO] Initial window size: system default
 [2015-05-28 23:46:16.384] [INFO] Initialized: FirefoxDriver
 [2015-05-28 23:46:16.653] [INFO] Timeout: 30000 ms
-[2015-05-28 23:46:17.240 +02:00] [INFO] Start: TestSuite[complex] (/var/tmp/selenior-testcase-F899FF08-6414-494F-A0FC-AEE4750C1EDE.html)
+[2015-05-28 23:46:17.240 +02:00] [INFO] Start: TestSuite[complex] (/var/tmp/journeymonitor-testcase-F899FF08-6414-494F-A0FC-AEE4750C1EDE.html)
 [2015-05-28 23:46:17.351] [INFO] Existing driver found.
 [2015-05-28 23:46:17.485] [INFO] Current speed: 0 ms/command
-[2015-05-28 23:46:17.485 +02:00] [INFO] Start: TestCase[complex] (/var/tmp/selenior-testcase-F899FF08-6414-494F-A0FC-AEE4750C1EDE.html)
+[2015-05-28 23:46:17.485 +02:00] [INFO] Start: TestCase[complex] (/var/tmp/journeymonitor-testcase-F899FF08-6414-494F-A0FC-AEE4750C1EDE.html)
 [2015-05-28 23:46:17.485 +02:00] [INFO] baseURL: https://www.galeria-kaufhof.de
 [2015-05-28 23:46:17.520 +02:00] [INFO] |1|Command#1: open("/")
 [2015-05-28 23:46:22.817 +02:00] [INFO] - [Success] URL: [https://www.galeria-kaufhof.de/] / Title: [GALERIA Kaufhof: Shop f?r Mode, Spielwaren & Haushalt]
@@ -55,7 +55,7 @@
 [2015-05-28 23:46:36.765 +02:00] [ERROR] - Cookie: rr_rcs=[eF4FwTEOwCAIAMDFqX8hEQGRH_QbCph06Nb2_b0r5fVz5BJ3qhBuC3iTgs0MyCnUFXerkcf9PVew2gBkaoNNVIgQugFit_oD8YgTCA] (domain=.galeria-kaufhof.de, path=/, expire=2017-05-27 23:46:33 +02:00)
 [2015-05-28 23:46:36.765 +02:00] [ERROR] - Cookie: vid=[fwAAAVVnjKQ8zwayBcIIAg==] (domain=www.galeria-kaufhof.de, path=/, expire=*)
 [2015-05-28 23:46:22.817 +02:00] [INFO] - [Success] URL: [https://www.galeria-kaufhof.de/#foo] / Title: [GALERIA Kaufhof: Shop f?r Mode, Spielwaren & Haushalt]
-[2015-05-28 23:46:36.769 +02:00] [INFO] End(19.281sec): TestCase[complex] (/var/tmp/selenior-testcase-F899FF08-6414-494F-A0FC-AEE4750C1EDE.html)
-[2015-05-28 23:46:36.769 +02:00] [INFO] End(0.000sec): TestSuite[complex] (/var/tmp/selenior-testcase-F899FF08-6414-494F-A0FC-AEE4750C1EDE.html)
+[2015-05-28 23:46:36.769 +02:00] [INFO] End(19.281sec): TestCase[complex] (/var/tmp/journeymonitor-testcase-F899FF08-6414-494F-A0FC-AEE4750C1EDE.html)
+[2015-05-28 23:46:36.769 +02:00] [INFO] End(0.000sec): TestSuite[complex] (/var/tmp/journeymonitor-testcase-F899FF08-6414-494F-A0FC-AEE4750C1EDE.html)
 [2015-05-28 23:46:36.769] [INFO] Exit code: 3
 [2015-05-28 23:46:37.003] [INFO] Quit: FirefoxDriver

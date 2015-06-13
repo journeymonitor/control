@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
  
-MAINTAINER Selenior “dev@journeymonitor.com”
+MAINTAINER JourneyMonitor "info@journeymonitor.com"
 
 # Disable user prompts
 ENV DEBIAN_FRONTEND noninteractive
