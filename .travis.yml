@@ -10,7 +10,7 @@ branches:
   - master
   - develop
 before_script:
-- phpenv config-add travisci-php.ini
+- echo 'date.timezone = "Europe/Paris"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 - make travisci-before-script
 script:
 - make travisci-script
