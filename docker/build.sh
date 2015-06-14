@@ -9,5 +9,5 @@ dockerfiles=(
 for dockerfile in ${dockerfiles[*]}
 do
 	echo  "Building $dockerfile"
-	docker build -t "selenior/$dockerfile" --rm "$dockerfile"
+	docker build -t "journeymonitor/$dockerfile" --rm "$dockerfile"
 done

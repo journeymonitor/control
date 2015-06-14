@@ -1,6 +1,6 @@
-FROM selenior/base
+FROM journeymonitor/base
 
-MAINTAINER Selenior “dev@journeymonitor.com”
+MAINTAINER JourneyMonitor "info@journeymonitor.com"
 
 # Borrowed from mysql container http://github.com/docker-library/mysql/
 

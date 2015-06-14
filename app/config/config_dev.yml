@@ -1,7 +1,5 @@
 imports:
     - { resource: config.yml }
-    - { resource: parameters_dev.yml }
-    - { resource: parameters.docker.yml, ignore_errors: true }
 
 framework:
     router:

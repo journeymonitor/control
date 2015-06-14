@@ -1,5 +1,5 @@
 {
-  "name": "selenior/control",
+  "name": "journeymonitor/control",
   "version": "0.0.1",
   "dependencies": {
     "bootstrap": "~3.3.4"

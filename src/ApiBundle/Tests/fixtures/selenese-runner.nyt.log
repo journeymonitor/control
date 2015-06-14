@@ -1,13 +1,13 @@
 {"port":55219}[2015-06-01 17:30:06.712] [INFO] Start: Selenese Runner 1.10.0
-[2015-06-01 17:30:07.341] [INFO] Command line arguments: [--new-instance] [--profile /var/tmp/selenior-firefox-profile-8699]
+[2015-06-01 17:30:07.341] [INFO] Command line arguments: [--new-instance] [--profile /var/tmp/journeymonitor-firefox-profile-8699]
 [2015-06-01 17:30:16.791] [INFO] Initial window size: 1920x1200
 [2015-06-01 17:30:16.791] [INFO] Initialized: FirefoxDriver
-[2015-06-01 17:30:16.905] [INFO] Screenshot on fail directory: /var/tmp/selenior-screenshots
+[2015-06-01 17:30:16.905] [INFO] Screenshot on fail directory: /var/tmp/journeymonitor-screenshots
 [2015-06-01 17:30:16.906] [INFO] Timeout: 30000 ms
-[2015-06-01 17:30:17.405 +02:00] [INFO] Start: TestSuite[nyt] (/var/tmp/selenior-testcase-86337D59-F97F-4456-ACAC-C8D8432312EB.html)
+[2015-06-01 17:30:17.405 +02:00] [INFO] Start: TestSuite[nyt] (/var/tmp/journeymonitor-testcase-86337D59-F97F-4456-ACAC-C8D8432312EB.html)
 [2015-06-01 17:30:17.529] [INFO] Existing driver found.
 [2015-06-01 17:30:17.643] [INFO] Current speed: 0 ms/command
-[2015-06-01 17:30:17.643 +02:00] [INFO] Start: TestCase[nyt] (/var/tmp/selenior-testcase-86337D59-F97F-4456-ACAC-C8D8432312EB.html)
+[2015-06-01 17:30:17.643 +02:00] [INFO] Start: TestCase[nyt] (/var/tmp/journeymonitor-testcase-86337D59-F97F-4456-ACAC-C8D8432312EB.html)
 [2015-06-01 17:30:17.643 +02:00] [INFO] baseURL: http://www.nytimes.com
 [2015-06-01 17:30:17.704 +02:00] [INFO] |1|Command#1: open("/")
 [2015-06-01 17:30:27.524 +02:00] [INFO] - [Success] URL: [http://www.nytimes.com/] / Title: [The New York Times - Breaking News, World News & Multimedia]
@@ -61,7 +61,7 @@
 [2015-06-01 17:30:52.441 +02:00] [INFO] - [Success] URL: [http://query.nytimes.com/search/sitesearch/?action=click&contentCollection&region=TopBar&WT.nav=searchWidget&module=SearchSubmit&pgtype=Homepage#/selenium/since1851/allresults/1/allauthors/oldest/] / Title: [NYTimes.com Search]
 [2015-06-01 17:30:52.441 +02:00] [INFO] |6|Command#6: verifyText("xpath=(/html/body/div[1]/div/div[3]/div/div/div[1]/div[2]/div/div[3]/ol/li[1]/div/h3/a)", "Norwegians in America.")
 [2015-06-01 17:30:53.135 +02:00] [INFO] - [Success]
-[2015-06-01 17:30:53.140 +02:00] [INFO] End(35,493sec): TestCase[nyt] (/var/tmp/selenior-testcase-86337D59-F97F-4456-ACAC-C8D8432312EB.html)
-[2015-06-01 17:30:53.140 +02:00] [INFO] End(0,000sec): TestSuite[nyt] (/var/tmp/selenior-testcase-86337D59-F97F-4456-ACAC-C8D8432312EB.html)
+[2015-06-01 17:30:53.140 +02:00] [INFO] End(35,493sec): TestCase[nyt] (/var/tmp/journeymonitor-testcase-86337D59-F97F-4456-ACAC-C8D8432312EB.html)
+[2015-06-01 17:30:53.140 +02:00] [INFO] End(0,000sec): TestSuite[nyt] (/var/tmp/journeymonitor-testcase-86337D59-F97F-4456-ACAC-C8D8432312EB.html)
 [2015-06-01 17:30:53.141] [INFO] Exit code: 0
 [2015-06-01 17:30:53.439] [INFO] Quit: FirefoxDriver

@@ -7,7 +7,7 @@ fi
 
 CURDIR="$(pwd)"
 CIDDIR="/tmp"
-DB_CID="$CIDDIR/.selenior.db.cid" # global lock
+DB_CID="$CIDDIR/.journeymonitor.db.cid" # global lock
 
 if [[ -f "CNAME" ]]; then
     hostname=$(head -n 1 CNAME | sed  's/ /_/g')
@@ -44,15 +44,15 @@ StartDb()
     # remove named container
     RemoveNamedContainer "db.journeymonitor.local.net"
 
-    sudo mkdir -p /opt/selenior-db
+    sudo mkdir -p /opt/journeymonitor-db
     # start named container
     docker run -d \
         -e MYSQL_ROOT_PASSWORD=$DB_PASSWORD \
-        -v "/opt/selenior-db":/var/lib/mysql \
+        -v "/opt/journeymonitor-db":/var/lib/mysql \
         --cidfile=$DB_CID \
         --name="db.journeymonitor.local.net" \
         --hostname="db.journeymonitor.local.net" \
-        selenior/db
+        journeymonitor/db
 
     UpdateEtcHosts "db.journeymonitor.local.net"
 }
@@ -100,7 +100,7 @@ StartPhpNginx()
         $XDEBUG_ENABLE \
         --name="$hostname" \
         --cidfile="$CIDDIR/$hostname.cid" \
-        selenior/frontend
+        journeymonitor/frontend
 
     UpdateEtcHosts "$hostname"
 }
@@ -167,7 +167,7 @@ InitializeMysql()
     docker run -it \
         -e TMP_SQL="$sql" \
         --link db.journeymonitor.local.net:mysql \
-        --rm selenior/db \
+        --rm journeymonitor/db \
         sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD" -Bse "$TMP_SQL"'
 }
 
@@ -175,7 +175,7 @@ MysqlConsole()
 {
     docker run -it \
         --link db.journeymonitor.local.net:mysql \
-        --rm selenior/db \
+        --rm journeymonitor/db \
         sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"'
 }
 

@@ -2,14 +2,14 @@
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PATH
 
-mkdir -p /opt/selenior/control
+mkdir -p /opt/journeymonitor/control
 
-rsync -ac --stats --exclude /opt/selenior/control/app/cache --exclude /opt/selenior/control/app/logs $2/ /opt/selenior/control/ || exit 1
+rsync -ac --stats --exclude /opt/journeymonitor/control/app/cache --exclude /opt/journeymonitor/control/app/logs $2/ /opt/journeymonitor/control/ || exit 1
 
-chown -R www-data:www-data /opt/selenior/control/app/cache || exit 1
-chown -R www-data:www-data /opt/selenior/control/app/logs || exit 1
+chown -R www-data:www-data /opt/journeymonitor/control/app/cache || exit 1
+chown -R www-data:www-data /opt/journeymonitor/control/app/logs || exit 1
 
-cd /opt/selenior/control/
+cd /opt/journeymonitor/control/
 
 sudo -u www-data /usr/bin/php ./app/console cache:clear --no-interaction --env=prod || exit 1
 sudo -u www-data /usr/bin/php ./app/console cache:warmup --no-interaction --env=prod || exit 1
