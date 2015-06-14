@@ -1,24 +1,32 @@
-# JourneyMonitor - CONTROL component
+# JourneyMonitor
 
-## About
+## About this repository
 
-Application that provides the JourneyMonitor website.
+Application that powers the JourneyMonitor website at http://journeymonitor.com.
+
+[![Build Status](https://travis-ci.org/journeymonitor/control.png?branch=master)](https://travis-ci.org/journeymonitor/control)
 
 
-## Development setup instructions
+## About the JourneyMonitor project
+
+Please see [ABOUT.md](https://github.com/journeymonitor/infra/blob/master/ABOUT.md) for more information.
+
+
+## Setting up a development environment
 
 ### Using Vagrant (recommended)
 
 Set up a development VM as described at https://github.com/journeymonitor/infra/blob/master/README.md
 
+Afterwards, follow these steps:
+
 - SSH into the development VM by running `vagrant ssh` from the *infra* folder
 - `cd /opt/journeymonitor/control`
-- `composer install`
-- `bower install`
-- `php app/console doctrine:migrations:migrate`
-- `php app/console assets:install --symlink`
+- `make dependencies`
+- `make migrations`
+- `make assets`
 
-You can now browse to http://192.168.99.99/. Run the tests via `php ./vendor/phpunit/phpunit/phpunit`.
+You can now access the application at http://192.168.99.99/. Run the tests via `make tests`.
 
 
 ### Mac OS X
@@ -26,17 +34,16 @@ You can now browse to http://192.168.99.99/. Run the tests via `php ./vendor/php
 We do not officially support installing and running this application on Mac OS X environments, but the following might
 be helpful if you want to give it a try.
 
-Assumes that you have PHP 5.5, Git, Bower, and Composer installed.
+Assumes that you have Make, PHP 5.5, Git, Bower, and Composer installed.
 
     git clone git@github.com:journeymonitor/control.git
     cd control
-    composer install
-    bower install
-    php app/console doctrine:migrations:migrate
-    php app/console assets:install
-    php app/console server:run
+    make dependencies
+    make migrations
+    make assets
+    make dev-server-run
 
-`composer install` will ask some questions, just approve the defaults.
+You can now access the application at http://localhost:8000. Run the tests via `make tests`.
 
 
 ### Windows
