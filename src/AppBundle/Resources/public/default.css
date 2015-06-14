@@ -17,6 +17,12 @@ body {
     font-family: 'Roboto Slab', serif;
 }
 
+@media (max-width: 1280px) {
+    .github-fork-ribbon-wrapper {
+        display: none;
+    }
+}
+
 a:focus {
     outline: none;
 }

@@ -10,6 +10,7 @@ branches:
   - master
   - develop
 before_script:
+- phpenv config-add travisci-php.ini
 - make travisci-before-script
 script:
 - make travisci-script
