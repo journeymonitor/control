@@ -1,6 +1,6 @@
 {
     "name": "journeymonitor/control",
-    "license": "proprietary",
+    "license": "See LICENSE.md",
     "type": "project",
     "autoload": {
         "psr-0": {

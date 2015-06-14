@@ -2,22 +2,28 @@ php-dependencies:
 	composer install --no-interaction
 
 js-dependencies:
-	bower install --allow-root
+	/usr/local/bin/bower install --allow-root
 
 dependencies: php-dependencies js-dependencies
 
+migrations:
+	/usr/bin/php app/console doctrine:migrations:migrate
+
 test-migrations:
-	php app/console doctrine:migrations:migrate -n --env test
+	/usr/bin/php app/console doctrine:migrations:migrate -n --env test
 
 assets:
-	php app/console assets:install
+	/usr/bin/php app/console assets:install
+
+dev-server-run:
+	/usr/bin/php app/console server:run
 
 test:
-	php ./vendor/phpunit/phpunit/phpunit
+	/usr/bin/php ./vendor/phpunit/phpunit/phpunit
 
 travisci-packages:
-	sudo apt-get update -qq
-	sudo apt-get install -y php5-sqlite php5-gd sqlite3
+	/usr/bin/sudo /usr/bin/apt-get update -qq
+	/usr/bin/sudo /usr/bin/apt-get install -y php5-sqlite php5-gd sqlite3
 
 travisci-before-script: travisci-packages php-dependencies assets test-migrations
 
