@@ -17,7 +17,7 @@ test:
 
 travisci-packages:
 	sudo apt-get update -qq
-	sudo apt-get install php5-sqlite php5-gd sqlite3
+	sudo apt-get install -y php5-sqlite php5-gd sqlite3
 
 travisci-before-script: travisci-packages php-dependencies assets test-migrations
 
