@@ -19,6 +19,11 @@
         <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700|Pacifico' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="{{ asset('bundles/app/vendor/bootstrap/dist/css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('bundles/app/default.css') }}">
+
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
+        <!--[if lt IE 9]>
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.ie.min.css" />
+        <![endif]-->
     {% endblock %}
 
     {% block javascripts_head %}
@@ -30,6 +35,11 @@
     {% endblock %}
 </head>
 <body>
+    <div class="github-fork-ribbon-wrapper left">
+        <div class="github-fork-ribbon">
+            <a href="https://github.com/simonwhitaker/github-fork-ribbon-css">Fork me on GitHub</a>
+        </div>
+    </div>
     <header class="clearfix">
         <nav class="navbar navbar-fixed-top">
             <div class="wrapper">
