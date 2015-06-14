@@ -18,10 +18,8 @@ test:
 travisci-packages:
 	sudo apt-get update -qq
 	sudo apt-get install php5-sqlite php5-gd sqlite3
-	npm install -g grunt-cli
-	npm install -g bower
 
-travisci-before-script: travisci-packages dependencies assets test-migrations
+travisci-before-script: travisci-packages php-dependencies assets test-migrations
 
 travisci-script: test
 
