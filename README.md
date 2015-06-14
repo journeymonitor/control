@@ -23,6 +23,9 @@ You can now browse to http://192.168.99.99/. Run the tests via `php ./vendor/php
 
 ### Mac OS X
 
+We do not officially support installing and running this application on Mac OS X environments, but the following might
+be helpful if you want to give it a try.
+
 Assumes that you have PHP 5.5, Git, Bower, and Composer installed.
 
     git clone git@github.com:journeymonitor/control.git
@@ -45,9 +48,11 @@ helpful if you want to give it a try. The described steps have been tested on Wi
 - `git clone git@github.com:journeymonitor/control.git`
 - `cd control`
 - Download PHP from http://windows.php.net/download/#php-5.5 (x64 Threadsafe) and unzip to `C:\Program Files\php`
-- Add php to your PATH Variable (Windows+Pause --> Advanced --> Environment Variables --> PATH (Edit / New) --> Add 'C:\Program Files\php;' without quotes)
+- Add php to your PATH Variable (Windows+Pause --> Advanced --> Environment Variables --> PATH (Edit / New) --> Add
+  'C:\Program Files\php;' without quotes)
 - Copy `C:\Program Files\php\php.ini-development` to `C:\Program Files\php\php.ini`
-- Start an editor of your choice in elevated (admin) mode and make sure the following extensions are activated (remove `;` in front):
+- Start an editor of your choice in elevated (admin) mode and make sure the following extensions are activated (remove
+  `;` in front):
 - `extension_dir = "ext"`
 - `extension=php_curl.dll`
 - `extension=php_mbstring.dll`
@@ -57,9 +62,11 @@ helpful if you want to give it a try. The described steps have been tested on Wi
 - Also add `date.timezone = Europe/Berlin` to the file
 - Open a cmd console and try to run `php` - if you see no output at all thats's good!
 - Next you need to install Composer from https://getcomposer.org/download/
-- Change into the cloned directory and run `composer install` - choose `C:\Temp\journeymonitor-control` as the database file path
+- Change into the cloned directory and run `composer install` - choose `C:\Temp\journeymonitor-control` as the database
+  file path
 - Login or create a github user and stay logged in in your browser
-- While running Composer it will fail saying you need to create an auth token - it will generate a link for you redirecting you in your already logged in github account
+- While running Composer it will fail saying you need to create an auth token - it will generate a link for you
+  redirecting you in your already logged in github account
 - After generating the auth token rerun `composer install` to get the backend vendor files
 - Install Node.js from https://nodejs.org/download/
 - Make sure to let the installer add PATH variables
@@ -102,8 +109,9 @@ For convience there is also a shortcut to get into the mysql-shell in the db con
 
 ### Other info
 
-At `app/Resources/journeymonitor-control-dev.sqlite3.dist.gz` you'll find an sqlite3 database file that contains the user 'demo-user@journeymonitor.com' with password 'demo123'.
-The user has some testcases and testresult data. Simply unzip to `/var/tmp/journeymonitor-control-dev.sqlite3` if you want to use it.
+At `app/Resources/journeymonitor-control-dev.sqlite3.dist.gz` you'll find an sqlite3 database file that contains the
+user 'demo-user@journeymonitor.com' with password 'demo123'. The user has some testcases and testresult data. Simply
+unzip to `/var/tmp/journeymonitor-control-dev.sqlite3` if you want to use it.
 
 
 ## Styleguide
