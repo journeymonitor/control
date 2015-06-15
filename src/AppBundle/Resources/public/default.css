@@ -17,10 +17,14 @@ body {
     font-family: 'Roboto Slab', serif;
 }
 
-@media (max-width: 1280px) {
-    .github-fork-ribbon-wrapper {
-        display: none;
-    }
+body div.github-fork-ribbon-wrapper.right-bottom div.github-fork-ribbon {
+    right: -63px;
+    top: 98px;
+    font: 700 10px "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.github-fork-ribbon a, .github-fork-ribbon a:hover {
+    line-height: 13px;
 }
 
 a:focus {
