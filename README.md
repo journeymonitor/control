@@ -24,7 +24,6 @@ Afterwards, follow these steps:
 - `cd /opt/journeymonitor/control`
 - `make dependencies`
 - `make migrations`
-- `make assets`
 
 You can now access the application at http://192.168.99.99/. Run the tests via `make tests`.
 
