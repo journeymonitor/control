@@ -26,8 +26,6 @@ travisci-packages:
 	sudo apt-get install -y php5-sqlite php5-gd sqlite3
 
 travisci-before-script: travisci-packages php-dependencies test-migrations
-	echo 'date.timezone = "Europe/Paris"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-	~/.phpenv/versions/$(phpenv version-name)/bin/composer self-update
 
 travisci-script: test
 
