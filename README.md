@@ -16,7 +16,7 @@ Please see [ABOUT.md](https://github.com/journeymonitor/infra/blob/master/ABOUT.
 
 ### Using Vagrant (recommended)
 
-Set up a development VM as described at https://github.com/journeymonitor/infra/blob/master/README.md
+Set up a development VM as described [in this document](https://github.com/journeymonitor/infra/blob/master/README.md#setting-up-a-development-environment).
 
 Afterwards, follow these steps:
 
