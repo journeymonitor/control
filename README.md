@@ -25,7 +25,7 @@ Afterwards, follow these steps:
 - `make dependencies`
 - `make migrations`
 
-You can now access the application at http://192.168.99.99/. Run the tests via `make tests`.
+You can now access the application at http://192.168.59.99/. Run the tests via `make tests`.
 
 
 ### Mac OS X
