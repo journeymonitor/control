@@ -24,9 +24,8 @@ Afterwards, follow these steps:
 - `cd /opt/journeymonitor/control`
 - `make dependencies`
 - `make migrations`
-- `make assets`
 
-You can now access the application at http://192.168.99.99/. Run the tests via `make tests`.
+You can now access the application at http://192.168.59.99/. Run the tests via `make tests`.
 
 
 ### Mac OS X
@@ -124,3 +123,4 @@ unzip to `/var/tmp/journeymonitor-control-dev.sqlite3` if you want to use it.
 ## Styleguide
 
 See http://paletton.com/#uid=33r0u0knJASdGPbjcHDs+wBvDpF for color scheme.
+
