@@ -39,7 +39,12 @@ class ImportTestresultsCommand extends ContainerAwareCommand
         foreach ($json as $testresultArray) {
             $testresult = $testresultRepo->find($testresultArray['id']);
             if (empty($testresult)) {
-                $testcase = $testcaseRepo->find($testresultArray['testcaseId']);
+                try {
+                    $testcase = $testcaseRepo->find($testresultArray['testcaseId']);
+                } catch (\Exception $e) {
+                    $output->writeln('Testresult ' . $testresultArray['id'] . ' does not have a testcaseId:');
+                    $output->writeln(print_r($testresultArray, true));
+                }
                 if (!empty($testcase)) {
                     $testresult = new Testresult();
                     $testresult->setId($testresultArray['id']);
