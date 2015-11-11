@@ -131,7 +131,6 @@ Regards,
         $container = $client->getContainer();
         $em = $container->get('doctrine.orm.entity_manager');
         $tcRepo = $em->getRepository('AppBundle\Entity\Testcase');
-        $trRepo = $em->getRepository('AppBundle\Entity\Testresult');
 
         $testresult = new Testresult();
         $testresult->setId('abc');
