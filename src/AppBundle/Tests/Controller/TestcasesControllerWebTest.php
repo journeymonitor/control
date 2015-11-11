@@ -96,6 +96,54 @@ Regards,
         $this->assertSame(1, count($crawler->filter('h4 a:contains("Blafasel")')));
     }
 
+    public function testThatEnabledTestcasesAreListedFirst()
+    {
+        $this->resetDatabase();
+        $client = $this->createAndActivateDemoUser(); // This gives us the first testcase
+
+        $crawler = $client->request('GET', '/testcases/');
+
+        $link = $crawler->filter('a:contains("＋ Add another testcase")')->eq(0)->link();
+        $crawler = $client->click($link);
+
+        $buttonNode = $crawler->selectButton('Start monitoring');
+        $form = $buttonNode->form();
+
+        $crawler = $client->submit($form, array(
+            'testcase[title]' => 'Second, disabled Testcase',
+            'testcase[cadence]' => '*/5',
+            'testcase[script]' => 'bar',
+        ));
+
+        $link = $crawler->filter('a:contains("◀ Back to testcases list")')->eq(0)->link();
+        $crawler = $client->click($link);
+
+        $link = $crawler->filter('a:contains("＋ Add another testcase")')->eq(0)->link();
+        $crawler = $client->click($link);
+
+        $buttonNode = $crawler->selectButton('Start monitoring');
+        $form = $buttonNode->form();
+
+        $crawler = $client->submit($form, array(
+            'testcase[title]' => 'Third, enabled Testcase',
+            'testcase[cadence]' => '*/5',
+            'testcase[script]' => 'bar',
+        ));
+
+        $link = $crawler->filter('a:contains("◀ Back to testcases list")')->eq(0)->link();
+        $crawler = $client->click($link);
+
+        // Disable the second testcase
+        $link = $crawler->filter('td.testcase-entry-cell div.pull-right a.btn.btn-default.btn-sm:contains("Disable")')->eq(1)->link();
+        $client->click($link);
+
+        $crawler = $client->request('GET', '/testcases/');
+
+        $this->assertSame('Demo User Testcase One', trim($crawler->filter('.testcase-entry-cell h4')->eq(0)->text()));
+        $this->assertSame('Third, enabled Testcase', trim($crawler->filter('.testcase-entry-cell h4')->eq(1)->text()));
+        $this->assertSame('Second, disabled Testcase', trim($crawler->filter('.testcase-entry-cell h4')->eq(2)->text()));
+    }
+
     public function testIndexWithTestcaseWithoutResults()
     {
         $this->resetDatabase();
