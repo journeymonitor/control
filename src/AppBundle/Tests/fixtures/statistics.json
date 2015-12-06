@@ -1,0 +1,16 @@
+[
+  {
+    "testresultId": "tr1",
+    "runtimeMilliseconds": 1234,
+    "numberOf200": 10,
+    "numberOf400": 2,
+    "numberOf500": 1
+  },
+  {
+    "testresultId": "tr2",
+    "runtimeMilliseconds": 2234,
+    "numberOf200": 20,
+    "numberOf400": 4,
+    "numberOf500": 2
+  }
+]

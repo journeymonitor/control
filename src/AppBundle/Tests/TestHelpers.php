@@ -3,6 +3,7 @@
 namespace AppBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\StringInput;
@@ -11,10 +12,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 trait TestHelpers
 {
-    protected function resetDatabase()
+    protected function resetDatabase(KernelInterface $kernel = null)
     {
-        $client = static::createClient();
-        $kernel = $client->getKernel();
+        if (is_null($kernel)) {
+            $client = static::createClient();
+            $kernel = $client->getKernel();
+        }
         $kernel->boot();
 
         $application = new Application($kernel);
