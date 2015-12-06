@@ -5,31 +5,31 @@ services:
     testcase:
         class: AppBundle\Service\TestcaseService
         arguments:
-            - @doctrine.orm.entity_manager
+            - "@doctrine.orm.entity_manager"
 
     registration:
         class: AppBundle\Service\RegistrationService
         arguments:
-            - @fos_user.user_manager
-            - @fos_user.security.login_manager
-            - @security.encoder_factory
-            - @session
-            - @security.token_storage
-            - @event_dispatcher
+            - "@fos_user.user_manager"
+            - "@fos_user.security.login_manager"
+            - "@security.encoder_factory"
+            - "@session"
+            - "@security.token_storage"
+            - "@event_dispatcher"
 
     registration_confirmation_listener:
         class: AppBundle\EventListener\RegistrationConfirmationListener
         arguments:
-            - @repo.testcase
-            - @security.token_storage
-            - @doctrine.orm.entity_manager
+            - "@repo.testcase"
+            - "@security.token_storage"
+            - "@doctrine.orm.entity_manager"
         tags:
             - { name: kernel.event_subscriber }
 
     demo_service:
         class: AppBundle\Service\DemoService
         arguments:
-            - @fos_user.user_manager
+            - "@fos_user.user_manager"
             - "demo-user@journeymonitor.com"
             - "/demo/"
 

@@ -52,6 +52,8 @@ class TestcasesApiControllerWebTest extends WebTestCase
 
         $structuredContent = json_decode($content);
 
+        print_r($structuredContent); die();
+
         $this->assertSame(1, sizeof($structuredContent));
         $this->assertSame('Test One', $structuredContent[0]->title);
         $this->assertSame('user@example.org', $structuredContent[0]->notifyEmail);

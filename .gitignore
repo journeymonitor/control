@@ -1,9 +1,9 @@
-/app/bootstrap.php.cache
-/app/cache/*
-!app/cache/.gitkeep
-/app/logs/*
+/var/bootstrap.php.cache
+/var/cache/*
+!var/cache/.gitkeep
+/var/logs/*
 /app/config/parameters.yml
-!app/logs/.gitkeep
+!var/logs/.gitkeep
 /app/phpunit.xml
 /bin/
 /vendor/
