@@ -55,10 +55,16 @@ class ImportStatisticsCommand extends ContainerAwareCommand
                     $em->flush();
                     $output->writeln('Imported statistics for testresult ' . $testresult->getId() . '.');
                 } else {
-                    $output->writeln('Could not persist statistics for testresult ' . $statisticArray['testresultId'] . ' because the testresult does not exist.');
+                    $output->writeln(
+                        'Could not persist statistics for testresult '
+                        . $statisticArray['testresultId']
+                        . ' because the testresult does not exist.');
                 }
             } else {
-                $output->writeln('Statistics for testresult ' . $statisticArray['testresultId'] . ' are already known.');
+                $output->writeln(
+                    'Statistics for testresult '
+                    . $statisticArray['testresultId']
+                    . ' are already known.');
             }
         }
         $output->writeln('Import finished.');
