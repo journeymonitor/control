@@ -48,7 +48,7 @@ You can now access the application at http://localhost:8000. Run the tests via `
 ### Windows
 
 We do not officially support installing and running this application on Windows environments, but the following might be
-helpful if you want to give it a try. The described steps have been tested on Windows 8.1 Pro x64 WMC).
+helpful if you want to give it a try. The described steps have been tested on Windows 8.1 Pro x64 WMC.
 
 - First install git: https://git-scm.com/download/win
 - `git clone git@github.com:journeymonitor/control.git`
