@@ -34,7 +34,7 @@ class ImportTestresultsCommand extends ContainerAwareCommand
         $client = new Client();
 
         $response = $client->get($input->getArgument('url'));
-        $json = $response->json();
+        $json = $response->json(); // @TODO: This is totally not memory efficient yet
 
         foreach ($json as $testresultArray) {
             $testresult = $testresultRepo->find($testresultArray['id']);
