@@ -32,3 +32,6 @@ services:
             - @fos_user.user_manager
             - "demo-user@journeymonitor.com"
             - "/demo/"
+
+    guzzle_client:
+        class: GuzzleHttp\Client

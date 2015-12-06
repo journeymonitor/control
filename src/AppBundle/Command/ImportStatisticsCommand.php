@@ -3,9 +3,6 @@
 namespace AppBundle\Command;
 
 use AppBundle\Entity\Statistic;
-use AppBundle\Entity\Testresult;
-use GuzzleHttp\Client;
-use GuzzleHttp\Event\SubscriberInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,14 +11,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ImportStatisticsCommand extends ContainerAwareCommand
 {
-    protected $guzzleSubscriber = null;
-
-    // Required for mocked Guzzle reponses
-    public function setGuzzleSubscriber(SubscriberInterface $guzzleSubscriber)
-    {
-        $this->guzzleSubscriber = $guzzleSubscriber;
-    }
-
     protected function configure()
     {
         $this
@@ -41,10 +30,7 @@ class ImportStatisticsCommand extends ContainerAwareCommand
         $testresultRepo = $em->getRepository('AppBundle\Entity\Testresult');
         $statisticRepo = $em->getRepository('AppBundle\Entity\Statistic');
 
-        $client = new Client();
-        if (!is_null($this->guzzleSubscriber)) {
-            $client->getEmitter()->attach($this->guzzleSubscriber);
-        }
+        $client = $this->getContainer()->get('guzzle_client');
 
         $response = $client->get($input->getArgument('url'));
         $json = $response->json(); // @TODO: This is totally not memory efficient yet

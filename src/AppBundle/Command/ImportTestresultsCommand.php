@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+// @TODO: Refactor using service, add test
 class ImportTestresultsCommand extends ContainerAwareCommand
 {
     protected function configure()

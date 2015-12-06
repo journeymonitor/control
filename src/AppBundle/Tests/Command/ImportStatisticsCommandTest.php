@@ -44,15 +44,15 @@ class ImportStatisticsCommandTest extends WebTestCase
         $em->persist($testresult);
         $em->flush();
 
-        $command = $application->find('journeymonitor:control:import:statistics');
-
         $mock = new Mock([
             file_get_contents(__DIR__ . '/../fixtures/statistics.httpresponse')
         ]);
-        $command->setGuzzleSubscriber($mock);
+        $guzzleClient = $container->get('guzzle_client');
+        $guzzleClient->getEmitter()->attach($mock);
+
+        $command = $application->find('journeymonitor:control:import:statistics');
 
         $commandTester = new CommandTester($command);
-
         $commandTester->execute([
             'command' => $command->getName(),
             'url' => 'http://foo.bar/'
