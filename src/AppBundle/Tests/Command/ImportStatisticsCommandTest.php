@@ -9,7 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 use GuzzleHttp\Subscriber\Mock;
-use GuzzleHttp\Message\Response;
 
 // Building upon WebTestCase because this gives us a user with a testcase for free
 class ImportStatisticsCommandTest extends WebTestCase
@@ -48,7 +47,7 @@ class ImportStatisticsCommandTest extends WebTestCase
         $command = $application->find('journeymonitor:control:import:statistics');
 
         $mock = new Mock([
-            "HTTP/1.1 200 OK\r\nContent-Length: 273\r\n\r\n" . file_get_contents(__DIR__ . '/../fixtures/statistics.json')
+            file_get_contents(__DIR__ . '/../fixtures/statistics.httpresponse')
         ]);
         $command->setGuzzleSubscriber($mock);
 

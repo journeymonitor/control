@@ -1,3 +1,6 @@
+HTTP/1.1 200 OK
+Content-Length: 273
+
 [
   {
     "testresultId": "tr1",
