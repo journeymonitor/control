@@ -4,7 +4,7 @@ namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -22,10 +22,10 @@ class TestcaseType extends AbstractType
                 ChoiceType::class,
                 [
                     'choices' => [
-                        '*/5'  => 'Every 5 minutes',
-                        '*/15' => 'Every 15 minutes',
-                        '*/30' => 'Every 30 minutes',
-                        '0'    => 'Every 60 minutes',
+                        'Every 5 minutes'  => '*/5',
+                        'Every 15 minutes' => '*/15',
+                        'Every 30 minutes' => '*/30',
+                        'Every 60 minutes' => '0',
                     ],
                     'required' => true,
                     'multiple' => false,
@@ -36,7 +36,7 @@ class TestcaseType extends AbstractType
             ->add('Save', SubmitType::class, ['label' => 'Start monitoring', 'attr' => ['class' => 'btn-primary']]);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             [

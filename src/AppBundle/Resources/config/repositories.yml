@@ -1,13 +1,11 @@
 services:
     repo.testcase:
-        class: Doctrine\ORM\EntityRepository
-        factory_service: doctrine.orm.entity_manager
-        factory_method: getRepository
+        class: AppBundle\Repository\TestcaseRepository
+        factory: ["@doctrine", getRepository]
         arguments:
-            - AppBundle\Entity\Testcase
+            - "AppBundle:Testcase"
     repo.testresult:
-        class: Doctrine\ORM\EntityRepository
-        factory_service: doctrine.orm.entity_manager
-        factory_method: getRepository
+        class: AppBundle\Repository\TestresultRepository
+        factory: ["@doctrine", getRepository]
         arguments:
-            - AppBundle\Entity\Testresult
+            - "AppBundle:Testresult"

@@ -54,7 +54,7 @@ trait TestHelpers
         $container = $client->getContainer();
         $um = $container->get('fos_user.user_manager');
 
-        $user = $um->findUserBy(['email' => 'demo-user@journeymonitor.com']);
+        $user = $um->findUserByEmail('demo-user@journeymonitor.com');
         $client->request('GET', '/register/confirm/' . $user->getConfirmationToken());
         return $client;
     }
