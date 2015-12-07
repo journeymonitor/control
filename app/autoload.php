@@ -3,7 +3,6 @@
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Composer\Autoload\ClassLoader;
 
-ini_set('memory_limit', '512M'); // For phpunit test runs
 error_reporting(error_reporting() & ~E_USER_DEPRECATED);
 
 /**

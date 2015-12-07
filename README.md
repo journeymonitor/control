@@ -42,7 +42,8 @@ Assumes that you have Make, PHP 5.5, Git, Bower, and Composer installed.
     make assets
     make dev-server-run
 
-You can now access the application at http://localhost:8000. Run the tests via `make tests`.
+You can now access the application at http://localhost:8000. Run the tests via `make tests`. Please note that you need
+to increase the `memory_limit` in `php.ini` to `256M` to make the test run work.
 
 
 ### Windows
