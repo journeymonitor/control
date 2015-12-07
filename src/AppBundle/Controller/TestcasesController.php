@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Form\Type\TestcaseAndUserType;
 use AppBundle\Form\Type\TestcaseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
@@ -10,6 +9,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use AppBundle\Form\Type\TestcaseAndUserType;
 
 class TestcasesController extends Controller
 {
@@ -44,7 +44,7 @@ class TestcasesController extends Controller
             return $this->redirect($this->get('router')->generate('testcases.index'));
         }
 
-        $form = $this->createForm(new TestcaseAndUserType());
+        $form = $this->createForm(TestcaseAndUserType::class);
         $form->handleRequest($request);
 
         if ($form->isValid() && empty($user)) {
