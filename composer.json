@@ -30,7 +30,7 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
         "doctrine/doctrine-migrations-bundle": "^1.0",
-        "friendsofsymfony/user-bundle": "dev-master",
+        "friendsofsymfony/user-bundle": "^2.0",
         "guzzlehttp/guzzle": "~5.0",
         "friendsofsymfony/rest-bundle": "1.7.4",
         "jms/serializer-bundle": "1.1.0",

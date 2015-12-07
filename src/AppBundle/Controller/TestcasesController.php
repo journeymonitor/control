@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use AppBundle\Form\Type\TestcaseAndUserType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class TestcasesController extends Controller
 {
@@ -82,7 +83,7 @@ class TestcasesController extends Controller
     public function newAction(Request $request)
     {
         $user = $this->getUser();
-        $form = $this->createForm(new TestcaseType());
+        $form = $this->createForm(TestcaseType::class);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -114,8 +115,8 @@ class TestcasesController extends Controller
             return $this->redirect($this->get('router')->generate('testcases.index'));
         }
 
-        $form = $this->createForm(new TestcaseType(), $testcase);
-        $form->add('Save', 'submit', ['label' => 'Update testcase', 'attr' => ['class' => 'btn-primary']]);
+        $form = $this->createForm(TestcaseType::class, $testcase);
+        $form->add('Save', SubmitType::class, ['label' => 'Update testcase', 'attr' => ['class' => 'btn-primary']]);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
