@@ -8,16 +8,12 @@ use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Security\LoginManager;
 use FOS\UserBundle\Security\LoginManagerInterface;
-use Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Csrf\TokenStorage\SessionTokenStorage;
@@ -40,10 +36,6 @@ class RegistrationService
      * @var Session
      */
     private $session;
-    /**
-     * @var TokenStorage
-     */
-    private $tokenStorage;
     /**
      * @var EventDispatcher
      */
@@ -70,7 +62,6 @@ class RegistrationService
         $this->loginManager = $loginManager;
         $this->encoderFactory = $encoderFactory;
         $this->session = $session;
-        $this->tokenStorage = $tokenStorage;
         $this->eventDispatcher = $eventDispatcher;
     }
 

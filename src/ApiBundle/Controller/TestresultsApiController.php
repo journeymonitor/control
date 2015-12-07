@@ -2,8 +2,6 @@
 
 namespace ApiBundle\Controller;
 
-use ApiBundle\Service\HarTransformerService;
-use ApiBundle\Service\SeleneseRunnerLogAnalyzerService;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;

@@ -10,5 +10,4 @@
 /web/bundles/
 src/AppBundle/Resources/public/vendor
 composer.phar
-.DS_Store
 .idea

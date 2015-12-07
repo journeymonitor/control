@@ -5,7 +5,6 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Testcase;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class TestcaseService
 {

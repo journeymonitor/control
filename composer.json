@@ -1,6 +1,7 @@
 {
     "name": "journeymonitor/control",
-    "license": "See LICENSE.md",
+    "description": "See https://github.com/journeymonitor/infra/blob/master/ABOUT.md",
+    "license": "MIT",
     "type": "project",
     "autoload": {
         "psr-4": {

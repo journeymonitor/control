@@ -6,7 +6,6 @@ use AppBundle\Entity\Statistic;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ImportStatisticsCommand extends ContainerAwareCommand
@@ -33,7 +32,7 @@ class ImportStatisticsCommand extends ContainerAwareCommand
         $client = $this->getContainer()->get('guzzle_client');
 
         $response = $client->get($input->getArgument('url'));
-        $json = $response->json(); // @TODO: This is totally not memory efficient yet
+        $json = $response->json();
 
         foreach ($json as $statisticArray) {
             $statistic = $statisticRepo->findOneBy(['testresult' => $statisticArray['testresultId']]);
@@ -52,7 +51,7 @@ class ImportStatisticsCommand extends ContainerAwareCommand
                     $statistic->setNumberOf400($statisticArray['numberOf400']);
                     $statistic->setNumberOf500($statisticArray['numberOf500']);
                     $em->persist($statistic);
-                    $em->flush();
+                    $em->flush($statistic);
                     $output->writeln('Imported statistics for testresult ' . $testresult->getId() . '.');
                 } else {
                     $output->writeln(

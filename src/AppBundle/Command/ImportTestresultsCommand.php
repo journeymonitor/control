@@ -7,10 +7,8 @@ use GuzzleHttp\Client;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-// @TODO: Refactor using service, add test
 class ImportTestresultsCommand extends ContainerAwareCommand
 {
     protected function configure()
@@ -35,7 +33,7 @@ class ImportTestresultsCommand extends ContainerAwareCommand
         $client = new Client();
 
         $response = $client->get($input->getArgument('url'));
-        $json = $response->json(); // @TODO: This is totally not memory efficient yet
+        $json = $response->json();
 
         foreach ($json as $testresultArray) {
             $testresult = $testresultRepo->find($testresultArray['id']);
@@ -56,7 +54,7 @@ class ImportTestresultsCommand extends ContainerAwareCommand
                     $testresult->setFailScreenshotFilename($testresultArray['failScreenshotFilename']);
                     $testresult->setHar($testresultArray['har']);
                     $em->persist($testresult);
-                    $em->flush();
+                    $em->flush($testresult);
                     $output->writeln('Imported testresult ' . $testresult->getId() . '.');
                 } else {
                     $output->writeln('Could not persist testresult ' . $testresultArray['id'] . ' because testcase ' . $testresultArray['testcaseId'] .' could not be found.');
