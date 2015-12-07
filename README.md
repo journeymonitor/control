@@ -6,6 +6,8 @@ Application that powers the JourneyMonitor website at http://journeymonitor.com.
 
 [![Build Status](https://travis-ci.org/journeymonitor/control.png?branch=master)](https://travis-ci.org/journeymonitor/control)
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/4929a5b2-4be3-46e2-8c6d-28d46fd0e862/big.png)](https://insight.sensiolabs.com/projects/4929a5b2-4be3-46e2-8c6d-28d46fd0e862)
+
 
 ## About the JourneyMonitor project
 
