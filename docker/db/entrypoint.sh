@@ -12,7 +12,6 @@ if [ -z "$(ls -A /var/lib/mysql)" -a "${1%_safe}" = 'mysqld' ]; then
 	
 	# These statements _must_ be on individual lines, and _must_ end with
 	# semicolons (no line breaks or comments are permitted).
-	# TODO proper SQL escaping on ALL the things D:
 	TEMP_FILE='/tmp/mysql-first-time.sql'
 	cat > "$TEMP_FILE" <<-EOSQL
 		DELETE FROM mysql.user ;
