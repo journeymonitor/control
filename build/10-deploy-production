@@ -4,14 +4,14 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PA
 
 mkdir -p /opt/journeymonitor/control
 
-rsync -ac --stats --exclude /opt/journeymonitor/control/app/cache --exclude /opt/journeymonitor/control/app/logs $2/ /opt/journeymonitor/control/ || exit 1
+rsync -ac --stats --exclude /opt/journeymonitor/control/var/cache --exclude /opt/journeymonitor/control/var/logs $2/ /opt/journeymonitor/control/ || exit 1
 
-chown -R www-data:www-data /opt/journeymonitor/control/app/cache || exit 1
-chown -R www-data:www-data /opt/journeymonitor/control/app/logs || exit 1
+chown -R www-data:www-data /opt/journeymonitor/control/var/cache || exit 1
+chown -R www-data:www-data /opt/journeymonitor/control/var/logs || exit 1
 
 cd /opt/journeymonitor/control/
 
-sudo -u www-data /usr/bin/php ./app/console cache:clear --no-interaction --env=prod || exit 1
-sudo -u www-data /usr/bin/php ./app/console cache:warmup --no-interaction --env=prod || exit 1
+sudo -u www-data /usr/bin/php ./bin/console cache:clear --no-interaction --env=prod || exit 1
+sudo -u www-data /usr/bin/php ./bin/console cache:warmup --no-interaction --env=prod || exit 1
 
-sudo -u www-data /usr/bin/php ./app/console doctrine:migrations:migrate --no-interaction --env=prod || exit 1
+sudo -u www-data /usr/bin/php ./bin/console doctrine:migrations:migrate --no-interaction --env=prod || exit 1
