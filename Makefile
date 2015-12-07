@@ -7,16 +7,16 @@ js-dependencies:
 dependencies: php-dependencies js-dependencies
 
 migrations:
-	php app/console doctrine:migrations:migrate
+	php bin/console doctrine:migrations:migrate
 
 test-migrations:
-	php app/console doctrine:migrations:migrate -n --env test
+	php bin/console doctrine:migrations:migrate -n --env test
 
 assets:
-	php app/console assets:install
+	php bin/console assets:install
 
 dev-server-run:
-	php app/console server:run
+	php bin/console server:run
 
 test:
 	php ./vendor/phpunit/phpunit/phpunit
