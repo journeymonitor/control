@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Tests\Service;
+namespace Tests\AppBundle\Service;
 
 use AppBundle\Entity\User;
 use AppBundle\Service\RegistrationService;
@@ -52,7 +52,7 @@ class RegistrationServiceTest extends PHPUnit_Framework_TestCase
     {
         $this->userManagerMock = $this->getMockBuilder('FOS\UserBundle\Doctrine\UserManager')
             ->disableOriginalConstructor()->getMock();
-        $this->loginManagerMock = $this->getMockBuilder('AppBundle\Tests\Stubs\LoginManagerStub')
+        $this->loginManagerMock = $this->getMockBuilder('Tests\AppBundle\Stubs\LoginManagerStub')
             ->disableOriginalConstructor()->getMock();
         $this->encoderFactoryMock = $this->getMockBuilder('Symfony\Component\Security\Core\Encoder\EncoderFactory')
             ->disableOriginalConstructor()->getMock();

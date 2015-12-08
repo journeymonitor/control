@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Tests;
+namespace Tests\AppBundle;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\HttpKernel\KernelInterface;

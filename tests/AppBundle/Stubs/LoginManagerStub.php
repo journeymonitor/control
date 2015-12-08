@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Tests\Stubs;
+namespace Tests\AppBundle\Stubs;
 
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Security\LoginManagerInterface;

@@ -1,14 +1,13 @@
 <?php
 
-namespace AppBundle\Tests\Controller;
+namespace Tests\ApiBundle\Controller\Internal;
 
-use AppBundle\Entity\Testresult;
 use AppBundle\Entity\Testcase;
 use AppBundle\Entity\User;
-use AppBundle\Tests\TestHelpers;
+use Tests\AppBundle\TestHelpers;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class TestresultsApiControllerWebTest extends WebTestCase
+class TestcasesApiControllerWebTest extends WebTestCase
 {
     use TestHelpers;
 
@@ -37,27 +36,26 @@ class TestresultsApiControllerWebTest extends WebTestCase
         $testcase->setScript('foo');
         $em->persist($testcase);
 
-        $testresult = new Testresult();
-        $testresult->setId('12345');
-        $testresult->setTestcase($testcase);
-        $testresult->setOutput(file_get_contents(__DIR__ . '/../fixtures/selenese-runner.log'));
-        $testresult->setExitCode(0);
-        $testresult->setDatetimeRun(new \DateTime());
-        $testresult->setHar(file_get_contents(__DIR__ . '/../fixtures/testrun.actual.har.json'));
-        $em->persist($testresult);
+        $testcase = new Testcase();
+        $testcase->setTitle('Test Two');
+        $testcase->setUser($user);
+        $testcase->setCadence('*/5');
+        $testcase->setEnabled(false);
+        $testcase->setScript('bar');
+        $em->persist($testcase);
 
         $em->flush();
 
-        $client->request('GET', '/api/testresults/' . $testresult->getId() . '/har.jsonp');
+        $client->request('GET', '/api/internal/testcases.json');
 
         $content = $client->getResponse()->getContent();
 
-        $this->assertSame('/**/onInputData(' .
-            json_encode(
-                json_decode(
-                    file_get_contents(__DIR__ . '/../fixtures/testrun.expected.har.json')
-                )
-            ) .
-            ');', $content);
+        $structuredContent = json_decode($content);
+
+        $this->assertSame(1, sizeof($structuredContent));
+        $this->assertSame('Test One', $structuredContent[0]->title);
+        $this->assertSame('user@example.org', $structuredContent[0]->notifyEmail);
+        $this->assertSame('*/15', $structuredContent[0]->cadence);
+        $this->assertSame('foo', $structuredContent[0]->script);
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace AppBundle\Tests\Command;
+namespace Tests\AppBundle\Command;
 
 use AppBundle\Command\ImportStatisticsCommand;
 use AppBundle\Entity\Testresult;
-use AppBundle\Tests\TestHelpers;
+use Tests\AppBundle\TestHelpers;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Tester\CommandTester;

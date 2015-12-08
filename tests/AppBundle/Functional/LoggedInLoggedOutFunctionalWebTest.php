@@ -1,8 +1,8 @@
 <?php
 
-namespace AppBundle\Tests\Functional;
+namespace Tests\AppBundle\Functional;
 
-use AppBundle\Tests\TestHelpers;
+use Tests\AppBundle\TestHelpers;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class LoggedInLoggedOutFunctionalWebTest extends WebTestCase

@@ -1,9 +1,9 @@
 <?php
 
-namespace AppBundle\Tests\Controller;
+namespace Tests\AppBundle\Controller;
 
 use AppBundle\Entity\Testresult;
-use AppBundle\Tests\TestHelpers;
+use Tests\AppBundle\TestHelpers;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

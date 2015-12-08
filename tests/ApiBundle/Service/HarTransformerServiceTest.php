@@ -1,6 +1,6 @@
 <?php
 
-namespace ApiBundle\Tests\Service;
+namespace Tests\ApiBundle\Service;
 
 use PHPUnit_Framework_TestCase;
 use ApiBundle\Service\HarTransformerService;
