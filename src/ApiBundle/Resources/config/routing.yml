@@ -1,7 +1,9 @@
 api.internal.testcases:
   type:     rest
   resource: "@ApiBundle/Controller/Internal/TestcasesApiController.php"
+  methods:  [GET]
 
 api.testresults:
   type:     rest
   resource: "@ApiBundle/Controller/TestresultsApiController.php"
+  methods:  [GET]

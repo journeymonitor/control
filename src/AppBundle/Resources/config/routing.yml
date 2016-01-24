@@ -6,6 +6,7 @@ homepage:
 imprint:
     path:     /imprint
     defaults: { _controller: AppBundle:Content:imprint }
+    methods:  [GET]
 
 testcases.index:
     path:     /testcases/
@@ -49,6 +50,8 @@ testresults.demo.show:
 
 testresult-screenshots:
     path:     /testresult-screenshots/{filename}
+    methods:  [GET]
 
 testresult-show-har:
     path:   /api/testresults/{testresultId}/har.jsonp
+    methods:  [GET]
