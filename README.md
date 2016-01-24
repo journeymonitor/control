@@ -123,6 +123,6 @@ user 'demo-user@journeymonitor.com' with password 'demo123'. The user has some t
 unzip to `/var/tmp/journeymonitor-control-dev.sqlite3` if you want to use it.
 
 
-## Styleguide
+## Web Frontend Styleguide
 
 See http://paletton.com/#uid=33r0u0knJASdGPbjcHDs+wBvDpF for color scheme.
