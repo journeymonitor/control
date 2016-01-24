@@ -30,6 +30,12 @@ class Testresult
     private $testcase;
 
     /**
+     * @var Statistics
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Statistics", mappedBy="testresult",fetch="EXTRA_LAZY")
+     */
+    private $statistics;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="datetime_run", type="datetime", nullable=false)
@@ -136,6 +142,22 @@ class Testresult
     public function getTestcase()
     {
         return $this->testcase;
+    }
+
+    /**
+     * @param Statistics $statistics
+     */
+    public function setStatistics(Statistics $statistics)
+    {
+        $this->statistics = $statistics;
+    }
+
+    /**
+     * @return Statistics
+     */
+    public function getStatistics()
+    {
+        return $this->statistics;
     }
 
     /**
