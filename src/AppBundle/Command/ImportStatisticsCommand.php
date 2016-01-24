@@ -2,7 +2,7 @@
 
 namespace AppBundle\Command;
 
-use AppBundle\Entity\Statistic;
+use AppBundle\Entity\Statistics;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,42 +27,42 @@ class ImportStatisticsCommand extends ContainerAwareCommand
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $testresultRepo = $em->getRepository('AppBundle\Entity\Testresult');
-        $statisticRepo = $em->getRepository('AppBundle\Entity\Statistic');
+        $statisticsRepo = $em->getRepository('AppBundle\Entity\Statistics');
 
         $client = $this->getContainer()->get('guzzle_client');
 
         $response = $client->get($input->getArgument('url'));
         $json = $response->json();
 
-        foreach ($json as $statisticArray) {
-            $statistic = $statisticRepo->findOneBy(['testresult' => $statisticArray['testresultId']]);
-            if (empty($statistic)) {
+        foreach ($json as $statisticsArray) {
+            $statistics = $statisticsRepo->findOneBy(['testresult' => $statisticsArray['testresultId']]);
+            if (empty($statistics)) {
                 try {
-                    $testresult = $testresultRepo->find($statisticArray['testresultId']);
+                    $testresult = $testresultRepo->find($statisticsArray['testresultId']);
                 } catch (\Exception $e) {
                     $output->writeln('Statistics without testresult id:');
-                    $output->writeln(print_r($statisticArray, true));
+                    $output->writeln(print_r($statisticsArray, true));
                 }
                 if (!empty($testresult)) {
-                    $statistic = new Statistic();
-                    $statistic->setTestresult($testresult);
-                    $statistic->setRuntimeMilliseconds($statisticArray['runtimeMilliseconds']);
-                    $statistic->setNumberOf200($statisticArray['numberOf200']);
-                    $statistic->setNumberOf400($statisticArray['numberOf400']);
-                    $statistic->setNumberOf500($statisticArray['numberOf500']);
-                    $em->persist($statistic);
-                    $em->flush($statistic);
+                    $statistics = new Statistics();
+                    $statistics->setTestresult($testresult);
+                    $statistics->setRuntimeMilliseconds($statisticsArray['runtimeMilliseconds']);
+                    $statistics->setNumberOf200($statisticsArray['numberOf200']);
+                    $statistics->setNumberOf400($statisticsArray['numberOf400']);
+                    $statistics->setNumberOf500($statisticsArray['numberOf500']);
+                    $em->persist($statistics);
+                    $em->flush($statistics);
                     $output->writeln('Imported statistics for testresult ' . $testresult->getId() . '.');
                 } else {
                     $output->writeln(
                         'Could not persist statistics for testresult '
-                        . $statisticArray['testresultId']
+                        . $statisticsArray['testresultId']
                         . ' because the testresult does not exist.');
                 }
             } else {
                 $output->writeln(
                     'Statistics for testresult '
-                    . $statisticArray['testresultId']
+                    . $statisticsArray['testresultId']
                     . ' are already known.');
             }
         }

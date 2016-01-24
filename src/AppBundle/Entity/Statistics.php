@@ -5,18 +5,18 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Statistic
+ * Statistics
  *
- * @ORM\Table(name="statistic",indexes={@ORM\Index(name="idx_testresult_id", columns={"testresult_id"})})
+ * @ORM\Table(name="statistics",indexes={@ORM\Index(name="idx_testresult_id", columns={"testresult_id"})})
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  */
-class Statistic
+class Statistics
 {
     /**
      * @var \AppBundle\Entity\Testcase
      *
-     * @ORM\OneToOne(targetEntity="\AppBundle\Entity\Testresult", inversedBy="statistic")
+     * @ORM\OneToOne(targetEntity="\AppBundle\Entity\Testresult", inversedBy="statistics")
      * @ORM\JoinColumn(name="testresult_id", referencedColumnName="id", nullable=false)
      * @ORM\Id
      */
@@ -82,7 +82,7 @@ class Statistic
      * Set testresult
      *
      * @param \AppBundle\Entity\Testresult $testresult
-     * @return Statistic
+     * @return Statistics
      */
     public function setTestresult(Testresult $testresult)
     {
@@ -105,7 +105,7 @@ class Statistic
      * Set runtimeMilliseconds
      *
      * @param integer $runtimeMilliseconds
-     * @return Statistic
+     * @return Statistics
      */
     public function setRuntimeMilliseconds($runtimeMilliseconds)
     {
@@ -128,7 +128,7 @@ class Statistic
      * Set numberOf200
      *
      * @param integer $numberOf200
-     * @return Statistic
+     * @return Statistics
      */
     public function setNumberOf200($numberOf200)
     {
@@ -151,7 +151,7 @@ class Statistic
      * Set numberOf400
      *
      * @param integer $numberOf400
-     * @return Statistic
+     * @return Statistics
      */
     public function setNumberOf400($numberOf400)
     {
@@ -174,7 +174,7 @@ class Statistic
      * Set numberOf500
      *
      * @param integer $numberOf500
-     * @return Statistic
+     * @return Statistics
      */
     public function setNumberOf500($numberOf500)
     {

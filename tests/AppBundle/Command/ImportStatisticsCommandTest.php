@@ -58,13 +58,13 @@ class ImportStatisticsCommandTest extends WebTestCase
             'url' => 'http://foo.bar/'
         ]);
 
-        $statisticRepo = $em->getRepository('AppBundle\Entity\Statistic');
-        $statistic = $statisticRepo->find('tr1');
+        $statisticsRepo = $em->getRepository('AppBundle\Entity\Statistics');
+        $statistics = $statisticsRepo->find('tr1');
 
-        $this->assertSame(1234, $statistic->getRuntimeMilliseconds());
-        $this->assertSame(10, $statistic->getNumberOf200());
-        $this->assertSame(2, $statistic->getNumberOf400());
-        $this->assertSame(1, $statistic->getNumberOf500());
+        $this->assertSame(1234, $statistics->getRuntimeMilliseconds());
+        $this->assertSame(10, $statistics->getNumberOf200());
+        $this->assertSame(2, $statistics->getNumberOf400());
+        $this->assertSame(1, $statistics->getNumberOf500());
 
         $this->assertSame("Imported statistics for testresult tr1.\nCould not persist statistics for testresult tr2 because the testresult does not exist.\nImport finished.\n", $commandTester->getDisplay());
     }
