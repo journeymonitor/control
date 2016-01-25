@@ -82,16 +82,15 @@ Regards,
         $buttonNode = $crawler->selectButton('Start monitoring');
         $form = $buttonNode->form();
 
-        $crawler = $client->submit($form, array(
+        $client->submit($form, array(
             'testcase[title]' => 'Blafasel',
             'testcase[cadence]' => '*/5',
             'testcase[script]' => 'bar',
         ));
 
-        $this->assertSame('The new testcase has been added.', trim($crawler->filter('aside.messages div.alert.alert-success')->first()->text()));
+        $crawler = $client->followRedirect();
 
-        $link = $crawler->filter('a:contains("◀ Back to testcases list")')->eq(0)->link();
-        $crawler = $client->click($link);
+        $this->assertSame('The new testcase has been added.', trim($crawler->filter('aside.messages section.container div.alert.alert-success')->first()->text()));
 
         $this->assertSame(1, count($crawler->filter('h4 a:contains("Blafasel")')));
     }
@@ -109,14 +108,13 @@ Regards,
         $buttonNode = $crawler->selectButton('Start monitoring');
         $form = $buttonNode->form();
 
-        $crawler = $client->submit($form, array(
+        $client->submit($form, array(
             'testcase[title]' => 'Second, disabled Testcase',
             'testcase[cadence]' => '*/5',
             'testcase[script]' => 'bar',
         ));
 
-        $link = $crawler->filter('a:contains("◀ Back to testcases list")')->eq(0)->link();
-        $crawler = $client->click($link);
+        $crawler = $client->followRedirect();
 
         $link = $crawler->filter('a:contains("＋ Add another testcase")')->eq(0)->link();
         $crawler = $client->click($link);
@@ -124,14 +122,13 @@ Regards,
         $buttonNode = $crawler->selectButton('Start monitoring');
         $form = $buttonNode->form();
 
-        $crawler = $client->submit($form, array(
+        $client->submit($form, array(
             'testcase[title]' => 'Third, enabled Testcase',
             'testcase[cadence]' => '*/5',
             'testcase[script]' => 'bar',
         ));
 
-        $link = $crawler->filter('a:contains("◀ Back to testcases list")')->eq(0)->link();
-        $crawler = $client->click($link);
+        $crawler = $client->followRedirect();
 
         // Disable the second testcase
         $link = $crawler->filter('td.testcase-entry-cell div.pull-right a.btn.btn-default.btn-sm:contains("Disable")')->eq(1)->link();

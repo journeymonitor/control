@@ -89,9 +89,10 @@ class TestcasesController extends Controller
                 $form->getData()
             );
             $this->addFlash('success', 'The new testcase has been added.');
+            return $this->redirectToRoute('testcases.index');
+        } else {
+            return $this->render('AppBundle:testcases:new.html.twig', array('form' => $form->createView()));
         }
-
-        return $this->render('AppBundle:testcases:new.html.twig', array('form' => $form->createView()));
     }
 
     public function editAction(Request $request, $testcaseId)
