@@ -1,0 +1,7 @@
+{% if "now"|date("Y-m-d") == testresult.datetimeRun|date("Y-m-d") %}
+    today at {{ testresult.datetimeRun|date("H:i") }}
+{% elseif "-1 day"|date("Y-m-d") == testresult.datetimeRun|date("Y-m-d") %}
+    yesterday at {{ testresult.datetimeRun|date("H:i") }}
+{% else %}
+    {{ testresult.datetimeRun|date("Y-m-d \\a\\t H:i") }}
+{% endif %}
