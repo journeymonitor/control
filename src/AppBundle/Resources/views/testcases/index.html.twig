@@ -24,6 +24,7 @@
 
                     <table class="table testcases">
                         {% for testcase in testcases %}
+                            <a name="testcase-{{ testcase.id }}" />
                             <tr class="testcase-entry-row">
                                 <td class="testcase-entry-cell">
                                     <h4 class="pull-left">
@@ -147,27 +148,43 @@
                                         {% endif %}
                                     </div>
                                     <div class="pull-right">
-                                            <a class="btn btn-primary btn-sm"
-                                                {% if (not isDemoMode) %}
-                                                    href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}"
-                                                {% else %}
-                                                    data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
-                                                {% endif %}>Edit</a>
+                                        <a class="btn btn-primary btn-sm"
+                                            {% if (not isDemoMode) %}
+                                                href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}"
+                                            {% else %}
+                                                data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
+                                            {% endif %}>Edit</a>
+
                                         {% if (testcase.enabled) %}
-                                            <a class="btn btn-default btn-sm"
-                                                {% if (not isDemoMode) %}
-                                                    href="{{ path('testcases.disable', {'testcaseId': testcase.id}) }}"
-                                                {% else %}
-                                                    data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
-                                            {% endif %}>Disable</a>
+
+                                            {% if (isDemoMode) %}
+                                                <a
+                                                  class="btn btn-default btn-sm"
+                                                  data-toggle="tooltip"
+                                                  data-placement="top"
+                                                  title="Not available in demo mode">Disable</a>
+                                            {% else %}
+                                                <form method="post" action="{{ path('testcases.disable', {'testcaseId': testcase.id}) }}">
+                                                    <button class="btn btn-default btn-sm" type="submit">Disable</button>
+                                                </form>
+                                            {% endif %}
+
                                         {% else %}
-                                            <a class="btn btn-default btn-sm"
-                                                {% if (not isDemoMode) %}
-                                                    href="{{ path('testcases.enable', {'testcaseId': testcase.id}) }}"
-                                                {% else %}
-                                                    data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
-                                                {% endif %}>Enable</a>
+
+                                            {% if (isDemoMode) %}
+                                                <a
+                                                  class="btn btn-default btn-sm"
+                                                  data-toggle="tooltip"
+                                                  data-placement="top"
+                                                  title="Not available in demo mode">Enable</a>
+                                            {% else %}
+                                                <form method="post" action="{{ path('testcases.enable', {'testcaseId': testcase.id}) }}">
+                                                    <button class="btn btn-default btn-sm" type="submit">Enable</button>
+                                                </form>
+                                            {% endif %}
+
                                         {% endif %}
+
                                     </div>
                                 </td>
                             </tr>

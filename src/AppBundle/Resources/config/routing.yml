@@ -31,12 +31,12 @@ testcases.edit:
 testcases.disable:
     path:     /testcases/{testcaseId}/disable
     defaults: { _controller: AppBundle:Testcases:disable }
-    methods:  [GET]
+    methods:  [POST]
 
 testcases.enable:
     path:     /testcases/{testcaseId}/enable
     defaults: { _controller: AppBundle:Testcases:enable }
-    methods:  [GET]
+    methods:  [POST]
 
 testresults.show:
     path:     /testresults/{testresultId}

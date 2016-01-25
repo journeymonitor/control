@@ -131,10 +131,11 @@ Regards,
         $crawler = $client->followRedirect();
 
         // Disable the second testcase
-        $link = $crawler->filter('td.testcase-entry-cell div.pull-right a.btn.btn-default.btn-sm:contains("Disable")')->eq(1)->link();
-        $client->click($link);
+        $buttonNode = $crawler->selectButton('Disable')->eq(1);
+        $form = $buttonNode->form();
+        $client->submit($form);
 
-        $crawler = $client->request('GET', '/testcases/');
+        $crawler = $client->followRedirect();
 
         $this->assertSame('Demo User Testcase One', trim($crawler->filter('.testcase-entry-cell h4')->eq(0)->text()));
         $this->assertSame('Third, enabled Testcase', trim($crawler->filter('.testcase-entry-cell h4')->eq(1)->text()));
@@ -212,28 +213,23 @@ Regards,
     {
         $this->resetDatabase();
         $client = $this->createAndActivateDemoUser();
-
         $crawler = $client->request('GET', '/testcases/');
 
-        $link = $crawler->filter('a:contains("Disable")')->first()->link();
+        $buttonNode = $crawler->selectButton('Disable');
+        $form = $buttonNode->form();
+        $client->submit($form);
 
-        $client->click($link);
         $crawler = $client->followRedirect();
 
-        $this->assertSame(
-            1,
-            count($crawler->filter('table.testcases span.label-default:contains("Disabled")'))
-        );
+        $this->assertSame('Disabled', trim($crawler->filter('td.testcase-entry-cell span.label')->eq(1)->text()));
 
-        $link = $crawler->filter('a:contains("Enable")')->first()->link();
+        $buttonNode = $crawler->selectButton('Enable');
+        $form = $buttonNode->form();
+        $client->submit($form);
 
-        $client->click($link);
         $crawler = $client->followRedirect();
 
-        $this->assertSame(
-            1,
-            count($crawler->filter('table.testcases span.label-success:contains("Enabled")'))
-        );
+        $this->assertSame('Enabled', trim($crawler->filter('td.testcase-entry-cell span.label')->eq(1)->text()));
     }
 
     public function testEdit()
