@@ -5,8 +5,8 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "ApiBundle": "src/ApiBundle/",
-            "AppBundle": "src/AppBundle/"
+            "ApiBundle\\": "src/ApiBundle/",
+            "AppBundle\\": "src/AppBundle/"
         },
         "files": [
             "app/AppKernel.php"
