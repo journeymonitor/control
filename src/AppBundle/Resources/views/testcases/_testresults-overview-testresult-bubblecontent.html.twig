@@ -1,0 +1,26 @@
+{% if (testresult.exitCode == 0) %}
+    Journey completed without error.
+{% elseif (testresult.exitCode == 2 or testresult.exitCode == 3) %}
+    Journey could not be completed.
+{% else %}
+    There was a problem with the test case script.
+{% endif %}
+
+<br>
+<br>
+
+<span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span>&nbsp;
+
+<a href='{% if (isDemoMode) %}/demo{% endif %}{{ path('testresults.show', {'testresultId': testresult.id}) }}'>Click for Selenium log</a>
+
+{% if (testresult.har) %}
+    <br>
+    <span class='glyphicon glyphicon-align-left' aria-hidden='true'></span>&nbsp;
+    <a target='_blank' href='http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': testresult.id}) }}'>Click for performance metrics</a>
+{% endif %}
+
+{% if (testresult.failScreenshotFilename) %}
+    <br>
+    <span class='glyphicon glyphicon-camera' aria-hidden='true'></span>&nbsp;
+    <a target='_blank' href='{{ path('testresult-screenshots', {'filename': testresult.failScreenshotFilename}) }}.png'>Click for failure screenshot</a>
+{% endif %}
