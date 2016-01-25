@@ -53,54 +53,14 @@
                         <a class="brandname brand navbar-brand" href="{{ path('homepage') }}">Journey<span class="glyphicon glyphicon glyphicon-check" aria-hidden="true"></span><span class="right-word">Monitor</span></a>
                     </div>
                     <div class="collapse navbar-collapse" id="navbar">
-                        {% if app.user %}
-                            <div id="loggedin-info">
-                                <small>Logged in as <b>{{ app.user.username }}</b></small>
-                            </div>
-                        {% endif %}
-                        <ul class="nav navbar-nav pull-right">
-                            <li><a href="{{ path('testcases.demo.index') }}">Demo</a></li>
-                            {% if app.user %}
-                                <li><a href="{{ path('testcases.index') }}">Your testcases</a></li>
-                                <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
-                            {% else %}
-                                <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
-                            {% endif %}
-                        </ul>
+                        {{ include('_right-navigation.html.twig') }}
                     </div>
                 </div>
             </div>
         </nav>
     </header>
 
-    {% if (isDemoMode is defined and isDemoMode) or (app.session.flashbag.has('success')) or (app.session.flashbag.has('info')) or (app.session.flashbag.has('error')) %}
-        <aside class="messages">
-            <section class="container">
-                {% if (isDemoMode is defined and isDemoMode) %}
-                    <div class="alert alert-info" role="alert">
-                        You are currently in demo mode.
-                    </div>
-                {% endif %}
-                {% for flashMessage in app.session.flashbag.get('success') %}
-                    <div class="alert alert-success" role="alert">
-                        {{ flashMessage }}
-                    </div>
-                {% endfor %}
-                {% for flashMessage in app.session.flashbag.get('info') %}
-                    <div class="alert alert-info" role="alert">
-                        {{ flashMessage }}
-                    </div>
-                {% endfor %}
-                {% for flashMessage in app.session.flashbag.get('error') %}
-                    <div class="alert alert-danger" role="alert">
-                        {{ flashMessage }}
-                    </div>
-                {% endfor %}
-
-                {% block messages %}{% endblock %}
-            </section>
-        </aside>
-    {% endif %}
+    {{ include('_messages.html.twig') }}
 
     {% block body %}{% endblock %}
 

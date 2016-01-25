@@ -1,0 +1,25 @@
+{% for testcase in testcases %}
+    <a name="testcase-{{ testcase.id }}" />
+    <tr class="testcase-entry-row">
+        <td class="testcase-entry-cell">
+            <h4 class="pull-left">
+                <a {% if (not isDemoMode) %} href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}" {% else %} data-toggle="tooltip" data-placement="top" title="Not available in demo mode" {% endif %}>{{ testcase.title }}</a>
+            </h4>
+            <div class="pull-right testcase-entry-metainfo">
+                <span class="label label-default">{{ testcase.cadence }}</span>
+                {% if (testcase.enabled) %}
+                    <span class="label label-success">Enabled</span>
+                {% else %}
+                    <span class="label label-default">Disabled</span>
+                {% endif %}
+            </div>
+            <div class="clear well well-sm">
+                {{ include('AppBundle:Testcases:_testresults-overview.html.twig') }}
+                {{ include('AppBundle:Testcases:_testresults-continued.html.twig') }}
+            </div>
+            <div class="pull-right">
+                {{ include('AppBundle:Testcases:_testcase-buttons.html.twig') }}
+            </div>
+        </td>
+    </tr>
+{% endfor %}
