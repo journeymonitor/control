@@ -14,7 +14,7 @@
             data-placement="top"
             title="Not available in demo mode">Disable</a>
     {% else %}
-        <form method="post" action="{{ path('testcases.disable', {'testcaseId': testcase.id}) }}">
+        <form class="testcase-enable-disable-form" method="post" action="{{ path('testcases.disable', {'testcaseId': testcase.id}) }}">
             <button class="btn btn-default btn-sm" type="submit">Disable</button>
         </form>
     {% endif %}
@@ -28,7 +28,7 @@
             data-placement="top"
             title="Not available in demo mode">Enable</a>
     {% else %}
-        <form method="post" action="{{ path('testcases.enable', {'testcaseId': testcase.id}) }}">
+        <form class="testcase-enable-disable-form" method="post" action="{{ path('testcases.enable', {'testcaseId': testcase.id}) }}">
             <button class="btn btn-default btn-sm" type="submit">Enable</button>
         </form>
     {% endif %}

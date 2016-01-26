@@ -226,6 +226,10 @@ table tr td.testcase-entry-cell {
     margin-bottom: 12px;
 }
 
+.testcase-enable-disable-form {
+    display: inline;
+}
+
 .testresult-dot-anchor {
     display: inline-block;
     margin: 0 1px 0 0;
