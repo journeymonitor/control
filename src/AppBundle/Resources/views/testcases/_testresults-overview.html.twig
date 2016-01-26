@@ -3,11 +3,11 @@
         <div class="inline-block">
             {% for testresult in testcase.limitedtestresults(100)|slice(0, 50)|reverse %}
 
-                {{ include('AppBundle:Testcases:_testresults-overview-beginmarker.html.twig') }}
+                {{ include('AppBundle:testcases:_testresults-overview-beginmarker.html.twig') }}
 
-                {{ include('AppBundle:Testcases:_testresults-overview-testresult.html.twig') }}
+                {{ include('AppBundle:testcases:_testresults-overview-testresult.html.twig') }}
 
-                {{ include('AppBundle:Testcases:_testresults-overview-endmarker.html.twig') }}
+                {{ include('AppBundle:testcases:_testresults-overview-endmarker.html.twig') }}
 
             {% endfor %}
         </div>

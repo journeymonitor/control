@@ -7,7 +7,7 @@
 
     <div class="collapse" id="testresults-{{ testcase.id }}">
         {% for testresult in testcase.limitedtestresults(100)|slice(50, 100) %}
-            {{ include('AppBundle:Testcases:_testresults-continued-testresult.html.twig') }}
+            {{ include('AppBundle:testcases:_testresults-continued-testresult.html.twig') }}
         {% endfor %}
     </div>
 {% endif %}
