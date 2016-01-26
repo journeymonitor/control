@@ -76,8 +76,6 @@ Regards,
 
         $crawler = $client->request('GET', '/testcases/');
 
-        echo $client->getResponse()->getContent();
-
         $link = $crawler->filter('a:contains("＋ Add another testcase")')->eq(0)->link();
         $crawler = $client->click($link);
 
@@ -150,8 +148,6 @@ Regards,
         $client = $this->createAndActivateDemoUser();
 
         $crawler = $client->request('GET', '/testcases/');
-
-        echo $client->getResponse()->getContent();
 
         $this->assertSame(1, count($crawler->filter('h4 a')));
 
