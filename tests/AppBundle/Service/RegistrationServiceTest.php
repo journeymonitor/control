@@ -58,8 +58,6 @@ class RegistrationServiceTest extends PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()->getMock();
         $this->sessionMock = $this->getMockBuilder('Symfony\Component\HttpFoundation\Session\Session')
             ->disableOriginalConstructor()->getMock();
-        $this->tokenStorageMock = $this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage')
-            ->disableOriginalConstructor()->getMock();
         $this->dispatcherMock = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcher')
             ->disableOriginalConstructor()->getMock();
         $this->formMock = $this->getMockBuilder('Symfony\Component\Form\Form')
@@ -76,7 +74,6 @@ class RegistrationServiceTest extends PHPUnit_Framework_TestCase
             $this->loginManagerMock,
             $this->encoderFactoryMock,
             $this->sessionMock,
-            $this->tokenStorageMock,
             $this->dispatcherMock
         );
     }

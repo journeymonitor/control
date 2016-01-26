@@ -46,7 +46,6 @@ class RegistrationService
      * @param LoginManagerInterface $loginManager
      * @param EncoderFactory $encoderFactory
      * @param Session $session
-     * @param TokenStorage|SessionTokenStorage $tokenStorage
      * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
@@ -54,7 +53,6 @@ class RegistrationService
         LoginManagerInterface $loginManager,
         EncoderFactory $encoderFactory,
         Session $session,
-        TokenStorage $tokenStorage,
         EventDispatcherInterface $eventDispatcher
     )
     {

@@ -16,10 +16,6 @@ class RegistrationConfirmationListener implements EventSubscriberInterface {
      */
     private $testcaseRepository;
     /**
-     * @var TokenStorage
-     */
-    private $tokenStorage;
-    /**
      * @var EntityManager
      */
     private $entityManager;
@@ -31,12 +27,10 @@ class RegistrationConfirmationListener implements EventSubscriberInterface {
      */
     public function __construct(
         TestcaseRepository $testcaseRepository,
-        TokenStorage $tokenStorage,
         EntityManager $entityManager
     )
     {
         $this->testcaseRepository = $testcaseRepository;
-        $this->tokenStorage = $tokenStorage;
         $this->entityManager = $entityManager;
     }
 
