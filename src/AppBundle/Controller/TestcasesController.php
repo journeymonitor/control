@@ -14,6 +14,8 @@ class TestcasesController extends Controller
 {
     public function indexAction(Request $request)
     {
+        $logger = $this->get('logger');
+        $logger->error(getenv('JOURNEYMONITOR_ENDPOINT_ANALYZE_API'));
         $user = $this
             ->get('demo_service')
             ->getUser($request, $this->getUser());
