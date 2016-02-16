@@ -48,4 +48,4 @@ swiftmailer:
     disable_delivery: true
 
 parameters:
-    journeymonitor_endpoint_analye_api: "http://localhost:8081"
+    journeymonitor_endpoint_analyze_api: "http://localhost:8081"

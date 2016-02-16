@@ -98,4 +98,4 @@ fos_rest:
 
 parameters:
     # from nginx fastcgi_param, see https://github.com/journeymonitor/infra/commit/9a4dae2
-    journeymonitor_endpoint_analye_api: "%journeymonitor.endpoint.analyze.api%"
+    journeymonitor_endpoint_analyze_api: "%journeymonitor.endpoint.analyze.api%"
