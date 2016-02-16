@@ -13,7 +13,7 @@ cd /opt/journeymonitor/control/
 
 . /etc/journeymonitor/app-control-env.sh
 
-sudo -u www-data /usr/bin/php ./bin/console cache:clear --no-interaction --env=prod || exit 1
-sudo -u www-data /usr/bin/php ./bin/console cache:warmup --no-interaction --env=prod || exit 1
+sudo -u www-data SYMFONY__JOURNEYMONITOR__ENDPOINT__ANALYZE__API=$SYMFONY__JOURNEYMONITOR__ENDPOINT__ANALYZE__API /usr/bin/php ./bin/console cache:clear --no-interaction --env=prod || exit 1
+sudo -u www-data SYMFONY__JOURNEYMONITOR__ENDPOINT__ANALYZE__API=$SYMFONY__JOURNEYMONITOR__ENDPOINT__ANALYZE__API /usr/bin/php ./bin/console cache:warmup --no-interaction --env=prod || exit 1
 
 sudo -u www-data /usr/bin/php ./bin/console doctrine:migrations:migrate --no-interaction --env=prod || exit 1
