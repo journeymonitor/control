@@ -14,10 +14,6 @@ class TestcasesController extends Controller
 {
     public function indexAction(Request $request)
     {
-        if ($this->container->hasParameter('journeymonitor_endpoint_analyze_api')) {
-            $logger = $this->get('logger');
-            $logger->error($this->container->getParameter('journeymonitor_endpoint_analyze_api'));
-        }
         $user = $this
             ->get('demo_service')
             ->getUser($request, $this->getUser());

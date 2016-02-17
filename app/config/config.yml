@@ -95,7 +95,3 @@ fos_rest:
     format_listener: true
     view:
         view_response_listener: 'force'
-
-parameters:
-    # from nginx fastcgi_param, see https://github.com/journeymonitor/infra/commit/9a4dae2
-    journeymonitor_endpoint_analyze_api: "%journeymonitor.endpoint.analyze.api%"
