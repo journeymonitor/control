@@ -18,7 +18,7 @@ class ImportStatisticsCommand extends ContainerAwareCommand
             ->addArgument(
                 'url',
                 InputArgument::REQUIRED,
-                'URL of the endpoint that provides statistics'
+                'URL with placeholders :id and :datetime for the endpoint that provides statistics for testcases, e.g. "testcases/:id/statistics/latest?minDatetime=:datetimeRun"'
             )
         ;
     }
@@ -31,7 +31,10 @@ class ImportStatisticsCommand extends ContainerAwareCommand
 
         $client = $this->getContainer()->get('guzzle_client');
 
-        $response = $client->get($input->getArgument('url'));
+        // Iterate over testcases
+        // Get testresultDatetimeRun value of newest testresult entry with already locally stored statistics
+        // Find and replace URL placeholders
+        $response = $client->get($input->getArgument('url') . 'statistics/latest?minTestresultDatetimeRun=3600');
         $json = $response->json();
 
         foreach ($json as $statisticsArray) {
