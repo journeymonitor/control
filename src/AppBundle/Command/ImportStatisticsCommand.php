@@ -18,7 +18,7 @@ class ImportStatisticsCommand extends ContainerAwareCommand
             ->addArgument(
                 'url',
                 InputArgument::REQUIRED,
-                'URL with placeholders :id and :datetime for the endpoint that provides statistics for testcases, e.g. "testcases/:id/statistics/latest?minDatetime=:datetimeRun"'
+                'URL with placeholders :id and :minTestresultDatetimeRun for the endpoint that provides statistics for testcases, e.g. "testcases/:id/statistics/latest?minTestresultDatetimeRun=:minTestresultDatetimeRun"'
             )
         ;
     }
