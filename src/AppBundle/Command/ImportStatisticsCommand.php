@@ -34,7 +34,7 @@ class ImportStatisticsCommand extends ContainerAwareCommand
         // Iterate over testcases
         // Get testresultDatetimeRun value of newest testresult entry with already locally stored statistics
         // Find and replace URL placeholders
-        $response = $client->get($input->getArgument('url') . 'statistics/latest?minTestresultDatetimeRun=3600');
+        $response = $client->get($input->getArgument('url') . 'statistics/latest?minTestresultDatetimeRun='.urlencode('2016-02-21 22:03:49+0000'));
         $json = $response->json();
 
         foreach ($json as $statisticsArray) {
