@@ -7,6 +7,12 @@ use Doctrine\DBAL\Schema\Schema;
 
 class Version20160405105700 extends AbstractMigration
 {
+    // With transaction, we would get "General error: 1 cannot change into wal mode from within a transaction"
+    public function isTransactional()
+    {
+        return false;
+    }
+
     /**
      * @param Schema $schema
      */
@@ -20,6 +26,6 @@ class Version20160405105700 extends AbstractMigration
      */
     public function down(Schema $schema)
     {
-        $this->addSql('PRAGMA journal_mode=DELETE;');
+        $this->addSql('PRAGMA journal_mode=DELETE');
     }
 }
