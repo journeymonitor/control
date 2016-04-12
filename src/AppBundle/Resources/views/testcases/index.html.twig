@@ -2,8 +2,214 @@
 
 {% block javascripts_head %}
     {{ parent() }}
+
     <script src="{{ asset('bundles/app/vendor/d3/d3.js') }}"></script>
     <script src="{{ asset('bundles/app/vendor/d3-tip/index.js') }}"></script>
+
+    <script>
+        var journeymonitor = {
+            'renderTestresults': function(testcaseId, testresults) {
+
+                if (testresults.length === 0) {
+                    return false;
+                }
+
+                var runtimes = testresults.map(function (testresult) {
+                    return testresult.runtimeMilliseconds;
+                });
+
+                var longestRuntime = runtimes.reduce(function (a, b) {
+                    return (a > b && a !== null) ? a : b;
+                });
+
+                var WIDTH = 100;
+                var HEIGHT = 100;
+
+                // horizontal
+                var x = d3.scale.linear()
+                        .domain([0, runtimes])
+                        .range([0, WIDTH]);
+
+                // vertical
+                var y = d3.scale.linear()
+                        .domain([0, longestRuntime])
+                        .range([0, HEIGHT]);
+
+                var tip = d3.tip()
+                        .attr('class', 'd3-tip')
+                        .offset([-10, 0])
+                        .html(function (testresult) {
+                            var html = '';
+
+                            html += '<div class="testresult-tooltip">';
+
+                            html += '<h5 class="testresult-tooltip-title">' + testresult.datetimeRun.date + '</h5>';
+
+                            html += '<div class="testresult-tooltip-content">';
+
+                            html += '<div>';
+
+                            if (testresult.exitCode === 0) {
+                                html += 'Journey completed without error.';
+                            } else if (testresult.exitCode === 2 || testresult.exitCode === 3) {
+                                html += 'Journey could not be completed.';
+                            } else if (testresult.exitCode > 3) {
+                                html += 'There was a problem with the test case script.';
+                            }
+
+                            html += '</div>';
+
+
+                            if (testresult.runtimeMilliseconds !== null) {
+
+                                html += '<div class="testresult-tooltip-statistics">';
+                                html += 'Journey runtime: ' + testresult.runtimeMilliseconds + 'ms<br>';
+                                html += 'Status 200: ' + testresult.numberOf200 + ' responses<br>';
+                                html += 'Status 400: ' + testresult.numberOf400 + ' responses<br>';
+                                html += 'Status 500: ' + testresult.numberOf500 + ' responses<br>';
+                                html += '</div>';
+                            }
+
+                            html += '<div>';
+                            html += 'Click for more details.';
+                            html += '</div>';
+
+                            html += '</div>';
+                            html += '</div>';
+
+                            return html;
+                        });
+
+                var chart = d3.select("#testcase-" + testcaseId + "-chart").append("svg")
+                        .attr("class", "chart")
+                        .attr("height", HEIGHT)
+                        .attr("width", WIDTH + "%")
+                        .call(tip);
+
+                var statusBoxHeight = 10;
+
+                function nRequests(testresult) {
+                    return testresult.numberOf200 + testresult.numberOf400 + testresult.numberOf500;
+                }
+
+                function xStart(i, testresult, field) {
+                    var res = null;
+                    if (field === "numberOf200") {
+                        res = i * (WIDTH / testresults.length);
+                    }
+                    if (field === "numberOf400") {
+                        res = xStart(i, testresult, "numberOf200") + xWidth(testresult, "numberOf200");
+                    }
+                    if (field === "numberOf500") {
+                        res = xStart(i, testresult, "numberOf200") + xWidth(testresult, "numberOf200") + xWidth(testresult, "numberOf400");
+                    }
+                    return res;
+                }
+
+                function xWidth(testresult, field) {
+                    var totalWidth = WIDTH / testresults.length;
+
+                    if (testresult.runtimeMilliseconds === null) {
+                        if (field === "numberOf200") {
+                            return totalWidth;
+                        } else {
+                            return 0;
+                        }
+                    }
+
+                    return (totalWidth / nRequests(testresult)) * testresult[field];
+                }
+
+                function yStart(testresult) {
+                    if (testresult.runtimeMilliseconds === null) {
+                        return 0;
+                    }
+                    return HEIGHT - (((100 / longestRuntime) * testresult.runtimeMilliseconds) * (HEIGHT / 100));
+                }
+
+                function yHeight(testresult) {
+                    if (testresult.runtimeMilliseconds === null) {
+                        return HEIGHT - statusBoxHeight;
+                    }
+                    return ((100 / longestRuntime) * testresult.runtimeMilliseconds) * (HEIGHT / 100) - statusBoxHeight;
+                }
+
+                function color(testresult, field) {
+                    if (testresult.runtimeMilliseconds === null) {
+                        return "#ddd";
+                    }
+                    if (field === "numberOf200") {
+                        return "#5cb85c"
+                    }
+                    if (field === "numberOf400") {
+                        return "orange"
+                    }
+                    if (field === "numberOf500") {
+                        return "red"
+                    }
+                }
+
+                var enterSelection = chart.selectAll("rect").data(testresults).enter();
+
+                function drawStatusBar(field) {
+                    enterSelection
+                            .insert("a")
+                            .attr("xlink:href", function (testresult, i) {
+                                return '{{ path('testresults.show', {'testresultId': 'testresultId'}) }}'.replace('testresultId', testresult.id);
+                            })
+                            .append("rect")
+                            .attr("x", function (testresult, i) {
+                                return xStart(i, testresult, field) + "%";
+                            })
+                            .attr("width", function (testresult, i) {
+                                return xWidth(testresult, field) + "%";
+                            })
+                            .attr("y", function (testresult, i) {
+                                return yStart(testresult);
+                            })
+                            .attr("height", function (testresult, i) {
+                                return yHeight(testresult);
+                            })
+                            .attr("fill", function (testresult, i) {
+                                return color(testresult, field);
+                            })
+                            .on("mouseover", tip.show)
+                            .on("mouseout", tip.hide);
+                }
+
+
+                enterSelection
+                        .append("a")
+                        .attr("xlink:href", function (testresult, i) {
+                            return '{{ path('testresults.show', {'testresultId': 'testresultId'}) }}'.replace('testresultId', testresult.id);
+                        })
+                        .append("rect")
+                        .attr("x", function (testresult, i) {
+                            return xStart(i, testresult, "numberOf200") + "%";
+                        })
+                        .attr("width", WIDTH / testresults.length + "%")
+                        .attr("y", HEIGHT - statusBoxHeight)
+                        .attr("height", statusBoxHeight)
+                        .attr("fill", function (testresult, i) {
+                            if (testresult.exitCode == 0) {
+                                return "green";
+                            }
+                            if (testresult.exitCode == 2 || testresult.exitCode == 3) {
+                                return "red";
+                            }
+                            if (testresult.exitCode == 4) {
+                                return "orange";
+                            }
+                        })
+                        .on("mouseover", tip.show)
+                        .on("mouseout", tip.hide);
+
+                drawStatusBar("numberOf200");
+                drawStatusBar("numberOf400");
+                drawStatusBar("numberOf500");
+            }
+        };
+    </script>
 {% endblock %}
 
 {% block body %}
