@@ -238,8 +238,12 @@ table tr td.testcase-entry-cell {
     height: 21px;
 }
 
-.testcases .popover {
-    margin-top: 0;
+.testresult-tooltip {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+    background-color: white;
+    font-size: 14px;
 }
 
 .datetime.label {

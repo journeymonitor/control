@@ -37,6 +37,8 @@ class Testcase
     private $user;
 
     /**
+     * Note: this OOMs really soon if we have a certain amount of tesresults, unless fetching EXTRA_LAZY
+     *
      * @var ArrayCollection|Testresult[]
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Testresult", mappedBy="testcase",fetch="EXTRA_LAZY")
      * @ORM\OrderBy({"datetimeRun" = "DESC"})
@@ -330,5 +332,42 @@ class Testcase
     public function getNotifyEmail()
     {
         return $this->getUser()->getEmailCanonical();
+    }
+
+    private function ranrun() {
+        if (rand(0, 5) === 0) {
+            return null;
+        } else {
+            return rand(2000, 10000);
+        }
+    }
+
+    public function getTestresultsAsJson() {
+        $arr = [];
+        $testresults = $this->getLimitedTestresults(100);
+        foreach ($testresults as $testresult) {
+            if (is_object($testresult->getStatistics())) {
+                $arr[] = [
+                    'id' => $testresult->getId(),
+                    'datetimeRun' => $testresult->getDatetimeRun(),
+                    'exitCode' => $testresult->getExitCode(),
+                    'runtimeMilliseconds' => $testresult->getStatistics()->getRuntimeMilliseconds(),
+                    'numberOf200' => $testresult->getStatistics()->getNumberOf200(),
+                    'numberOf400' => $testresult->getStatistics()->getNumberOf400(),
+                    'numberOf500' => $testresult->getStatistics()->getNumberOf500()
+                ];
+            } else {
+                $arr[] = [
+                    'id' => $testresult->getId(),
+                    'datetimeRun' => $testresult->getDatetimeRun(),
+                    'exitCode' => $testresult->getExitCode(),
+                    'runtimeMilliseconds' => $this->ranrun(),
+                    'numberOf200' => rand(100, 120),
+                    'numberOf400' => rand(0, 9) * 4,
+                    'numberOf500' => rand(0, 5) * 4
+                ];
+            }
+        }
+        return json_encode(array_reverse($arr));
     }
 }

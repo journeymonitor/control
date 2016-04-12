@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "bootstrap": "~3.3.4",
-    "d3": "~3.5"
+    "d3": "~3.5",
+    "d3-tip": "~0.6"
   }
 }
