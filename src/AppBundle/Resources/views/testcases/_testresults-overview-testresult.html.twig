@@ -1,5 +1,0 @@
-<a
-    class="testresult-dot-anchor label-{{ include('AppBundle:testcases:_testresults-overview-testresult-label.html.twig') }}"
-    title="{{ testresult.datetimeRun|date("Y-m-d H:i") }}"
-    data-content="{{ include('AppBundle:testcases:_testresults-overview-testresult-bubblecontent.html.twig') }}"
-    href="{% if (isDemoMode) %}/demo{% endif %}{{ path('testresults.show', {'testresultId': testresult.id}) }}"></a>
