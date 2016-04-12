@@ -342,7 +342,7 @@ class Testcase
         }
     }
 
-    public function getTestresultsAsJson() {
+    public function getLastTestresultsWithStatisticsAsJson() {
         $arr = [];
         $testresults = $this->getLimitedTestresults(100);
         foreach ($testresults as $testresult) {

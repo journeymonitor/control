@@ -19,7 +19,13 @@
 
                 {% if (testcase.hasTestresults) %}
                     <script>
-                        journeymonitor.renderTestresults("{{ testcase.id }}", {{ testcase.testresultsAsJson|raw }});
+                        journeymonitor.renderTestresults(
+                                "{{ testcase.id }}",
+                                JSON.parse(
+                                        '{{ testcase.lastTestresultsWithStatisticsAsJson }}'
+                                                .replace(new RegExp('&quot;', 'g'), '"')
+                                )
+                        );
                     </script>
                 {% else %}
                     <small>No test run results yet.</small>
