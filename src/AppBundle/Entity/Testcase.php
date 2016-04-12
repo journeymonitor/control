@@ -334,6 +334,7 @@ class Testcase
         return $this->getUser()->getEmailCanonical();
     }
 
+    /* for local testing
     private function randrun() {
         if (rand(0, 5) === 0) {
             return null;
@@ -341,6 +342,7 @@ class Testcase
             return rand(2000, 10000);
         }
     }
+    */
 
     public function getLastTestresultsWithStatisticsAsJson() {
         $arr = [];
