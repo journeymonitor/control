@@ -17,9 +17,13 @@
 
                 <div id="testcase-{{ testcase.id }}-chart"></div>
 
-                <script>
-                    journeymonitor.renderTestresults("{{ testcase.id }}", {{ testcase.testresultsAsJson|raw }});
-                </script>
+                {% if (testcase.hasTestresults) %}
+                    <script>
+                        journeymonitor.renderTestresults("{{ testcase.id }}", {{ testcase.testresultsAsJson|raw }});
+                    </script>
+                {% else %}
+                    <small>No test run results yet.</small>
+                {% endif %}
 
             </div>
             <div class="pull-right">

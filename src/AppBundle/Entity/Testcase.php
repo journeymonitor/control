@@ -334,7 +334,7 @@ class Testcase
         return $this->getUser()->getEmailCanonical();
     }
 
-    private function ranrun() {
+    private function randrun() {
         if (rand(0, 5) === 0) {
             return null;
         } else {
@@ -357,17 +357,37 @@ class Testcase
                     'numberOf500' => $testresult->getStatistics()->getNumberOf500()
                 ];
             } else {
+                /* for local testing
                 $arr[] = [
                     'id' => $testresult->getId(),
                     'datetimeRun' => $testresult->getDatetimeRun(),
                     'exitCode' => $testresult->getExitCode(),
-                    'runtimeMilliseconds' => $this->ranrun(),
+                    'runtimeMilliseconds' => $this->randrun(),
                     'numberOf200' => rand(100, 120),
                     'numberOf400' => rand(0, 9) * 4,
                     'numberOf500' => rand(0, 5) * 4
                 ];
+                */
+                $arr[] = [
+                    'id' => $testresult->getId(),
+                    'datetimeRun' => $testresult->getDatetimeRun(),
+                    'exitCode' => $testresult->getExitCode(),
+                    'runtimeMilliseconds' => null,
+                    'numberOf200' => null,
+                    'numberOf400' => null,
+                    'numberOf500' => null
+                ];
             }
         }
         return json_encode(array_reverse($arr));
+    }
+
+    public function hasTestresults() {
+        $testresults = $this->getLimitedTestresults(100);
+        if (sizeof($testresults) > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

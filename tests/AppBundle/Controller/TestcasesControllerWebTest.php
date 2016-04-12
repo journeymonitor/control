@@ -196,17 +196,6 @@ Regards,
             0,
             count($crawler->filter('table.testcases small:contains("No test run results yet.")'))
         );
-
-        //┌ 2015-06-01 at 14:35
-        $this->assertContains(
-            '┌',
-            $crawler->filter('.testcase-entry-row')->first()->text()
-        );
-
-        $this->assertContains(
-            'today at ' . $datetimeRun->format('H:i'),
-            $crawler->filter('.testcase-entry-row')->first()->text()
-        );
     }
 
     public function testIndexDisableAndEnableTestcase()
