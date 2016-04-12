@@ -1,5 +1,10 @@
 <script>
     var renderTestresults = function(testcaseId, testresults) {
+
+        if (testresults.length === 0) {
+            return false;
+        }
+
         var runtimes = testresults.map(function(testresult) { return testresult.runtimeMilliseconds; });
 
         var longestRuntime = runtimes.reduce(function(a, b) {
