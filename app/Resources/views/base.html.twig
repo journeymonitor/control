@@ -19,17 +19,17 @@
         <link rel="stylesheet" href="{{ asset('bundles/app/vendor/bootstrap/dist/css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('bundles/app/default.css') }}">
 
-        <link rel="stylesheet" href="{{ asset('bundles/app/gh-fork-ribbon.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/app/vendor_static/gh-fork-ribbon-0.1.1.min.css') }}" />
         <!--[if lt IE 9]>
-            <link rel="stylesheet" href="{{ asset('bundles/app/gh-fork-ribbon.ie.min.css') }}" />
+            <link rel="stylesheet" href="{{ asset('bundles/app/vendor_static/gh-fork-ribbon-0.1.1.ie.min.css') }}" />
         <![endif]-->
     {% endblock %}
 
     {% block javascripts_head %}
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-        <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-        <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <script src="{{ asset('bundles/app/vendor_static/html5shiv-3.7.2.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/vendor_static/respond-1.4.2.min.js') }}"></script>
         <![endif]-->
     {% endblock %}
 </head>
@@ -84,7 +84,7 @@
         </script>
 
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <script src="{{ asset('bundles/app/ie10-viewport-bug-workaround.js') }}"></script>
+        <script src="{{ asset('bundles/app/vendor_static/ie10-viewport-bug-workaround.js') }}"></script>
 
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

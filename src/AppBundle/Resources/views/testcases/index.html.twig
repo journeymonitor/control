@@ -1,5 +1,11 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts_head %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/vendor/d3/d3.js') }}"></script>
+    <script src="{{ asset('bundles/app/vendor/d3-tip/index.js') }}"></script>
+{% endblock %}
+
 {% block body %}
     <main>
         <div class="container">
