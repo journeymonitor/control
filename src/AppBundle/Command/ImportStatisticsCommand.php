@@ -4,7 +4,6 @@ namespace AppBundle\Command;
 
 use AppBundle\Entity\Statistics;
 use AppBundle\Entity\Testcase;
-use AppBundle\Repository\TestcaseRepository;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
