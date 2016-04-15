@@ -28,8 +28,6 @@ class ImportStatisticsCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
-        /** @var TestcaseRepository $testcaseRepo */
-        $testcaseRepo = $em->getRepository('AppBundle\Entity\Testcase');
         $testresultRepo = $em->getRepository('AppBundle\Entity\Testresult');
         $statisticsRepo = $em->getRepository('AppBundle\Entity\Statistics');
 
@@ -41,10 +39,13 @@ class ImportStatisticsCommand extends ContainerAwareCommand
         // Find and replace URL placeholders
         // /testcases/:testcaseId/statistics/latest/?minTestresultDatetimeRun=:minTestresultDatetimeRun
 
-        $testcases = $testcaseRepo->findAll();
+        $query = $em->createQuery('SELECT t from AppBundle\Entity\Testcase t');
+        $iterableResults = $query->iterate();
 
-        /** @var Testcase $testcase */
-        foreach ($testcases as $testcase) {
+        foreach ($iterableResults as $row) {
+
+            /** @var Testcase $testcase */
+            $testcase = $row[0];
 
             $url = $input->getArgument('url');
             $url = str_replace(':testcaseId', urlencode($testcase->getId()), $url);
@@ -53,6 +54,8 @@ class ImportStatisticsCommand extends ContainerAwareCommand
                 urlencode($testcase->getCreatedAt()->format('Y-m-d H:i:dO')),
                 $url
             );
+
+            $em->detach($row[0]);
 
             $output->writeln('Consuming URL ' . $url . '.');
 
@@ -84,6 +87,8 @@ class ImportStatisticsCommand extends ContainerAwareCommand
                         $em->persist($statistics);
                         $em->flush($statistics);
                         $output->writeln('Imported statistics for testresult ' . $testresult->getId() . '.');
+                        $em->detach($statistics);
+                        $em->detach($testresult);
                     } else {
                         $output->writeln(
                             'Could not persist statistics for testresult '
