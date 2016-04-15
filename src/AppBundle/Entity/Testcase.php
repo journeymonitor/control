@@ -385,7 +385,7 @@ class Testcase
     }
 
     public function hasTestresults() {
-        $testresults = $this->getLimitedTestresults(100);
+        $testresults = $this->getLimitedTestresults(1);
         if (sizeof($testresults) > 0) {
             return true;
         } else {
