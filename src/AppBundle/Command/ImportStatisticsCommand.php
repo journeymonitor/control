@@ -96,6 +96,7 @@ class ImportStatisticsCommand extends ContainerAwareCommand
                             . ' because the testresult does not exist.');
                     }
                 } else {
+                    $em->detach($statistics);
                     $output->writeln(
                         'Statistics for testresult '
                         . $statisticsArray['testresultId']
