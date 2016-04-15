@@ -1,0 +1,18 @@
+HTTP/1.1 200 OK
+
+[
+  {
+    "testresultId": "tr3",
+    "runtimeMilliseconds": 3234,
+    "numberOf200": 300,
+    "numberOf400": 130,
+    "numberOf500": 33
+  },
+  {
+    "testresultId": "tr4",
+    "runtimeMilliseconds": 4234,
+    "numberOf200": 400,
+    "numberOf400": 140,
+    "numberOf500": 44
+  }
+]

@@ -4,15 +4,15 @@ HTTP/1.1 200 OK
   {
     "testresultId": "tr1",
     "runtimeMilliseconds": 1234,
-    "numberOf200": 10,
-    "numberOf400": 2,
-    "numberOf500": 1
+    "numberOf200": 100,
+    "numberOf400": 110,
+    "numberOf500": 11
   },
   {
     "testresultId": "tr2",
     "runtimeMilliseconds": 2234,
-    "numberOf200": 20,
-    "numberOf400": 4,
-    "numberOf500": 2
+    "numberOf200": 200,
+    "numberOf400": 120,
+    "numberOf500": 22
   }
 ]

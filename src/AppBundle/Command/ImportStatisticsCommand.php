@@ -3,6 +3,8 @@
 namespace AppBundle\Command;
 
 use AppBundle\Entity\Statistics;
+use AppBundle\Entity\Testcase;
+use AppBundle\Repository\TestcaseRepository;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,7 +20,7 @@ class ImportStatisticsCommand extends ContainerAwareCommand
             ->addArgument(
                 'url',
                 InputArgument::REQUIRED,
-                'URL with placeholders :id and :minTestresultDatetimeRun for the endpoint that provides statistics for testcases, e.g. "testcases/:id/statistics/latest?minTestresultDatetimeRun=:minTestresultDatetimeRun"'
+                'URL with placeholders :testcaseId and :minTestresultDatetimeRun for the endpoint that provides statistics for testcases, e.g. "http://example.com/testcases/:testcaseId/statistics/latest?minTestresultDatetimeRun=:minTestresultDatetimeRun"'
             )
         ;
     }
@@ -26,49 +28,77 @@ class ImportStatisticsCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
+        /** @var TestcaseRepository $testcaseRepo */
+        $testcaseRepo = $em->getRepository('AppBundle\Entity\Testcase');
         $testresultRepo = $em->getRepository('AppBundle\Entity\Testresult');
         $statisticsRepo = $em->getRepository('AppBundle\Entity\Statistics');
 
+        /** @var \GuzzleHttp\Client $client */
         $client = $this->getContainer()->get('guzzle_client');
 
         // Iterate over testcases
         // Get testresultDatetimeRun value of newest testresult entry with already locally stored statistics
         // Find and replace URL placeholders
-        $response = $client->get($input->getArgument('url') . 'statistics/latest?minTestresultDatetimeRun='.urlencode('2016-02-21 22:03:49+0000'));
-        $json = $response->json();
+        // /testcases/:testcaseId/statistics/latest/?minTestresultDatetimeRun=:minTestresultDatetimeRun
 
-        foreach ($json as $statisticsArray) {
-            $statistics = $statisticsRepo->findOneBy(['testresult' => $statisticsArray['testresultId']]);
-            if (empty($statistics)) {
-                try {
-                    $testresult = $testresultRepo->find($statisticsArray['testresultId']);
-                } catch (\Exception $e) {
-                    $output->writeln('Statistics without testresult id:');
-                    $output->writeln(print_r($statisticsArray, true));
-                }
-                if (!empty($testresult)) {
-                    $statistics = new Statistics();
-                    $statistics->setTestresult($testresult);
-                    $statistics->setRuntimeMilliseconds($statisticsArray['runtimeMilliseconds']);
-                    $statistics->setNumberOf200($statisticsArray['numberOf200']);
-                    $statistics->setNumberOf400($statisticsArray['numberOf400']);
-                    $statistics->setNumberOf500($statisticsArray['numberOf500']);
-                    $em->persist($statistics);
-                    $em->flush($statistics);
-                    $output->writeln('Imported statistics for testresult ' . $testresult->getId() . '.');
+        $testcases = $testcaseRepo->findAll();
+
+        /** @var Testcase $testcase */
+        foreach ($testcases as $testcase) {
+
+            $url = $input->getArgument('url');
+            $url = str_replace(':testcaseId', urlencode($testcase->getId()), $url);
+            $url = str_replace(
+                ':minTestresultDatetimeRun',
+                urlencode($testcase->getCreatedAt()->format('Y-m-d H:i:dO')),
+                $url
+            );
+
+            $output->writeln('Consuming URL ' . $url . '.');
+
+            $response = $client->get($url);
+            try {
+                $json = $response->json();
+            } catch (\Exception $e) {
+                $output->writeln('Error parsing json:');
+                $output->writeln(print_r($response->getBody()->getContents(), true));
+                break;
+            }
+
+            foreach ($json as $statisticsArray) {
+                $statistics = $statisticsRepo->findOneBy(['testresult' => $statisticsArray['testresultId']]);
+                if (empty($statistics)) {
+                    try {
+                        $testresult = $testresultRepo->find($statisticsArray['testresultId']);
+                    } catch (\Exception $e) {
+                        $output->writeln('Statistics without testresult id:');
+                        $output->writeln(print_r($statisticsArray, true));
+                    }
+                    if (!empty($testresult)) {
+                        $statistics = new Statistics();
+                        $statistics->setTestresult($testresult);
+                        $statistics->setRuntimeMilliseconds($statisticsArray['runtimeMilliseconds']);
+                        $statistics->setNumberOf200($statisticsArray['numberOf200']);
+                        $statistics->setNumberOf400($statisticsArray['numberOf400']);
+                        $statistics->setNumberOf500($statisticsArray['numberOf500']);
+                        $em->persist($statistics);
+                        $em->flush($statistics);
+                        $output->writeln('Imported statistics for testresult ' . $testresult->getId() . '.');
+                    } else {
+                        $output->writeln(
+                            'Could not persist statistics for testresult '
+                            . $statisticsArray['testresultId']
+                            . ' because the testresult does not exist.');
+                    }
                 } else {
                     $output->writeln(
-                        'Could not persist statistics for testresult '
+                        'Statistics for testresult '
                         . $statisticsArray['testresultId']
-                        . ' because the testresult does not exist.');
+                        . ' are already known.');
                 }
-            } else {
-                $output->writeln(
-                    'Statistics for testresult '
-                    . $statisticsArray['testresultId']
-                    . ' are already known.');
             }
         }
+
         $output->writeln('Import finished.');
     }
 }
