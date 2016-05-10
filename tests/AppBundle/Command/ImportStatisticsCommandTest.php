@@ -36,7 +36,7 @@ class ImportStatisticsCommandTest extends WebTestCase
         /** @var Testcase $testcase */
         $testcase = $testcaseRepo->findOneBy(['title' => 'Demo User Testcase One']);
         $testcase->setId('tc1');
-        $testcase->setCreatedAt(new \DateTime('2015-01-10 12:34:56', new \DateTimeZone('Europe/Berlin')));
+        $testcase->setCreatedAt(new \DateTime('2015-01-10 12:34:56', new \DateTimeZone('UTC')));
         $em->persist($testcase);
 
         /** @var Testcase $testcase */
@@ -45,7 +45,7 @@ class ImportStatisticsCommandTest extends WebTestCase
         $testresult = new Testresult();
         $testresult->setTestcase($testcase);
         $testresult->setId('tr1');
-        $testresult->setDatetimeRun(new \DateTime('2015-06-11 12:34:56', new \DateTimeZone('Europe/Berlin')));
+        $testresult->setDatetimeRun(new \DateTime('2015-06-11 12:34:56', new \DateTimeZone('UTC')));
         $testresult->setExitCode(0);
         $testresult->setOutput('');
         $em->persist($testresult);
@@ -62,13 +62,13 @@ class ImportStatisticsCommandTest extends WebTestCase
         $em->persist($testcase);
         // need to overwrite those after first persist where they get autoset
         $testcase->setId('tc2');
-        $testcase->setCreatedAt(new \DateTime('2015-02-10 12:34:56', new \DateTimeZone('Europe/Berlin')));
+        $testcase->setCreatedAt(new \DateTime('2015-02-10 12:34:56', new \DateTimeZone('UTC')));
         $em->persist($testcase);
 
         $testresult = new Testresult();
         $testresult->setTestcase($testcase);
         $testresult->setId('tr3');
-        $testresult->setDatetimeRun(new \DateTime('2015-06-13 12:34:56', new \DateTimeZone('Europe/Berlin')));
+        $testresult->setDatetimeRun(new \DateTime('2015-06-13 12:34:56', new \DateTimeZone('UTC')));
         $testresult->setExitCode(0);
         $testresult->setOutput('');
         $em->persist($testresult);
@@ -108,10 +108,10 @@ class ImportStatisticsCommandTest extends WebTestCase
         $this->assertSame(33, $statistics->getNumberOf500());
 
         $expected = <<<EOT
-Consuming URL http://foo.bar/testcases/tc1/statistics/latest/?minTestresultDatetimeRun=2015-01-10+12%3A34%3A10%2B0100.
+Consuming URL http://foo.bar/testcases/tc1/statistics/latest/?minTestresultDatetimeRun=2015-01-10+12%3A34%3A10%2B0000.
 Imported statistics for testresult tr1.
 Could not persist statistics for testresult tr2 because the testresult does not exist.
-Consuming URL http://foo.bar/testcases/tc2/statistics/latest/?minTestresultDatetimeRun=2015-02-10+12%3A34%3A10%2B0100.
+Consuming URL http://foo.bar/testcases/tc2/statistics/latest/?minTestresultDatetimeRun=2015-02-10+12%3A34%3A10%2B0000.
 Imported statistics for testresult tr3.
 Could not persist statistics for testresult tr4 because the testresult does not exist.
 Import finished.
