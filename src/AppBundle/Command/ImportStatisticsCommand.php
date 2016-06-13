@@ -51,7 +51,7 @@ class ImportStatisticsCommand extends ContainerAwareCommand
             $url = str_replace(':testcaseId', urlencode($testcase->getId()), $url);
             $url = str_replace(
                 ':minTestresultDatetimeRun',
-                urlencode($testcase->getCreatedAt()->format('Y-m-d H:i:dO')),
+                urlencode($testcase->getCreatedAt()->format('Y-m-d H:i:sO')), // TODO: Make this more efficient by using the timestamp of the most recent statistics entry we have instead of the creating date of the testcase, or simply ask for everything from one day ago
                 $url
             );
 
@@ -87,7 +87,7 @@ class ImportStatisticsCommand extends ContainerAwareCommand
                         $statistics->setNumberOf500($statisticsArray['numberOf500']);
                         $em->persist($statistics);
                         $em->flush($statistics);
-                        $output->writeln('Imported statistics for testresult ' . $testresult->getId() . ' of testcase ' . $testresult->getTestcase()->getId() . ', which ran at ' . $testresult->getDatetimeRun()->format(\ DateTime::RFC3339) . '.');
+                        $output->writeln('Imported statistics for testresult ' . $testresult->getId() . ' of testcase ' . $testresult->getTestcase()->getId() . ', which ran at ' . $testresult->getDatetimeRun()->format('Y-m-d H:i:sO') . '.');
                         $em->detach($statistics);
                         $em->detach($testresult);
                     } else {
