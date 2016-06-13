@@ -109,10 +109,10 @@ class ImportStatisticsCommandTest extends WebTestCase
 
         $expected = <<<EOT
 Consuming URL http://foo.bar/testcases/tc1/statistics/latest/?minTestresultDatetimeRun=2015-01-10+12%3A34%3A10%2B0000.
-Imported statistics for testresult tr1.
+Imported statistics for testresult tr1 of testcase tc1, which ran at 2015-06-11T12:34:56+00:00.
 Could not persist statistics for testresult tr2 because the testresult does not exist.
 Consuming URL http://foo.bar/testcases/tc2/statistics/latest/?minTestresultDatetimeRun=2015-02-10+12%3A34%3A10%2B0000.
-Imported statistics for testresult tr3.
+Imported statistics for testresult tr3 of testcase tc2, which ran at 2015-06-13T12:34:56+00:00.
 Could not persist statistics for testresult tr4 because the testresult does not exist.
 Import finished.
 

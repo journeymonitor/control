@@ -4,6 +4,7 @@ namespace AppBundle\Command;
 
 use AppBundle\Entity\Statistics;
 use AppBundle\Entity\Testcase;
+use AppBundle\Entity\Testresult;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -71,6 +72,7 @@ class ImportStatisticsCommand extends ContainerAwareCommand
                 $statistics = $statisticsRepo->findOneBy(['testresult' => $statisticsArray['testresultId']]);
                 if (empty($statistics)) {
                     try {
+                        /** @var Testresult $testresult */
                         $testresult = $testresultRepo->find($statisticsArray['testresultId']);
                     } catch (\Exception $e) {
                         $output->writeln('Statistics without testresult id:');
@@ -85,7 +87,7 @@ class ImportStatisticsCommand extends ContainerAwareCommand
                         $statistics->setNumberOf500($statisticsArray['numberOf500']);
                         $em->persist($statistics);
                         $em->flush($statistics);
-                        $output->writeln('Imported statistics for testresult ' . $testresult->getId() . '.');
+                        $output->writeln('Imported statistics for testresult ' . $testresult->getId() . ' of testcase ' . $testresult->getTestcase()->getId() . ', which ran at ' . $testresult->getDatetimeRun()->format(\ DateTime::RFC3339) . '.');
                         $em->detach($statistics);
                         $em->detach($testresult);
                     } else {
