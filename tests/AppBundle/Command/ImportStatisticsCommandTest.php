@@ -6,6 +6,7 @@ use AppBundle\Command\ImportStatisticsCommand;
 use AppBundle\Entity\Testcase;
 use AppBundle\Entity\Testresult;
 use AppBundle\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\Tests\Compiler\CheckExceptionOnInvalidReferenceBehaviorPassTest;
 use Tests\AppBundle\TestHelpers;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -30,6 +31,7 @@ class ImportStatisticsCommandTest extends WebTestCase
         $application->add(new ImportStatisticsCommand());
 
         $container = $kernel->getContainer();
+        /** @var EntityManagerInterface $em */
         $em = $container->get('doctrine')->getManager();
 
         $testcaseRepo = $em->getRepository('AppBundle\Entity\Testcase');
@@ -39,7 +41,6 @@ class ImportStatisticsCommandTest extends WebTestCase
         $testcase->setCreatedAt(new \DateTime('2015-01-10 12:34:56', new \DateTimeZone('UTC')));
         $em->persist($testcase);
 
-        /** @var Testcase $testcase */
         $user = $testcase->getUser();
 
         $testresult = new Testresult();
