@@ -51,7 +51,7 @@ class ImportStatisticsCommand extends ContainerAwareCommand
             $url = str_replace(':testcaseId', urlencode($testcase->getId()), $url);
             $url = str_replace(
                 ':minTestresultDatetimeRun',
-                urlencode($testcase->getCreatedAt()->format('Y-m-d H:i:sO')), // TODO: Make this more efficient by using the timestamp of the most recent statistics entry we have instead of the creating date of the testcase, or simply ask for everything from one day ago
+                urlencode($testcase->getCreatedAt()->format('Y-m-d H:i:sO')),
                 $url
             );
 
