@@ -1,2 +1,0 @@
-#!/bin/bash -e
-docker run -v $(pwd):/var/www --link db.journeymonitor.local.net:db -it --rm journeymonitor/frontend sudo -E -uwww-data app/console "$@"
