@@ -16,7 +16,7 @@
             <div class="clear well well-sm">
 
                 {% if (testcase.hasTestresults) %}
-                    <div id="testcase-{{ testcase.id }}-chart"><svg style="height:500px"></div>
+                    <div id="testcase-{{ testcase.id }}-chart"><svg style="height:300px"></div>
                     <script>
                         journeymonitor.renderTestresults(
                                 "{{ testcase.id }}",

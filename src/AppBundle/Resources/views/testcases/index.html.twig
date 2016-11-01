@@ -14,44 +14,48 @@
             'renderTestresults': function(testcaseId, testresults) {
 
                 var getDate = function(index) {
-                    testresults[index].dateTimeRun.date + '(' + testresults[index].dateTimeRun.timezone + ')';
+                    return testresults[index].datetimeRun.date;
                 };
 
-                console.log(testresults);
+                console.log(testresults[0]);
 
-                var numberOf200Values = [
-                    {'x': 0, 'y': 20},
-                    {'x': 1, 'y': 24},
-                    {'x': 2, 'y': 12}
-                ];
+                var runtimeValues = testresults.map(function(testresult, index) {
+                    return {'x': index, 'y': testresult.runtimeMilliseconds / 1000};
+                });
 
-                var numberOf400Values = [
-                    {'x': 0, 'y': 4},
-                    {'x': 1, 'y': 1},
-                    {'x': 2, 'y': 3}
-                ];
+                var numberOf200Values = testresults.map(function(testresult, index) {
+                    return {'x': index, 'y': testresult.numberOf200};
+                });
 
-                var numberOf500Values = [
-                    {'x': 0, 'y': 5},
-                    {'x': 1, 'y': 2},
-                    {'x': 2, 'y': 4}
-                ];
+                var numberOf400Values = testresults.map(function(testresult, index) {
+                    return {'x': index, 'y': testresult.numberOf400};
+                });
+
+                var numberOf500Values = testresults.map(function(testresult, index) {
+                    return {'x': index, 'y': testresult.numberOf500};
+                });
 
                 var data = [
+                    {'key': 'Runtime (s)', 'values': runtimeValues, 'nonStackable': true},
                     {'key': 'Status 200', 'values': numberOf200Values},
                     {'key': 'Status 400', 'values': numberOf400Values},
                     {'key': 'Status 500', 'values': numberOf500Values}
                 ];
 
                 nv.addGraph(function() {
-                    var chart = nv.models.multiBarHorizontalChart()
-                      .duration(350)
-                      .showControls(true)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
-                      .groupSpacing(0.1)    //Distance between each group of bars.
+                    var chart = nv.models.multiBarChart()
+                      .duration(200)
+                      .showControls(true)
+                      .groupSpacing(0.0)
+                      .stacked(true)
                     ;
 
+                    chart.color(['#7777ff', '#5cb85c', 'orange', 'red']);
+
                     chart.xAxis
-                        .tickFormat(d3.format(',f'));
+                        .tickFormat(function(index) { return getDate(index); });
+
+                    chart.xAxis.fontSize('9px');
 
                     chart.yAxis
                         .tickFormat(d3.format(',.1'));
