@@ -15,12 +15,21 @@
             'renderTestresults': function(testcaseId, testresults) {
 
                 var handleBarClick = function(element) {
-                    var uriTemplate = '{{ path('testresults.show', {testresultId: 'placeholder'}) }}';
+                    var uriTemplate = '{{ path('testresults.show', {'testresultId': 'placeholder'}) }}';
                     window.location.href = uriTemplate.replace('placeholder', getId(element.index));
                 };
 
-                var getDate = function(index) {
-                    return testresults[index].datetimeRun.date;
+                var handleBarDblClick = function(element) {
+                    var uriTemplate = 'http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': 'placeholder'}) }}';
+                    window.location.href = uriTemplate.replace('placeholder', getId(element.index));
+                };
+
+                var getTimeOfRun = function(index) {
+                    return testresults[index].datetimeRun.date.substring(11);
+                };
+
+                var getDateAndTimeOfRun = function(index) {
+                    return testresults[index].datetimeRun.date + ' ' + testresults[index].datetimeRun.timezone;
                 };
 
                 var getExitCode = function(index) {
@@ -77,7 +86,7 @@
                     chart.color(['#5cb85c', 'orange', 'red']);
 
                     chart.xAxis
-                        .tickFormat(function(index) { return getDate(index); });
+                        .tickFormat(function(index) { return getTimeOfRun(index); });
 
                     chart.xAxis.fontSize('9px');
 
@@ -89,6 +98,7 @@
                         .call(chart);
 
                     chart.multibar.dispatch.on('elementClick', handleBarClick);
+                    chart.multibar.dispatch.on('elementDblClick', handleBarDblClick);
 
                     nv.utils.windowResize(chart.update);
 
@@ -115,7 +125,7 @@
                     })
 
                     chart.xAxis
-                        .tickFormat(function(index) { return getDate(index); });
+                        .tickFormat(function(index) { return getTimeOfRun(index); });
 
                     chart.xAxis.fontSize('9px');
 
@@ -135,10 +145,21 @@
                         } else {
                             exitCodeMessage = 'A system error occurred.';
                         };
-                        return '<strong>' + obj.data.key + ':</strong> ' + obj.data.y + ' seconds<br><strong>Exit code:</strong> ' + getExitCode(obj.index) + ' - ' + exitCodeMessage + '<br><br>Click for more details.';
+                        return '<strong>Date & time of run:</strong> '
+                            + getDateAndTimeOfRun(obj.data.x)
+                            + '<br><strong>'
+                            + obj.data.key
+                            + ':</strong> '
+                            + obj.data.y
+                            + ' seconds<br><strong>Exit code:</strong> '
+                            + getExitCode(obj.index)
+                            + ' - '
+                            + exitCodeMessage
+                            + '<br><br>Click for more details, double-click for request waterfall.';
                     });
 
                     chart.multibar.dispatch.on('elementClick', handleBarClick);
+                    chart.multibar.dispatch.on('elementDblClick', handleBarDblClick);
 
                     nv.utils.windowResize(chart.update);
 
