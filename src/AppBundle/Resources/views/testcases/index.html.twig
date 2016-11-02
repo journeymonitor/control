@@ -14,16 +14,6 @@
         var journeymonitor = {
             'renderTestresults': function(testcaseId, testresults) {
 
-                var handleBarClick = function(element) {
-                    var uriTemplate = '{{ path('testresults.show', {'testresultId': 'placeholder'}) }}';
-                    window.location.href = uriTemplate.replace('placeholder', getId(element.index));
-                };
-
-                var handleBarDblClick = function(element) {
-                    var uriTemplate = 'http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': 'placeholder'}) }}';
-                    window.location.href = uriTemplate.replace('placeholder', getId(element.index));
-                };
-
                 var getTimeOfRun = function(index) {
                     return testresults[index].datetimeRun.date.substring(11);
                 };
@@ -45,12 +35,12 @@
                 });
 
                 var runtimeValues = testresults.map(function(testresult, index) {
-                    //return {'x': index, 'y': testresult.runtimeMilliseconds / 1000 + Math.floor(Math.random(0, 1) * 6) + 12};
+                    return {'x': index, 'y': testresult.runtimeMilliseconds / 1000 + Math.floor(Math.random(0, 1) * 6) + 12};
                     return {'x': index, 'y': (testresult.runtimeMilliseconds / 1000).toFixed(2)};
                 });
 
                 var numberOf200Values = testresults.map(function(testresult, index) {
-                    //return {'x': index, 'y': testresult.numberOf200 + Math.floor(Math.random(0, 1) * 10) + 200};
+                    return {'x': index, 'y': testresult.numberOf200 + Math.floor(Math.random(0, 1) * 10) + 200};
                     return {'x': index, 'y': testresult.numberOf200};
                 });
 
@@ -97,8 +87,13 @@
                         .datum(requestData)
                         .call(chart);
 
-                    chart.multibar.dispatch.on('elementClick', handleBarClick);
-                    chart.multibar.dispatch.on('elementDblClick', handleBarDblClick);
+                    chart.multibar.dispatch.on('elementClick', function(element) {
+                        var uriTemplate = 'http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': 'placeholder'}) }}';
+                        window.open(
+                            uriTemplate.replace('placeholder', getId(element.index)),
+                            '_blank'
+                        );
+                    });
 
                     nv.utils.windowResize(chart.update);
 
@@ -155,11 +150,16 @@
                             + getExitCode(obj.index)
                             + ' - '
                             + exitCodeMessage
-                            + '<br><br>Click for more details, double-click for request waterfall.';
+                            + '<br><br>Click for more details.';
                     });
 
-                    chart.multibar.dispatch.on('elementClick', handleBarClick);
-                    chart.multibar.dispatch.on('elementDblClick', handleBarDblClick);
+                    chart.multibar.dispatch.on('elementClick', function(element) {
+                        var uriTemplate = '{{ path('testresults.show', {'testresultId': 'placeholder'}) }}';
+                        window.open(
+                            uriTemplate.replace('placeholder', getId(element.index)),
+                            '_blank'
+                        );
+                    });
 
                     nv.utils.windowResize(chart.update);
 
