@@ -36,7 +36,11 @@
 
                 var runtimeValues = testresults.map(function(testresult, index) {
                     //return {'x': index, 'y': testresult.runtimeMilliseconds / 1000 + Math.floor(Math.random(0, 1) * 6) + 12};
-                    return {'x': index, 'y': (testresult.runtimeMilliseconds / 1000).toFixed(2)};
+                    if (testresult.runtimeMilliseconds === null) {
+                        return {'x': index, 'y': -1.00}; // We don't have any statistics yet, but we need to show something.
+                    } else {
+                        return {'x': index, 'y': (testresult.runtimeMilliseconds / 1000).toFixed(2)};
+                    }
                 });
 
                 var numberOf200Values = testresults.map(function(testresult, index) {
