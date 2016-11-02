@@ -14,6 +14,11 @@
         var journeymonitor = {
             'renderTestresults': function(testcaseId, testresults) {
 
+                var handleBarClick = function(element) {
+                    var uriTemplate = '{{ path('testresults.show', {testresultId: 'placeholder'}) }}';
+                    window.location.href = uriTemplate.replace('placeholder', getId(element.index));
+                };
+
                 var getDate = function(index) {
                     return testresults[index].datetimeRun.date;
                 };
@@ -83,10 +88,7 @@
                         .datum(requestData)
                         .call(chart);
 
-                    chart.multibar.dispatch.on('elementClick', function(element) {
-                        var uriTemplate = '{{ path('testresults.show', {testresultId:'0000'}) }}';
-                        window.location.href = uriTemplate.replace('0000', getId(element.index));
-                    });
+                    chart.multibar.dispatch.on('elementClick', handleBarClick);
 
                     nv.utils.windowResize(chart.update);
 
@@ -136,10 +138,7 @@
                         return '<strong>' + obj.data.key + ':</strong> ' + obj.data.y + ' seconds<br><strong>Exit code:</strong> ' + getExitCode(obj.index) + ' - ' + exitCodeMessage + '<br><br>Click for more details.';
                     });
 
-                    chart.multibar.dispatch.on('elementClick', function(element) {
-                        var uriTemplate = '{{ path('testresults.show', {testresultId: 'placeholder'}) }}';
-                        window.location.href = uriTemplate.replace('placeholder', getId(element.index));
-                    });
+                    chart.multibar.dispatch.on('elementClick', handleBarClick);
 
                     nv.utils.windowResize(chart.update);
 
