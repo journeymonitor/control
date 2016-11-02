@@ -116,8 +116,10 @@
                     chart.barColor(function (d, index) {
                         if (getExitCode(index) == 0) {
                             return '#5cb85c';
+                        } else if (getExitCode(index) == 2) {
+                            return '#ffa500';
                         } else if (getExitCode(index) == 3) {
-                            return 'orange';
+                            return '#ff6500';
                         } else {
                             return 'red';
                         }
@@ -139,8 +141,10 @@
                         var exitCodeMessage = '';
                         if (getExitCode(obj.index) == 0) {
                             exitCodeMessage = 'All well.';
+                        } else if (getExitCode(obj.index) == 2) {
+                            exitCodeMessage = 'Journey not successful, expectation failed.';
                         } else if (getExitCode(obj.index) == 3) {
-                            exitCodeMessage = 'Journey not successful.';
+                            exitCodeMessage = 'Journey not successful, page element not found.';
                         } else {
                             exitCodeMessage = 'A system error occurred.';
                         };
