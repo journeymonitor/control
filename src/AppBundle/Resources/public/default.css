@@ -243,6 +243,10 @@ table tr td.testcase-entry-cell {
     background-color: white;
 }
 
+.nv-bar {
+    cursor: pointer;
+}
+
 .datetime.label {
     display: inline-block;
     line-height: 1.4;
