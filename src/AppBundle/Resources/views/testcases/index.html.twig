@@ -35,12 +35,12 @@
                 });
 
                 var runtimeValues = testresults.map(function(testresult, index) {
-                    return {'x': index, 'y': testresult.runtimeMilliseconds / 1000 + Math.floor(Math.random(0, 1) * 6) + 12};
+                    //return {'x': index, 'y': testresult.runtimeMilliseconds / 1000 + Math.floor(Math.random(0, 1) * 6) + 12};
                     return {'x': index, 'y': (testresult.runtimeMilliseconds / 1000).toFixed(2)};
                 });
 
                 var numberOf200Values = testresults.map(function(testresult, index) {
-                    return {'x': index, 'y': testresult.numberOf200 + Math.floor(Math.random(0, 1) * 10) + 200};
+                    //return {'x': index, 'y': testresult.numberOf200 + Math.floor(Math.random(0, 1) * 10) + 200};
                     return {'x': index, 'y': testresult.numberOf200};
                 });
 
