@@ -359,17 +359,6 @@ class Testcase
                     'numberOf500' => $testresult->getStatistics()->getNumberOf500()
                 ];
             } else {
-                /* for local testing
-                $arr[] = [
-                    'id' => $testresult->getId(),
-                    'datetimeRun' => $testresult->getDatetimeRun(),
-                    'exitCode' => $testresult->getExitCode(),
-                    'runtimeMilliseconds' => $this->randrun(),
-                    'numberOf200' => rand(100, 120),
-                    'numberOf400' => rand(0, 9) * 4,
-                    'numberOf500' => rand(0, 5) * 4
-                ];
-                */
                 $arr[] = [
                     'id' => $testresult->getId(),
                     'datetimeRun' => $testresult->getDatetimeRun(),
