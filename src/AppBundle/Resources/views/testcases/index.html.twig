@@ -22,7 +22,9 @@
                     return testresults[index].exitCode;
                 };
 
-                console.log(testresults[0]);
+                var getId = function(index) {
+                    return testresults[index].id;
+                };
 
                 var exitCodeValues = testresults.map(function(testresult, index) {
                     return {'x': index, 'y': testresult.exitCode};
@@ -55,7 +57,7 @@
                 ];
 
                 var timingData = [
-                    {'key': 'Runtime (s)', 'values': runtimeValues}
+                    {'key': 'Journey duration', 'values': runtimeValues}
                 ];
 
                 // Chart with request information
@@ -80,6 +82,11 @@
                     d3.select('#testcase-' + testcaseId + '-requestchart svg')
                         .datum(requestData)
                         .call(chart);
+
+                    chart.multibar.dispatch.on('elementClick', function(element) {
+                        var uriTemplate = '{{ path('testresults.show', {testresultId:'0000'}) }}';
+                        window.location.href = uriTemplate.replace('0000', getId(element.index));
+                    });
 
                     nv.utils.windowResize(chart.update);
 
@@ -118,9 +125,21 @@
                         .call(chart);
 
                     chart.tooltip.contentGenerator(function (obj) {
-                        return obj.data.key + ': ' + obj.data.y + ' seconds<br>Exit code: ' + getExitCode(obj.index);
+                        var exitCodeMessage = '';
+                        if (getExitCode(obj.index) == 0) {
+                            exitCodeMessage = 'All well.';
+                        } else if (getExitCode(obj.index) == 3) {
+                            exitCodeMessage = 'Journey not successful.';
+                        } else {
+                            exitCodeMessage = 'A system error occurred.';
+                        };
+                        return '<strong>' + obj.data.key + ':</strong> ' + obj.data.y + ' seconds<br><strong>Exit code:</strong> ' + getExitCode(obj.index) + ' - ' + exitCodeMessage + '<br><br>Click for more details.';
                     });
 
+                    chart.multibar.dispatch.on('elementClick', function(element) {
+                        var uriTemplate = '{{ path('testresults.show', {testresultId: 'placeholder'}) }}';
+                        window.location.href = uriTemplate.replace('placeholder', getId(element.index));
+                    });
 
                     nv.utils.windowResize(chart.update);
 
