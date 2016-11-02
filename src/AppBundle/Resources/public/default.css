@@ -238,12 +238,9 @@ table tr td.testcase-entry-cell {
     height: 21px;
 }
 
-.testresult-tooltip {
-    border: 1px solid #ddd;
-    border-radius: 4px;
+.nvtooltip {
     padding: 8px;
     background-color: white;
-    font-size: 14px;
 }
 
 .datetime.label {

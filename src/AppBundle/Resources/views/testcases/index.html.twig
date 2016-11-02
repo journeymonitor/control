@@ -1,13 +1,14 @@
 {% extends '::base.html.twig' %}
 
-{% block javascripts_head %}
+{% block stylesheets %}
+    <link href="{{ asset('bundles/app/vendor/nvd3/build/nv.d3.css') }}" rel="stylesheet">
     {{ parent() }}
+{% endblock %}
 
+{% block javascripts_head %}
     <script src="{{ asset('bundles/app/vendor/d3/d3.js') }}"></script>
     <script src="{{ asset('bundles/app/vendor/d3-tip/index.js') }}"></script>
-
     <script src="{{ asset('bundles/app/vendor/nvd3/build/nv.d3.js') }}"></script>
-    <link href="{{ asset('bundles/app/vendor/nvd3/build/nv.d3.css') }}" rel="stylesheet">
 
     <script>
         var journeymonitor = {
@@ -17,40 +18,56 @@
                     return testresults[index].datetimeRun.date;
                 };
 
+                var getExitCode = function(index) {
+                    return testresults[index].exitCode;
+                };
+
                 console.log(testresults[0]);
 
+                var exitCodeValues = testresults.map(function(testresult, index) {
+                    return {'x': index, 'y': testresult.exitCode};
+                });
+
                 var runtimeValues = testresults.map(function(testresult, index) {
+                    return {'x': index, 'y': testresult.runtimeMilliseconds / 1000 + Math.floor(Math.random(0, 1) * 6) + 12};
                     return {'x': index, 'y': testresult.runtimeMilliseconds / 1000};
                 });
 
                 var numberOf200Values = testresults.map(function(testresult, index) {
+                    return {'x': index, 'y': testresult.numberOf200 + Math.floor(Math.random(0, 1) * 10) + 200};
                     return {'x': index, 'y': testresult.numberOf200};
                 });
 
                 var numberOf400Values = testresults.map(function(testresult, index) {
+                    return {'x': index, 'y': testresult.numberOf400 + Math.floor(Math.random(0, 1) * 4)};
                     return {'x': index, 'y': testresult.numberOf400};
                 });
 
                 var numberOf500Values = testresults.map(function(testresult, index) {
+                    return {'x': index, 'y': testresult.numberOf500 + Math.floor(Math.random(0, 1) * 4)};
                     return {'x': index, 'y': testresult.numberOf500};
                 });
 
-                var data = [
-                    {'key': 'Runtime (s)', 'values': runtimeValues, 'nonStackable': true},
+                var requestData = [
                     {'key': 'Status 200', 'values': numberOf200Values},
                     {'key': 'Status 400', 'values': numberOf400Values},
                     {'key': 'Status 500', 'values': numberOf500Values}
                 ];
 
+                var timingData = [
+                    {'key': 'Runtime (s)', 'values': runtimeValues}
+                ];
+
+                // Chart with request information
                 nv.addGraph(function() {
                     var chart = nv.models.multiBarChart()
                       .duration(200)
                       .showControls(true)
-                      .groupSpacing(0.0)
+                      .groupSpacing(0.2)
                       .stacked(true)
                     ;
 
-                    chart.color(['#7777ff', '#5cb85c', 'orange', 'red']);
+                    chart.color(['#5cb85c', 'orange', 'red']);
 
                     chart.xAxis
                         .tickFormat(function(index) { return getDate(index); });
@@ -60,9 +77,50 @@
                     chart.yAxis
                         .tickFormat(d3.format(',.1'));
 
-                    d3.select('#testcase-' + testcaseId + '-chart svg')
-                        .datum(data)
+                    d3.select('#testcase-' + testcaseId + '-requestchart svg')
+                        .datum(requestData)
                         .call(chart);
+
+                    nv.utils.windowResize(chart.update);
+
+                    return chart;
+                });
+
+                // Chart with timing information
+                nv.addGraph(function() {
+                    var chart = nv.models.multiBarChart()
+                    .duration(200)
+                      .showControls(false)
+                      .groupSpacing(0.2)
+                      .stacked(true)
+                    ;
+
+                    chart.barColor(function (d, index) {
+                        if (getExitCode(index) == 0) {
+                            return '#5cb85c';
+                        } else if (getExitCode(index) == 3) {
+                            return 'orange';
+                        } else {
+                            return 'red';
+                        }
+                    })
+
+                    chart.xAxis
+                        .tickFormat(function(index) { return getDate(index); });
+
+                    chart.xAxis.fontSize('9px');
+
+                    chart.yAxis
+                        .tickFormat(d3.format(',.1'));
+
+                    d3.select('#testcase-' + testcaseId + '-timingchart svg')
+                        .datum(timingData)
+                        .call(chart);
+
+                    chart.tooltip.contentGenerator(function (obj) {
+                        return obj.data.key + ': ' + obj.data.y + ' seconds<br>Exit code: ' + getExitCode(obj.index);
+                    });
+
 
                     nv.utils.windowResize(chart.update);
 
@@ -70,9 +128,13 @@
                 });
             }
         };
+
     </script>
 
+    {{ parent() }}
+
 {% endblock %}
+
 
 {% block body %}
     <main>
