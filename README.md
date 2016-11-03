@@ -2,7 +2,9 @@
 
 ## About this repository
 
-Application that powers the JourneyMonitor website at http://journeymonitor.com.
+Applications that powers the JourneyMonitor website at http://journeymonitor.com.
+
+It contains two technical stacks, one based on PHP (e.g. the Symfony2 app), one based on JVM technology.
 
 [![Build Status](https://travis-ci.org/journeymonitor/control.png?branch=master)](https://travis-ci.org/journeymonitor/control)
 
@@ -16,29 +18,32 @@ Please see [ABOUT.md](https://github.com/journeymonitor/infra/blob/master/ABOUT.
 
 ## Setting up a development environment
 
-### Using Vagrant (recommended)
+### Using Docker (recommended)
 
-Set up a development VM as described [in this document](https://github.com/journeymonitor/infra/blob/master/README.md#setting-up-a-development-environment).
+Set up a development environment as described [in this document](https://github.com/journeymonitor/infra/blob/master/README.md#setting-up-a-development-environment).
 
 Afterwards, follow these steps:
 
-- SSH into the development VM by running `vagrant ssh` from the *infra* folder
+- From `infra/docker`, run `docker-compose exec journeymonitor-control bash`
 - `cd /opt/journeymonitor/control`
-- `make dependencies`
-- `make migrations`
 
-You can now access the application at http://192.168.59.99/. Run the tests via `make tests`.
+Enjoy. Consider running most command via `sudo -u www-data`, because `www-data` is the owner of all files in
+/opt/journeymonitor/control and the owner of the nginx and php-fpm processes.
+
+Example:
+- `cd /opt/journeymonitor/control/php`
+- `sudo -u www-data make test`
 
 
 ### Mac OS X
 
-We do not officially support installing and running this application on Mac OS X environments, but the following might
-be helpful if you want to give it a try.
+We do not officially support installing and running this application on Mac OS X environments (outside of Docker), but
+the following might be helpful if you want to give it a try.
 
 Assumes that you have Make, PHP 5.5, Git, Bower, and Composer installed.
 
     git clone git@github.com:journeymonitor/control.git
-    cd control
+    cd control/php
     make dependencies
     make migrations
     make assets
@@ -71,8 +76,8 @@ helpful if you want to give it a try. The described steps have been tested on Wi
 - Also add `date.timezone = Europe/Berlin` to the file
 - Open a cmd console and try to run `php` - if you see no output at all thats's good!
 - Next you need to install Composer from https://getcomposer.org/download/
-- Change into the cloned directory and run `composer install` - choose `C:\Temp\journeymonitor-control` as the database
-  file path
+- Change into the cloned directory, subfolder `php`, and run `composer install` - choose
+  `C:\Temp\journeymonitor-control` as the database file path
 - Login or create a github user and stay logged in in your browser
 - While running Composer it will fail saying you need to create an auth token - it will generate a link for you
   redirecting you in your already logged in github account
@@ -87,38 +92,9 @@ helpful if you want to give it a try. The described steps have been tested on Wi
 - Run `php app/console server:run`
 
 
-### Docker
-
-We do not officially support installing and running this application in a Docker environment,
-but the following might be helpful if you want to give it a try.
-
-The project ships with some Dockerfiles for webserver and database that can be used for local development.
-
-    cd docker && bash build.sh
-    chmod a+x journeymonitor-docker.sh
-    sudo ln -s `pwd`/journeymonitor-docker.sh /usr/local/bin/journeymonitor-docker
-    cd ..
-    journeymonitor-docker -xdebug start
-    docker/shell sudo -uwww-data composer install
-        
-This will launch a container for the database and one for the web-application, linked to the database container.
-XDebug will be enabled with idekey "xdebug" if you use the "-xdebug" flag.
-Try clearing the cache to see that permissions are set correctly (the nginx will be run as www-data)
-
-    docker/console cache:clear
-    doctrine:migrations:migrate
-    docker/console assets:install
-
-If everything works fine, you should be able to open `http://frontend.journeymonitor.local.net/` in your
-browser.
-For convience there is also a shortcut to get into the mysql-shell in the db container:
-
-    journeymonitor-docker mysql-console
-
-
 ### Other info
 
-At `app/Resources/journeymonitor-control-dev.sqlite3.dist.gz` you'll find an sqlite3 database file that contains the
+At `php/app/Resources/journeymonitor-control-dev.sqlite3.dist.gz` you'll find an sqlite3 database file that contains the
 user 'demo-user@journeymonitor.com' with password 'demo123'. The user has some testcases and testresult data. Simply
 unzip to `/var/tmp/journeymonitor-control-dev.sqlite3` if you want to use it.
 
