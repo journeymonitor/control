@@ -1,14 +1,13 @@
 {% extends '::base.html.twig' %}
 
 {% block stylesheets %}
-    <link href="{{ asset('bundles/app/vendor/nvd3/build/nv.d3.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/app/vendor/nvd3/build/nv.d3.min.css') }}" rel="stylesheet">
     {{ parent() }}
 {% endblock %}
 
 {% block javascripts_head %}
-    <script src="{{ asset('bundles/app/vendor/d3/d3.js') }}"></script>
-    <script src="{{ asset('bundles/app/vendor/d3-tip/index.js') }}"></script>
-    <script src="{{ asset('bundles/app/vendor/nvd3/build/nv.d3.js') }}"></script>
+    <script src="{{ asset('bundles/app/vendor/d3/d3.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/vendor/nvd3/build/nv.d3.min.js') }}"></script>
 
     <script>
         var journeymonitor = {

@@ -16,7 +16,7 @@
 
     {% block stylesheets %}
         <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700|Pacifico' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="{{ asset('bundles/app/vendor/bootstrap/dist/css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/app/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('bundles/app/default.css') }}">
 
         <link rel="stylesheet" href="{{ asset('bundles/app/vendor_static/gh-fork-ribbon-0.1.1.min.css') }}" />
@@ -74,8 +74,8 @@
     </footer>
 
     {% block javascripts_foot %}
-        <script src="{{ asset('bundles/app/vendor/jquery/dist/jquery.js') }}"></script>
-        <script src="{{ asset('bundles/app/vendor/bootstrap/dist/js/bootstrap.js') }}"></script>
+        <script src="{{ asset('bundles/app/vendor/jquery/dist/jquery.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
         <script>
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip();
