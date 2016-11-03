@@ -11,8 +11,8 @@ branches:
   - master
   - develop
 before_script:
-- make travisci-before-script
+- cd php && make travisci-before-script && cd -
 script:
-- make travisci-script
+- cd php && make travisci-script && cd -
 after_success:
 - make travisci-after-success

@@ -4,12 +4,12 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PA
 
 mkdir -p /opt/journeymonitor/control
 
-rsync -ac --stats --exclude /opt/journeymonitor/control/var/cache --exclude /opt/journeymonitor/control/var/logs $2/ /opt/journeymonitor/control/ || exit 1
+rsync -ac --stats --exclude /opt/journeymonitor/control/php/var/cache --exclude /opt/journeymonitor/control/php/var/logs $2/php/ /opt/journeymonitor/control/php/ || exit 1
 
-chown -R www-data:www-data /opt/journeymonitor/control/var/cache || exit 1
-chown -R www-data:www-data /opt/journeymonitor/control/var/logs || exit 1
+chown -R www-data:www-data /opt/journeymonitor/control/php/var/cache || exit 1
+chown -R www-data:www-data /opt/journeymonitor/control/php/var/logs || exit 1
 
-cd /opt/journeymonitor/control/
+cd /opt/journeymonitor/control/php
 
 . /etc/journeymonitor/app-control-env.sh
 

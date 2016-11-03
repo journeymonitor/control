@@ -2,7 +2,7 @@
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PATH
 
-cd $2
+cd $2/php
 
 /usr/bin/php /usr/bin/composer install --no-interaction --no-progress || exit 1
 /usr/local/bin/bower install --allow-root || exit 1
