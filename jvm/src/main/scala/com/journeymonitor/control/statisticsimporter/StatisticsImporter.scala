@@ -1,6 +1,7 @@
 package com.journeymonitor.control.statisticsimporter
 
-import java.io.InputStream
+import java.io.{ByteArrayInputStream, InputStream, StringBufferInputStream, StringReader}
+import java.nio.charset.StandardCharsets
 
 import com.fasterxml.jackson.core.{JsonFactory, JsonToken}
 import org.apache.http.HttpResponse
@@ -8,11 +9,13 @@ import org.apache.http.client.ResponseHandler
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.HttpClients
 
+import scala.collection.mutable
+
 /*
 
  */
 
-class StatisticsImporter {
+class StatisticsImporter extends JsonConverter {
 
   def doImport(): Unit = {
 
@@ -36,26 +39,16 @@ class StatisticsImporter {
                  |]
                  |""".stripMargin
 
+    val jsonInputStream = new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8))
 
-    val jsonFactory = new JsonFactory()
-    val jsonParser = jsonFactory.createParser(json)
-
-    while (jsonParser.nextToken() != JsonToken.END_ARRAY) {
-      if (jsonParser.getCurrentToken == JsonToken.START_OBJECT) {
-        while (jsonParser.nextToken() != JsonToken.END_OBJECT) {
-          if (jsonParser.getCurrentToken == JsonToken.FIELD_NAME) {
-            jsonParser.getText match {
-              case fieldName: String =>
-                jsonParser.nextToken()
-                println(fieldName + ": " + jsonParser.getText)
-              case _ =>
-                println("nix")
-            }
-          }
-        }
-      }
+    inputStreamToStatistics(jsonInputStream) { statisticsModel: StatisticsModel =>
+      println(statisticsModel)
     }
+    println("done")
 
+  }
+
+/*
     val rh = new ResponseHandler[Unit]() {
       override def handleResponse(response: HttpResponse): Unit = {
         val entity = response.getEntity
@@ -64,11 +57,10 @@ class StatisticsImporter {
 
       }
     }
-
+*/
     //val httpClient = HttpClients.createDefault()
     //val httpGet = new HttpGet("http://localhost:4711/")
 
     //httpClient.execute(httpGet, rh)
-  }
 
 }
