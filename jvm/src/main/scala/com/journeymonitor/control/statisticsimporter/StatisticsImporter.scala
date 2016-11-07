@@ -1,19 +1,18 @@
 package com.journeymonitor.control.statisticsimporter
 
-import java.io.{ByteArrayInputStream, InputStream, StringBufferInputStream, StringReader}
+import java.io.{ByteArrayInputStream, InputStream, OutputStream}
 import java.nio.charset.StandardCharsets
 
-import com.fasterxml.jackson.core.{JsonFactory, JsonToken}
-import org.apache.http.HttpResponse
+import org.apache.http.{Header, HttpEntity, HttpResponse, ProtocolVersion}
 import org.apache.http.client.ResponseHandler
 import org.apache.http.client.methods.HttpGet
+import org.apache.http.entity.BasicHttpEntity
 import org.apache.http.impl.client.HttpClients
+import org.apache.http.message.{BasicHttpResponse, BasicStatusLine}
 
-import scala.collection.mutable
-
-/*
-
- */
+import scala.concurrent.Await
+import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class StatisticsImporter extends JsonConverter {
 
@@ -41,26 +40,30 @@ class StatisticsImporter extends JsonConverter {
 
     val jsonInputStream = new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8))
 
-    inputStreamToStatistics(jsonInputStream) { statisticsModel: StatisticsModel =>
-      println(statisticsModel)
-    }
-    println("done")
-
+    val res = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("HTTP", 1, 1), 200, "OK"))
+    val ent = new BasicHttpEntity()
+    ent.setContent(jsonInputStream)
+    res.setEntity(ent)
+    rh.handleResponse(res)
   }
 
-/*
-    val rh = new ResponseHandler[Unit]() {
-      override def handleResponse(response: HttpResponse): Unit = {
-        val entity = response.getEntity
-        val inputStream: InputStream = entity.getContent()
-        val buffer = new Array[Byte](1024)
-
+  val rh = new ResponseHandler[Unit]() {
+    override def handleResponse(response: HttpResponse): Unit = {
+      val entity = response.getEntity
+      val inputStream: InputStream = entity.getContent()
+      val done = inputStreamToStatistics(inputStream) { statisticsModel: StatisticsModel =>
+        println(statisticsModel)
+      } recover {
+        case e => println(e)
       }
+      Await.result(done, 10.seconds)
+      println("done")
     }
-*/
-    //val httpClient = HttpClients.createDefault()
-    //val httpGet = new HttpGet("http://localhost:4711/")
+  }
 
-    //httpClient.execute(httpGet, rh)
+  //val httpClient = HttpClients.createDefault()
+  //val httpGet = new HttpGet("http://localhost:4711/")
+
+  //httpClient.execute(httpGet, rh)
 
 }
