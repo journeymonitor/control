@@ -1,16 +1,17 @@
 package com.journeymonitor.control.statisticsimporter
 
 import java.io.{InputStream, OutputStream, StringReader}
+import java.text.SimpleDateFormat
 import java.util.Date
 
 import com.fasterxml.jackson.core.{JsonFactory, JsonToken}
 
 import scala.collection.mutable
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 import scala.concurrent.{ExecutionContext, Future}
 
 case class StatisticsModel(testresultId: String,
-                           testresultDatetimeRun: String,
+                           testresultDatetimeRun: java.util.Date,
                            runtimeMilliseconds: Int,
                            numberOf200: Int,
                            numberOf400: Int,
@@ -28,7 +29,7 @@ trait JsonConverter {
       val jsonFactory = new JsonFactory()
       val jsonParser = jsonFactory.createParser(inputStream)
 
-      val fs = ArrayBuffer[Future[Unit]]()
+      val fs = ListBuffer[Future[Unit]]()
 
       while (jsonParser.nextToken() != JsonToken.END_ARRAY) {
         if (jsonParser.getCurrentToken == JsonToken.START_OBJECT) {
@@ -49,9 +50,10 @@ trait JsonConverter {
           }
 
           fs += Future {
+            val dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ") // must be created for each call because its not synchronized
             callback(StatisticsModel(
               testresultId = values("testresultId"),
-              testresultDatetimeRun = values("testresultDatetimeRun"),
+              testresultDatetimeRun = dateFormat.parse(values("testresultDatetimeRun")),
               runtimeMilliseconds = values("runtimeMilliseconds").toInt,
               numberOf200 = values("numberOf200").toInt,
               numberOf400 = values("numberOf400").toInt,
@@ -61,7 +63,7 @@ trait JsonConverter {
         }
       }
 
-      Future.sequence(fs).map(_ => ())
+      Future.sequence(fs).map(_ => ()) // only return once all Futures are finished
 
     } catch {
       case e: Throwable => Future.failed(e)
