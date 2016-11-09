@@ -1,8 +1,10 @@
 package com.journeymonitor.control.statisticsimporter
 
 import java.io.{ByteArrayInputStream, InputStream, OutputStream}
+import java.lang.Throwable
 import java.nio.charset.StandardCharsets
 import java.sql.{Date => SqlDate}
+import java.util.concurrent.CountDownLatch
 
 import org.apache.http.{Header, HttpEntity, HttpResponse, ProtocolVersion}
 import org.apache.http.client.{HttpClient, ResponseHandler}
@@ -37,13 +39,15 @@ class StatisticsImporter extends JsonConverter {
     httpClient.execute(httpGet, responseHandler)
   }
 
+  val db = Database.forURL("jdbc:sqlite:/var/tmp/journeymonitor-control-test.sqlite3", driver = "org.sqlite.JDBC")
+
+
   val responseHandler = new ResponseHandler[Unit]() {
     override def handleResponse(response: HttpResponse): Unit = {
       val entity = response.getEntity
       val inputStream: InputStream = entity.getContent()
-      val db = Database.forURL("jdbc:sqlite:/var/tmp/journeymonitor-control-test.sqlite3", driver = "org.sqlite.JDBC")
       try {
-        val done = inputStreamToStatistics(inputStream) { statisticsModel: StatisticsModel =>
+        val toStatisticsFuture = inputStreamToStatistics(inputStream) { statisticsModel: StatisticsModel =>
           println(statisticsModel)
           val insertAction = statisticsTable.insertOrUpdate(
             statisticsModel.testresultId,
@@ -54,17 +58,28 @@ class StatisticsImporter extends JsonConverter {
             new SqlDate(System.currentTimeMillis),
             new SqlDate(System.currentTimeMillis)
           )
-          db.run(insertAction).onComplete {
-            case Success(s) => println("ok: " + s)
-            case Failure(t) => println(t.printStackTrace())
+
+          println("starting for " + statisticsModel.testresultId)
+          val dbRunFuture = db.run(insertAction)
+          dbRunFuture.onComplete {
+            case Success(s) => println("done for " + statisticsModel.testresultId)
+            case Failure(t) => println(t)
           }
+          dbRunFuture.map(_ => ())
         } recover {
           case e => println(e)
         }
-        Await.result(done, 10.seconds)
-        println("done")
+
+        toStatisticsFuture.onComplete {
+          case Success(s) =>
+            println("all done")
+          case Failure(t) => println(t)
+        }
+        Await.result(toStatisticsFuture, Duration.Inf)
       } finally {
+        println("finally closing...")
         db.close()
+        println("finally closed!")
       }
     }
   }

@@ -7,7 +7,7 @@ import java.util.Date
 import com.fasterxml.jackson.core.{JsonFactory, JsonToken}
 
 import scala.collection.mutable
-import scala.collection.mutable.{ArrayBuffer, ListBuffer}
+import scala.collection.mutable.ListBuffer
 import scala.concurrent.{ExecutionContext, Future}
 
 case class StatisticsModel(testresultId: String,
@@ -21,16 +21,14 @@ trait JsonConverter {
   /**
     * @throws Exception Throws an exception if any one operation (within JSON parsing as well as callback operation) fails
     */
-  def inputStreamToStatistics(inputStream: InputStream)(callback: (StatisticsModel) => Unit)(implicit ec: ExecutionContext): Future[Unit] = {
+  def inputStreamToStatistics(inputStream: InputStream)(callback: (StatisticsModel) => Future[Unit])(implicit ec: ExecutionContext): Future[Unit] = {
 
     try {
 
       val jsonFactory = new JsonFactory()
       val jsonParser = jsonFactory.createParser(inputStream)
 
-      val fs = ListBuffer[Future[Unit]]()
-
-      while (jsonParser.nextToken() != JsonToken.END_ARRAY) {
+      val futures: IndexedSeq[Future[Unit]] = for (i <- 1 until 100 if jsonParser.nextToken() != JsonToken.END_ARRAY) yield {
         if (jsonParser.getCurrentToken == JsonToken.START_OBJECT) {
 
           val values = mutable.Map[String, String]()
@@ -48,19 +46,20 @@ trait JsonConverter {
             }
           }
 
-          fs += Future {
-            callback(StatisticsModel(
-              testresultId = values("testresultId"),
-              runtimeMilliseconds = values("runtimeMilliseconds").toInt,
-              numberOf200 = values("numberOf200").toInt,
-              numberOf400 = values("numberOf400").toInt,
-              numberOf500 = values("numberOf500").toInt
-            ))
-          }
+          callback(StatisticsModel(
+            testresultId = values("testresultId"),
+            runtimeMilliseconds = values("runtimeMilliseconds").toInt,
+            numberOf200 = values("numberOf200").toInt,
+            numberOf400 = values("numberOf400").toInt,
+            numberOf500 = values("numberOf500").toInt
+          ))
+        } else {
+          Future.successful(())
         }
       }
 
-      Future.sequence(fs).map(_ => ()) // only return once all Futures are finished
+      println("#############################################")
+      Future.sequence(futures).map(_ => ()) // only return once all Futures are finished
 
     } catch {
       case e: Throwable => Future.failed(e)
