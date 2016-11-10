@@ -1,10 +1,10 @@
 package com.journeymonitor.control.statisticsimporter
 
-import java.io.{ByteArrayInputStream, InputStream, OutputStream}
+import java.io._
 import java.lang.Throwable
 import java.nio.charset.StandardCharsets
 import java.sql.{Date => SqlDate}
-import java.util.concurrent.CountDownLatch
+import java.util.concurrent.{Executors, LinkedBlockingQueue, ThreadPoolExecutor, TimeUnit}
 
 import org.apache.http.{Header, HttpEntity, HttpResponse, ProtocolVersion}
 import org.apache.http.client.{HttpClient, ResponseHandler}
@@ -15,8 +15,9 @@ import org.apache.http.message.{BasicHttpResponse, BasicStatusLine}
 import slick.lifted.Tag
 import slick.driver.SQLiteDriver.api._
 
-import scala.concurrent.Await
+import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.concurrent.duration._
+import scala.util.Try
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
 
@@ -41,14 +42,13 @@ class StatisticsImporter extends JsonConverter {
 
   val db = Database.forURL("jdbc:sqlite:/var/tmp/journeymonitor-control-test.sqlite3", driver = "org.sqlite.JDBC")
 
-
   val responseHandler = new ResponseHandler[Unit]() {
     override def handleResponse(response: HttpResponse): Unit = {
       val entity = response.getEntity
       val inputStream: InputStream = entity.getContent()
       try {
-        val toStatisticsFuture = inputStreamToStatistics(inputStream) { statisticsModel: StatisticsModel =>
-          println(statisticsModel)
+        val results = inputStreamToStatistics(inputStream) { statisticsModel: StatisticsModel =>
+
           val insertAction = statisticsTable.insertOrUpdate(
             statisticsModel.testresultId,
             statisticsModel.runtimeMilliseconds,
@@ -59,27 +59,16 @@ class StatisticsImporter extends JsonConverter {
             new SqlDate(System.currentTimeMillis)
           )
 
-          println("starting for " + statisticsModel.testresultId)
-          val dbRunFuture = db.run(insertAction)
-          dbRunFuture.onComplete {
-            case Success(s) => println("done for " + statisticsModel.testresultId)
-            case Failure(t) => println(t)
+          Try {
+            val runFuture = db.run(insertAction)
+            // Right now it looks like sqlite doesn't like any kind of parallelism whatsoever
+            Await.result(runFuture.map(_ => "Finished importing " + statisticsModel.testresultId), Duration.Inf)
           }
-          dbRunFuture.map(_ => ())
-        } recover {
-          case e => println(e)
+
         }
 
-        toStatisticsFuture.onComplete {
-          case Success(s) =>
-            println("all done")
-          case Failure(t) => println(t)
-        }
-        Await.result(toStatisticsFuture, Duration.Inf)
       } finally {
-        println("finally closing...")
         db.close()
-        println("finally closed!")
       }
     }
   }

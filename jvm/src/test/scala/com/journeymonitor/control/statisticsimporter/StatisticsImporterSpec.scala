@@ -13,7 +13,7 @@ class StatisticsImporterSpec extends FunSpec with Matchers {
   describe("The Statistics Importer") {
     it("should retrieve and persist statistics") {
 
-      val jsonSeq = for (i <- 1 until 10) yield {
+      val jsonSeq = for (i <- 1 until 100) yield {
         s""" {
           |    "numberOf500": 0,
           |    "numberOf400": 0,
