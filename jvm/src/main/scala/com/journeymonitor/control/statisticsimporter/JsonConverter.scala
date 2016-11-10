@@ -1,16 +1,10 @@
 package com.journeymonitor.control.statisticsimporter
 
-import java.io.{InputStream, OutputStream, StringReader}
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.concurrent.Executors
+import java.io.InputStream
 
 import com.fasterxml.jackson.core.{JsonFactory, JsonToken}
 
 import scala.collection.mutable
-import scala.collection.mutable.ListBuffer
-import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.util.{Failure, Success, Try}
 
 case class StatisticsModel(testresultId: String,

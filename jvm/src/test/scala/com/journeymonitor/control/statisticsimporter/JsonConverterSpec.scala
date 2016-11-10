@@ -2,13 +2,10 @@ package com.journeymonitor.control.statisticsimporter
 
 import java.io.ByteArrayInputStream
 import java.nio.charset.StandardCharsets
-import java.text.SimpleDateFormat
 
-import org.scalatest.{AsyncFunSpec, FunSpec, Matchers}
+import org.scalatest.{FunSpec, Matchers}
 
-import scala.collection.mutable.{ArrayBuffer, ListBuffer}
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.collection.mutable.ListBuffer
 import scala.util.Try
 
 class JsonConverterSpec extends FunSpec with Matchers {

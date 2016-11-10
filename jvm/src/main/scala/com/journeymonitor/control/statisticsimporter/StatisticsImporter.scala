@@ -1,25 +1,18 @@
 package com.journeymonitor.control.statisticsimporter
 
 import java.io._
-import java.lang.Throwable
-import java.nio.charset.StandardCharsets
 import java.sql.{Date => SqlDate}
-import java.util.concurrent.{Executors, LinkedBlockingQueue, ThreadPoolExecutor, TimeUnit}
 
-import org.apache.http.{Header, HttpEntity, HttpResponse, ProtocolVersion}
-import org.apache.http.client.{HttpClient, ResponseHandler}
+import org.apache.http.HttpResponse
 import org.apache.http.client.methods.HttpGet
-import org.apache.http.entity.BasicHttpEntity
-import org.apache.http.impl.client.HttpClients
-import org.apache.http.message.{BasicHttpResponse, BasicStatusLine}
-import slick.lifted.Tag
+import org.apache.http.client.{HttpClient, ResponseHandler}
 import slick.driver.SQLiteDriver.api._
+import slick.lifted.Tag
 
-import scala.concurrent.{Await, ExecutionContext, Future}
+import scala.concurrent.Await
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 import scala.util.Try
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.util.{Failure, Success}
 
 class StatisticsImporter extends JsonConverter {
 

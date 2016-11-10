@@ -1,17 +1,12 @@
 package com.journeymonitor.control.statisticsimporter
 
-import java.sql.Date
 import java.sql.{Date => SqlDate}
 
-import org.apache.http.impl.client.HttpClients
 import slick.driver.SQLiteDriver.api._
 import slick.lifted.Tag
 
-import scala.concurrent
-import scala.concurrent.{Await, Future}
-import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Await
 import scala.concurrent.duration.Duration
-import scala.util.{Failure, Success, Try}
 
 
 object Main {
