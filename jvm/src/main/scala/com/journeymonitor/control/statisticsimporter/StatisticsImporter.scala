@@ -52,6 +52,7 @@ class StatisticsImporter extends JsonConverter {
           )
 
           Try {
+            println("Going to persist " + statisticsModel.testresultId)
             val runFuture = db.run(insertAction)
             // Right now it looks like sqlite doesn't like any kind of parallelism whatsoever
             Await.result(runFuture.map(_ => "Finished " + statisticsModel.testresultId), Duration.Inf)
