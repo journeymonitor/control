@@ -36,12 +36,11 @@ class StatisticsImporter extends JsonConverter {
     httpClient.execute(httpGet, responseHandler)
   }
 
-  val db = Database.forURL("jdbc:sqlite:/var/tmp/journeymonitor-control-test.sqlite3", driver = "org.sqlite.JDBC")
-
   val responseHandler = new ResponseHandler[Unit]() {
     override def handleResponse(response: HttpResponse): Unit = {
       val entity = response.getEntity
       val inputStream: InputStream = entity.getContent()
+      val db = Database.forURL("jdbc:sqlite:/var/tmp/journeymonitor-control-test.sqlite3", driver = "org.sqlite.JDBC")
       try {
         inputStreamToStatistics(inputStream) { statisticsModel: StatisticsModel =>
           val insertAction = statisticsTable.insertOrUpdate(
