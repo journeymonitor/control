@@ -1,6 +1,6 @@
 package com.journeymonitor.control.statisticsimporter
 
-import java.io.{BufferedInputStream, ByteArrayInputStream}
+import java.io.ByteArrayInputStream
 import java.nio.charset.StandardCharsets
 
 import org.apache.http.ProtocolVersion

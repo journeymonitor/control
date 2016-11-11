@@ -1,39 +1,15 @@
 package com.journeymonitor.control.statisticsimporter
 
-import java.sql.{Date => SqlDate}
-
-import slick.driver.SQLiteDriver.api._
-import slick.lifted.Tag
-
-import scala.concurrent.{Await, Future}
-import scala.concurrent.duration.Duration
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.util.{Failure, Success}
+import org.apache.http.client.methods.HttpGet
+import org.apache.http.impl.client.HttpClients
 
 object Main {
   def main(args: Array[String]): Unit = {
 
-    val futures = for (i <- 1 to 100) yield {
-      Future {
-        if (i > 80) throw new Exception()
-        Thread.sleep(1000)
-        println(i)
-      }
-    }
-
-    val lifted = futures.map(_.map(Success(_)).recover { case t: Throwable => Failure(t) })
-
-    val collected = Future.sequence(lifted)
-
-    collected.onComplete {
-      case Success(s) =>
-        println("OK")
-        s.foreach(println)
-      case Failure(t: Throwable) =>
-        println(t)
-    }
-
-    Await.result(collected, Duration.Inf)
+    val si = new StatisticsImporter()
+    val httpClient = HttpClients.createDefault()
+    val httpGet = new HttpGet("http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/6E86B147-3F55-4DFB-9695-DFDC3E3F5747/statistics/latest/")
+    httpClient.execute(httpGet, si.responseHandler)
 
   }
 }

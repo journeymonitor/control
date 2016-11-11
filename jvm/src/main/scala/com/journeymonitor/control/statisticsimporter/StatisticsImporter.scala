@@ -3,18 +3,21 @@ package com.journeymonitor.control.statisticsimporter
 import java.io._
 import java.sql.{Date => SqlDate}
 
+import com.typesafe.scalalogging.Logger
 import org.apache.http.HttpResponse
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.client.{HttpClient, ResponseHandler}
-import slick.driver.SQLiteDriver.api._
+import slick.jdbc.SQLiteProfile.api._
 import slick.lifted.Tag
 
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
-import scala.util.{Failure, Success, Try}
+import scala.util.Try
 
 class StatisticsImporter extends JsonConverter {
+
+  val logger = Logger[this.type]
 
   class StatisticsTable(tag: Tag) extends Table[(String, Int, Int, Int, Int, SqlDate, SqlDate)](tag, "statistics") {
     def testresultId = column[String]("testresult_id", O.PrimaryKey)
@@ -52,14 +55,17 @@ class StatisticsImporter extends JsonConverter {
           )
 
           Try {
-            println("Going to persist " + statisticsModel.testresultId)
+            logger.info(s"Going to persist ${statisticsModel}")
             val runFuture = db.run(insertAction)
             // Right now it looks like sqlite doesn't like any kind of parallelism whatsoever
-            Await.result(runFuture.map(_ => "Finished " + statisticsModel.testresultId), Duration.Inf)
+            val result = Await.result(runFuture.map(_ => "Finished " + statisticsModel.testresultId), Duration.Inf)
+            logger.info("done")
+            result
           }
         }
 
       } finally {
+        logger.info("Closing db connection")
         db.close()
       }
     }
