@@ -12,7 +12,7 @@ import slick.lifted.Tag
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
-import scala.util.Try
+import scala.util.{Failure, Success, Try}
 
 class StatisticsImporter extends JsonConverter {
 
@@ -40,8 +40,7 @@ class StatisticsImporter extends JsonConverter {
       val entity = response.getEntity
       val inputStream: InputStream = entity.getContent()
       try {
-        val results = inputStreamToStatistics(inputStream) { statisticsModel: StatisticsModel =>
-
+        inputStreamToStatistics(inputStream) { statisticsModel: StatisticsModel =>
           val insertAction = statisticsTable.insertOrUpdate(
             statisticsModel.testresultId,
             statisticsModel.runtimeMilliseconds,
@@ -55,9 +54,8 @@ class StatisticsImporter extends JsonConverter {
           Try {
             val runFuture = db.run(insertAction)
             // Right now it looks like sqlite doesn't like any kind of parallelism whatsoever
-            Await.result(runFuture.map(_ => "Finished importing " + statisticsModel.testresultId), Duration.Inf)
+            Await.result(runFuture.map(_ => "Finished " + statisticsModel.testresultId), Duration.Inf)
           }
-
         }
 
       } finally {
