@@ -14,6 +14,7 @@ import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 import scala.util.Try
+import scala.util.control.NonFatal
 
 class StatisticsImporter extends JsonConverter {
 
@@ -40,6 +41,7 @@ class StatisticsImporter extends JsonConverter {
     override def handleResponse(response: HttpResponse): Unit = {
       val entity = response.getEntity
       val inputStream: InputStream = entity.getContent()
+      logger.info("Opening db connection")
       val db = Database.forURL("jdbc:sqlite:/var/tmp/journeymonitor-control-test.sqlite3", driver = "org.sqlite.JDBC")
       try {
         inputStreamToStatistics(inputStream) { statisticsModel: StatisticsModel =>
@@ -54,11 +56,13 @@ class StatisticsImporter extends JsonConverter {
           )
 
           Try {
-            logger.info(s"Going to persist ${statisticsModel}")
-            val runFuture = db.run(insertAction)
+            logger.debug(s"Going to persist ${statisticsModel}")
+            val runFuture = db.run(insertAction) recover {
+              case NonFatal(t) => throw new Exception(t)
+            }
             // Right now it looks like sqlite doesn't like any kind of parallelism whatsoever
             val result = Await.result(runFuture.map(_ => "Finished " + statisticsModel.testresultId), Duration.Inf)
-            logger.info("done")
+            logger.debug("done")
             result
           }
         }
