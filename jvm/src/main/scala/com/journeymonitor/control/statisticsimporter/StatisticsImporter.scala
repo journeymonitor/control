@@ -7,6 +7,7 @@ import com.typesafe.scalalogging.Logger
 import org.apache.http.HttpResponse
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.client.{HttpClient, ResponseHandler}
+import org.sqlite.{SQLiteErrorCode, SQLiteException}
 import slick.jdbc.SQLiteProfile.api._
 import slick.lifted.Tag
 
@@ -56,13 +57,29 @@ class StatisticsImporter extends JsonConverter {
           )
 
           Try {
-            logger.debug(s"Going to persist ${statisticsModel}")
-            val runFuture = db.run(insertAction) recover {
-              case NonFatal(t) => throw new Exception(t)
+            var i = 0
+            var result = ""
+            while (i < 10) {
+              try {
+                logger.debug(s"Going to persist $statisticsModel")
+                val runFuture = db.run(insertAction) recover {
+                  case NonFatal(t) =>
+                    throw t
+                }
+                // Right now it looks like sqlite doesn't like any kind of parallelism whatsoever
+                result = Await.result(runFuture.map(_ => "Finished " + statisticsModel.testresultId), Duration.Inf)
+                logger.debug("done")
+                if (i > 0) {
+                  logger.warn(s"Managed to write after ${i + 1} retries.")
+                }
+                i = 10
+              } catch {
+                case e: org.sqlite.SQLiteException if e.getResultCode == SQLiteErrorCode.SQLITE_BUSY =>
+                  logger.warn("SQLite db file is busy, trying again.")
+                  i = i + 1
+                  Thread.sleep(10)
+              }
             }
-            // Right now it looks like sqlite doesn't like any kind of parallelism whatsoever
-            val result = Await.result(runFuture.map(_ => "Finished " + statisticsModel.testresultId), Duration.Inf)
-            logger.debug("done")
             result
           }
         }
