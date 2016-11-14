@@ -9,5 +9,6 @@ libraryDependencies ++= Seq(
   "org.xerial" % "sqlite-jdbc" % "3.15.1",
   "ch.qos.logback" % "logback-classic" % "1.1.7",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0",
-  "org.scalatest" %% "scalatest" % "3.0.0" % "test"
+  "org.scalatest" %% "scalatest" % "3.0.0" % "test",
+  "com.typesafe" % "config" % "1.3.1"
 )

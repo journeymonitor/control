@@ -4,6 +4,7 @@ import java.io._
 import java.text.SimpleDateFormat
 import java.util.Date
 
+import com.typesafe.config.ConfigFactory
 import com.typesafe.scalalogging.Logger
 import org.apache.http.HttpResponse
 import org.apache.http.client.methods.HttpGet
@@ -39,8 +40,11 @@ class StatisticsImporter(forUri: String) extends JsonConverter {
     override def handleResponse(response: HttpResponse): Unit = {
       val entity = response.getEntity
       val inputStream: InputStream = entity.getContent()
+
       logger.info(s"[$forUri] Opening db connection")
-      val db = Database.forURL("jdbc:sqlite:/var/tmp/journeymonitor-control-prod.sqlite3", driver = "org.sqlite.JDBC")
+      val config = ConfigFactory.load()
+      val db = Database.forURL(s"jdbc:sqlite:${config.getString("db.sqlite.path")}", driver = "org.sqlite.JDBC")
+
       try {
         inputStreamToStatistics(forUri, inputStream) { statisticsModel: StatisticsModel =>
           val insertAction = statisticsTable.insertOrUpdate(

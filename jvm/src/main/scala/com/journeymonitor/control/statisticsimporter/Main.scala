@@ -1,8 +1,11 @@
 package com.journeymonitor.control.statisticsimporter
 
+import com.typesafe.config.ConfigFactory
 import com.typesafe.scalalogging.Logger
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.HttpClients
+import slick.lifted.Tag
+import slick.jdbc.SQLiteProfile.api._
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
@@ -17,28 +20,30 @@ object Main {
 
     val groupSize = 4
 
-    val allUris = List(
-      "http://80.69.45.171:8081/testcases/6E86B147-3F55-4DFB-9695-DFDC3E3F5747/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/6258D6F5-FE7C-44D5-8B41-324FDAE97CAF/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/5215E622-88DF-4FC6-A5E2-D26D8DDB5516/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/40B659CF-28BA-4D27-9F33-D109B735B019/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/F6ADDF52-1925-4735-9443-1BBEC3169130/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/6E86B147-3F55-4DFB-9695-DFDC3E3F5747/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/6258D6F5-FE7C-44D5-8B41-324FDAE97CAF/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/5215E622-88DF-4FC6-A5E2-D26D8DDB5516/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/40B659CF-28BA-4D27-9F33-D109B735B019/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/F6ADDF52-1925-4735-9443-1BBEC3169130/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/6E86B147-3F55-4DFB-9695-DFDC3E3F5747/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/6258D6F5-FE7C-44D5-8B41-324FDAE97CAF/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/5215E622-88DF-4FC6-A5E2-D26D8DDB5516/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/40B659CF-28BA-4D27-9F33-D109B735B019/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/F6ADDF52-1925-4735-9443-1BBEC3169130/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/6E86B147-3F55-4DFB-9695-DFDC3E3F5747/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/6258D6F5-FE7C-44D5-8B41-324FDAE97CAF/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/5215E622-88DF-4FC6-A5E2-D26D8DDB5516/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/40B659CF-28BA-4D27-9F33-D109B735B019/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/F6ADDF52-1925-4735-9443-1BBEC3169130/statistics/latest/",
-      "http://80.69.45.171:8081/testcases/0F85A5DC-ADD3-48AE-8967-2EBF18826F8D/statistics/latest/"
+    val config = ConfigFactory.load()
+    val apiBaseUri = config.getString("endpoint.analyze.api")
+
+    val db = Database.forURL(s"jdbc:sqlite:${config.getString("db.sqlite.path")}", driver = "org.sqlite.JDBC")
+
+    class TestcaseTable(tag: Tag) extends Table[(String, String, String, String, String, Boolean, String, Option[String], Option[String])](tag, "testcase") {
+      def id = column[String]("id", O.PrimaryKey)
+      def userId = column[String]("user_id")
+      def title = column[String]("title")
+      def cadence = column[String]("cadence")
+      def script = column[String]("script")
+      def enabled = column[Boolean]("enabled")
+      def createdAt = column[String]("created_at")
+      def activatedAt = column[Option[String]]("activated_at")
+      def updatedAt = column[Option[String]]("updated_at")
+      def * = (id, userId, title, cadence, script, enabled, createdAt, activatedAt, updatedAt)
+    }
+    val testcaseTable = TableQuery[TestcaseTable]
+
+    val testcaseIds = Await.result(db.run(testcaseTable.map(_.id).result), Duration.Inf)
+    db.close()
+
+    val allUris = testcaseIds.map(testcaseId =>
+      s"${apiBaseUri}testcases/${testcaseId}/statistics/latest/"
     )
 
     val results = allUris.grouped(groupSize).toList.flatMap(uriGroup => {
