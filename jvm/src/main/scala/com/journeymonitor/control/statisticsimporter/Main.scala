@@ -46,7 +46,7 @@ object Main {
       val futures = for (uri <- uriGroup) yield {
         Future {
           try {
-            val si = new StatisticsImporter()
+            val si = new StatisticsImporter(uri)
             val httpClient = HttpClients.createDefault()
             val httpGet = new HttpGet(uri)
             httpClient.execute(httpGet, si.responseHandler)

@@ -19,7 +19,7 @@ trait JsonConverter {
   /**
     * @throws Exception Throws an exception if any one operation (within JSON parsing as well as callback operation) fails
     */
-  def inputStreamToStatistics(inputStream: InputStream)(callback: (StatisticsModel) => Try[String]): List[Try[String]] = {
+  def inputStreamToStatistics(forUri: String, inputStream: InputStream)(callback: (StatisticsModel) => Try[String]): List[Try[String]] = {
 
     val logger = Logger("inputStreamToStatistics")
 
@@ -39,7 +39,7 @@ trait JsonConverter {
             val fieldname = jsonParser.getText
             fieldname match {
               case "testresultId" | "testresultDatetimeRun" | "runtimeMilliseconds" | "numberOf200" | "numberOf400" | "numberOf500" =>
-                logger.debug(s"Found value '${jsonParser.getText}'")
+                logger.debug(s"[$forUri] Found value '${jsonParser.getText}'")
                 jsonParser.nextToken()
                 values += ((fieldname, jsonParser.getText))
               case _ =>
@@ -56,13 +56,13 @@ trait JsonConverter {
           numberOf500 = values("numberOf500").toInt
         )
 
-        logger.debug(s"Calling back with '$statisticsModel'")
+        logger.debug(s"[$forUri] Calling back with '$statisticsModel'")
         val callbackResult = callback(statisticsModel)
 
         callbackResult match {
-          case Success(s) => logger.debug(s"Callback result: $s")
+          case Success(s) => logger.debug(s"[$forUri] Callback result: $s")
           case Failure(t) =>
-            logger.error(s"Callback error: ${t.getMessage}")
+            logger.error(s"[$forUri] Callback error: ${t.getMessage}")
             throw new Exception(t)
         }
 

@@ -18,9 +18,10 @@ import scala.concurrent.duration._
 import scala.util.Try
 import scala.util.control.NonFatal
 
-class StatisticsImporter extends JsonConverter {
+class StatisticsImporter(forUri: String) extends JsonConverter {
 
   val logger = Logger[this.type]
+  val sdf = new SimpleDateFormat("Y-M-d H:m:s")
 
   class StatisticsTable(tag: Tag) extends Table[(String, Int, Int, Int, Int, String, String)](tag, "statistics") {
     def testresultId = column[String]("testresult_id", O.PrimaryKey)
@@ -34,21 +35,14 @@ class StatisticsImporter extends JsonConverter {
   }
   val statisticsTable = TableQuery[StatisticsTable]
 
-  def doImport(httpClient: HttpClient): Unit = {
-    val httpGet = new HttpGet("http://localhost:4711/")
-    httpClient.execute(httpGet, responseHandler)
-  }
-
-  val sdf = new SimpleDateFormat("Y-M-d H:m:s")
-
   val responseHandler = new ResponseHandler[Unit]() {
     override def handleResponse(response: HttpResponse): Unit = {
       val entity = response.getEntity
       val inputStream: InputStream = entity.getContent()
-      logger.info("Opening db connection")
+      logger.info(s"[$forUri] Opening db connection")
       val db = Database.forURL("jdbc:sqlite:/var/tmp/journeymonitor-control-prod.sqlite3", driver = "org.sqlite.JDBC")
       try {
-        inputStreamToStatistics(inputStream) { statisticsModel: StatisticsModel =>
+        inputStreamToStatistics(forUri, inputStream) { statisticsModel: StatisticsModel =>
           val insertAction = statisticsTable.insertOrUpdate(
             statisticsModel.testresultId,
             statisticsModel.runtimeMilliseconds,
@@ -64,21 +58,21 @@ class StatisticsImporter extends JsonConverter {
             var result = ""
             while (i < 10) {
               try {
-                logger.debug(s"Going to persist $statisticsModel")
+                logger.debug(s"[$forUri] Going to persist $statisticsModel")
                 val runFuture = db.run(insertAction) recover {
                   case NonFatal(t) =>
                     throw t
                 }
                 // Right now it looks like sqlite doesn't like any kind of parallelism whatsoever
                 result = Await.result(runFuture.map(_ => "Finished " + statisticsModel.testresultId), Duration.Inf)
-                logger.debug("done")
+                logger.debug(s"[$forUri] done")
                 if (i > 0) {
-                  logger.warn(s"Managed to write after ${i + 1} retries.")
+                  logger.warn(s"[$forUri] Managed to write after ${i + 1} retries.")
                 }
                 i = 10
               } catch {
                 case e: org.sqlite.SQLiteException if e.getResultCode == SQLiteErrorCode.SQLITE_BUSY =>
-                  logger.warn("SQLite db file is busy, trying again.")
+                  logger.warn(s"[$forUri] SQLite db file is busy, trying again.")
                   i = i + 1
                   Thread.sleep(10)
               }
@@ -88,7 +82,7 @@ class StatisticsImporter extends JsonConverter {
         }
 
       } finally {
-        logger.info("Closing db connection")
+        logger.info(s"[$forUri] Closing db connection")
         db.close()
       }
     }
