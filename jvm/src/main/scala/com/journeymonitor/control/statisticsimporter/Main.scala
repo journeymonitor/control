@@ -16,11 +16,27 @@ object Main {
     val logger = Logger[this.type]
 
     val uris = List(
+      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/6E86B147-3F55-4DFB-9695-DFDC3E3F5747/statistics/latest/",
+      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/6258D6F5-FE7C-44D5-8B41-324FDAE97CAF/statistics/latest/" /*,
+      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/5215E622-88DF-4FC6-A5E2-D26D8DDB5516/statistics/latest/",
+      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/40B659CF-28BA-4D27-9F33-D109B735B019/statistics/latest/",
+      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/F6ADDF52-1925-4735-9443-1BBEC3169130/statistics/latest/",
+      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/6E86B147-3F55-4DFB-9695-DFDC3E3F5747/statistics/latest/",
       "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/6258D6F5-FE7C-44D5-8B41-324FDAE97CAF/statistics/latest/",
+      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/5215E622-88DF-4FC6-A5E2-D26D8DDB5516/statistics/latest/",
+      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/40B659CF-28BA-4D27-9F33-D109B735B019/statistics/latest/",
+      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/F6ADDF52-1925-4735-9443-1BBEC3169130/statistics/latest/",
+      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/6E86B147-3F55-4DFB-9695-DFDC3E3F5747/statistics/latest/",
       "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/6258D6F5-FE7C-44D5-8B41-324FDAE97CAF/statistics/latest/",
+      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/5215E622-88DF-4FC6-A5E2-D26D8DDB5516/statistics/latest/",
+      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/40B659CF-28BA-4D27-9F33-D109B735B019/statistics/latest/",
+      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/F6ADDF52-1925-4735-9443-1BBEC3169130/statistics/latest/",
+      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/6E86B147-3F55-4DFB-9695-DFDC3E3F5747/statistics/latest/",
       "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/6258D6F5-FE7C-44D5-8B41-324FDAE97CAF/statistics/latest/",
-      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/6258D6F5-FE7C-44D5-8B41-324FDAE97CAF/statistics/latest/",
-      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/0F85A5DC-ADD3-48AE-8967-2EBF18826F8D/statistics/latest/"
+      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/5215E622-88DF-4FC6-A5E2-D26D8DDB5516/statistics/latest/",
+      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/40B659CF-28BA-4D27-9F33-D109B735B019/statistics/latest/",
+      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/F6ADDF52-1925-4735-9443-1BBEC3169130/statistics/latest/",
+      "http://service-misc-experiments-1.service.gkh-setu.de:8081/testcases/0F85A5DC-ADD3-48AE-8967-2EBF18826F8D/statistics/latest/" */
     )
 
     val futures = uris.map { uri =>
