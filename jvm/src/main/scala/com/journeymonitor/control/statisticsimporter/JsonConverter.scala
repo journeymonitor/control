@@ -60,7 +60,7 @@ trait JsonConverter {
         val callbackResult = callback(statisticsModel)
 
         callbackResult match {
-          case Success(s) => logger.info(s"Callback result: $s")
+          case Success(s) => logger.debug(s"Callback result: $s")
           case Failure(t) =>
             logger.error(s"Callback error: ${t.getMessage}")
             throw new Exception(t)
