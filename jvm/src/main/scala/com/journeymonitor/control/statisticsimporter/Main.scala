@@ -50,15 +50,11 @@ object Main {
       logger.info(s"Initiating work on: ${uriGroup.mkString(", ")}")
       val futures = for (uri <- uriGroup) yield {
         Future {
-          try {
-            val si = new StatisticsImporter(uri)
-            val httpClient = HttpClients.createDefault()
-            val httpGet = new HttpGet(uri)
-            httpClient.execute(httpGet, si.responseHandler)
-            s"Finished import of URI $uri"
-          } catch {
-            case NonFatal(t) => throw new Exception(s"Exception while working on URI $uri", t)
-          }
+          val si = new StatisticsImporter(uri)
+          val httpClient = HttpClients.createDefault()
+          val httpGet = new HttpGet(uri)
+          httpClient.execute(httpGet, si.responseHandler)
+          s"Finished import of URI $uri"
         }
       }
       val lifted = futures.map(_.map(Success(_)).recover { case NonFatal(e) => Failure(e)})
@@ -66,17 +62,16 @@ object Main {
     })
 
     val errorCount = results.foldLeft(0)((acc, cur) => cur match { case Failure(_) => acc + 1; case _ => acc + 0})
-    if (errorCount == results.length) {
-      logger.error("All done, but errors occured for all testcases.")
+    if (errorCount > 0) {
+      logger.warn(s"All done, but errors occured for ${if (results.length == errorCount) "all" else "some"} testcases:")
       results.foreach {
-        case Failure(t) => logger.warn(t.getCause.toString)
-        case _ => ()
-      }
-      System.exit(1)
-    } else if (errorCount > 0) {
-      logger.warn("All done, but errors occured for some testcases.")
-      results.foreach {
-        case Failure(t) => logger.warn(t.getCause.toString)
+        case Failure(t) =>
+          logger.warn(t.getMessage)
+          logger.debug(t.getStackTrace.mkString(" "))
+          if (null != t.getCause) {
+            logger.warn(t.getCause.getMessage)
+            logger.debug(t.getCause.getStackTrace.mkString(" "))
+          }
         case _ => ()
       }
       System.exit(1)
