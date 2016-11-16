@@ -18,8 +18,11 @@
                 {% if (testcase.hasTestresults) %}
                     <div id="testcase-{{ testcase.id }}-requestchart"><svg style="height:200px"></div>
                     <div id="testcase-{{ testcase.id }}-timingchart"><svg style="height:200px"></div>
+
+                    <!-- <a class="btn btn-primary btn-sm">◀ Show older results</a> -->
+                    
                     <script>
-                        journeymonitor.renderTestresults("{{ testcase.id }}");
+                        journeymonitor.refreshFunctions['{{ testcase.id }}'] = journeymonitor.renderTestresults("{{ testcase.id }}");
                     </script>
                 {% else %}
                     <small>No test run results yet.</small>

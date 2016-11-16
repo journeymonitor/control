@@ -18,12 +18,14 @@ class TestresultsController extends Controller
             return $this->redirect($this->get('router')->generate('homepage'));
         }
 
+        $offset = (int)$request->query->get('offset');
+
         $em = $this->getDoctrine()->getManager();
         $testcaseRepo = $em->getRepository('AppBundle\Entity\Testcase');
         $testcase = $testcaseRepo->find($testcaseId);
 
         $arr = [];
-        $testresults = $testcase->getLimitedTestresults(100);
+        $testresults = $testcase->getLimitedTestresults($offset, 100);
         foreach ($testresults as $testresult) {
             if (is_object($testresult->getStatistics())) {
                 $arr[] = [

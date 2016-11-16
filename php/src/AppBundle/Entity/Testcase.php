@@ -169,10 +169,10 @@ class Testcase
     /**
      * @return ArrayCollection|Testresult[]
      */
-    public function getLimitedTestresults($limit)
+    public function getLimitedTestresults($offset, $limit)
     {
         $testresults = $this->getTestresults();
-        return $testresults->slice(0, $limit);
+        return $testresults->slice($offset, $limit);
     }
 
     /**
@@ -345,7 +345,7 @@ class Testcase
     */
 
     public function hasTestresults() {
-        $testresults = $this->getLimitedTestresults(1);
+        $testresults = $this->getLimitedTestresults(0, 1);
         if (sizeof($testresults) > 0) {
             return true;
         } else {

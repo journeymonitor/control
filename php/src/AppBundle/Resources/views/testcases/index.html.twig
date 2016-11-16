@@ -10,7 +10,9 @@
     <script src="{{ asset('bundles/app/vendor/nvd3/build/nv.d3.min.js') }}"></script>
 
     <script>
+        
         var journeymonitor = {
+            'refreshFunctions': {},
             'renderTestresults': function(testcaseId) {
 
                 var requestChart;
@@ -47,7 +49,7 @@
                 // Chart with request information
                 nv.addGraph(function() {
                     requestChart = nv.models.multiBarChart()
-                        .duration(200)
+                        .duration(500)
                         .showControls(true)
                         .groupSpacing(0.2)
                         .stacked(true)
@@ -84,7 +86,7 @@
                 // Chart with timing information
                 nv.addGraph(function() {
                     timingChart = nv.models.multiBarChart()
-                        .duration(200)
+                        .duration(500)
                         .showControls(false)
                         .groupSpacing(0.2)
                         .stacked(true)
@@ -117,11 +119,11 @@
 
                     timingChart.tooltip.contentGenerator(function (obj) {
                         var exitCodeMessage = '';
-                        if (getExitCode(obj.index) == 0) {
+                        if (getExitCode(obj.index) === 0) {
                             exitCodeMessage = 'All well.';
-                        } else if (getExitCode(obj.index) == 2) {
+                        } else if (getExitCode(obj.index) === 2) {
                             exitCodeMessage = 'Journey not successful, expectation failed.';
-                        } else if (getExitCode(obj.index) == 3) {
+                        } else if (getExitCode(obj.index) === 3) {
                             exitCodeMessage = 'Journey not successful, page element not found.';
                         } else {
                             exitCodeMessage = 'A system error occurred.';
@@ -152,9 +154,9 @@
                     return timingChart;
                 });
                 
-                var refresh = function() {
+                var refresh = function(offset = 0) {
                     jQuery.ajax({
-                      url: "{{ path('testresults.index', {'testcaseId': 'REPLACE-ME'}) }}".replace('REPLACE-ME', testcaseId),
+                      url: ("{{ path('testresults.index', {'testcaseId': 'REPLACE-ME'}) }}?offset=" + offset).replace('REPLACE-ME', testcaseId),
                       type: "get",
                       dataType: "json",
                       success: function(values) {
@@ -195,6 +197,7 @@
                 
                 refresh();
             
+                return refresh;
             }
         };
 
