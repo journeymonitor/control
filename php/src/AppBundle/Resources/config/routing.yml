@@ -38,6 +38,11 @@ testcases.enable:
     defaults: { _controller: AppBundle:Testcases:enable }
     methods:  [POST]
 
+testresults.index:
+    path:     /testcases/{testcaseId}/testresults/
+    defaults: { _controller: AppBundle:Testresults:index }
+    methods:  [GET]
+
 testresults.show:
     path:     /testresults/{testresultId}
     defaults: { _controller: AppBundle:Testresults:show }

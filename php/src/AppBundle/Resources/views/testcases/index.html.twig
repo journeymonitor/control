@@ -11,8 +11,21 @@
 
     <script>
         var journeymonitor = {
-            'renderTestresults': function(testcaseId, testresults) {
+            'renderTestresults': function(testcaseId) {
 
+                var requestChart;
+                var timingChart;
+                
+                var requestData = [
+                    {'key': 'Status 200', 'values': []},
+                    {'key': 'Status 400', 'values': []},
+                    {'key': 'Status 500', 'values': []}
+                ];
+
+                var timingData = [
+                    {'key': 'Journey duration', 'values': []}
+                ];
+                
                 var getTimeOfRun = function(index) {
                     return testresults[index].datetimeRun.date.substring(11);
                 };
@@ -29,68 +42,31 @@
                     return testresults[index].id;
                 };
 
-                var exitCodeValues = testresults.map(function(testresult, index) {
-                    return {'x': index, 'y': testresult.exitCode};
-                });
-
-                var runtimeValues = testresults.map(function(testresult, index) {
-                    //return {'x': index, 'y': testresult.runtimeMilliseconds / 1000 + Math.floor(Math.random(0, 1) * 6) + 12};
-                    if (testresult.runtimeMilliseconds === null) {
-                        return {'x': index, 'y': -1.00}; // We don't have any statistics yet, but we need to show something.
-                    } else {
-                        return {'x': index, 'y': (testresult.runtimeMilliseconds / 1000).toFixed(2)};
-                    }
-                });
-
-                var numberOf200Values = testresults.map(function(testresult, index) {
-                    //return {'x': index, 'y': testresult.numberOf200 + Math.floor(Math.random(0, 1) * 10) + 200};
-                    return {'x': index, 'y': testresult.numberOf200};
-                });
-
-                var numberOf400Values = testresults.map(function(testresult, index) {
-                    //return {'x': index, 'y': testresult.numberOf400 + Math.floor(Math.random(0, 1) * 4)};
-                    return {'x': index, 'y': testresult.numberOf400};
-                });
-
-                var numberOf500Values = testresults.map(function(testresult, index) {
-                    //return {'x': index, 'y': testresult.numberOf500 + Math.floor(Math.random(0, 1) * 4)};
-                    return {'x': index, 'y': testresult.numberOf500};
-                });
-
-                var requestData = [
-                    {'key': 'Status 200', 'values': numberOf200Values},
-                    {'key': 'Status 400', 'values': numberOf400Values},
-                    {'key': 'Status 500', 'values': numberOf500Values}
-                ];
-
-                var timingData = [
-                    {'key': 'Journey duration', 'values': runtimeValues}
-                ];
-
                 // Chart with request information
                 nv.addGraph(function() {
-                    var chart = nv.models.multiBarChart()
-                      .duration(200)
-                      .showControls(true)
-                      .groupSpacing(0.2)
-                      .stacked(true)
+                    requestChart = nv.models.multiBarChart()
+                        .duration(200)
+                        .showControls(true)
+                        .groupSpacing(0.2)
+                        .stacked(true)
+                        .noData("Loading chart data, please wait...")
                     ;
 
-                    chart.color(['#5cb85c', 'orange', 'red']);
+                    requestChart.color(['#5cb85c', 'orange', 'red']);
 
-                    chart.xAxis
+                    requestChart.xAxis
                         .tickFormat(function(index) { return getTimeOfRun(index); });
 
-                    chart.xAxis.fontSize('9px');
+                    requestChart.xAxis.fontSize('9px');
 
-                    chart.yAxis
+                    requestChart.yAxis
                         .tickFormat(d3.format(',.1'));
 
                     d3.select('#testcase-' + testcaseId + '-requestchart svg')
                         .datum(requestData)
-                        .call(chart);
+                        .call(requestChart);
 
-                    chart.multibar.dispatch.on('elementClick', function(element) {
+                    requestChart.multibar.dispatch.on('elementClick', function(element) {
                         var uriTemplate = 'http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': 'placeholder'}) }}';
                         window.open(
                             uriTemplate.replace('placeholder', getId(element.index)),
@@ -98,21 +74,22 @@
                         );
                     });
 
-                    nv.utils.windowResize(chart.update);
+                    nv.utils.windowResize(requestChart.update);
 
-                    return chart;
+                    return requestChart;
                 });
 
                 // Chart with timing information
                 nv.addGraph(function() {
-                    var chart = nv.models.multiBarChart()
-                    .duration(200)
-                      .showControls(false)
-                      .groupSpacing(0.2)
-                      .stacked(true)
+                    timingChart = nv.models.multiBarChart()
+                        .duration(200)
+                        .showControls(false)
+                        .groupSpacing(0.2)
+                        .stacked(true)
+                        .noData("Loading chart data, please wait...")
                     ;
 
-                    chart.barColor(function (d, index) {
+                    timingChart.barColor(function (d, index) {
                         if (getExitCode(index) == 0) {
                             return '#5cb85c';
                         } else if (getExitCode(index) == 2) {
@@ -124,19 +101,19 @@
                         }
                     })
 
-                    chart.xAxis
+                    timingChart.xAxis
                         .tickFormat(function(index) { return getTimeOfRun(index); });
 
-                    chart.xAxis.fontSize('9px');
+                    timingChart.xAxis.fontSize('9px');
 
-                    chart.yAxis
+                    timingChart.yAxis
                         .tickFormat(d3.format(',.1'));
 
                     d3.select('#testcase-' + testcaseId + '-timingchart svg')
                         .datum(timingData)
-                        .call(chart);
+                        .call(timingChart);
 
-                    chart.tooltip.contentGenerator(function (obj) {
+                    timingChart.tooltip.contentGenerator(function (obj) {
                         var exitCodeMessage = '';
                         if (getExitCode(obj.index) == 0) {
                             exitCodeMessage = 'All well.';
@@ -160,7 +137,7 @@
                             + '<br><br>Click for more details.';
                     });
 
-                    chart.multibar.dispatch.on('elementClick', function(element) {
+                    timingChart.multibar.dispatch.on('elementClick', function(element) {
                         var uriTemplate = '{{ path('testresults.show', {'testresultId': 'placeholder'}) }}';
                         window.open(
                             uriTemplate.replace('placeholder', getId(element.index)),
@@ -168,10 +145,54 @@
                         );
                     });
 
-                    nv.utils.windowResize(chart.update);
+                    nv.utils.windowResize(timingChart.update);
 
-                    return chart;
+                    return timingChart;
                 });
+                
+                var refresh = function() {
+                    jQuery.ajax({
+                      url: "{{ path('testresults.index', {'testcaseId': 'REPLACE-ME'}) }}".replace('REPLACE-ME', testcaseId),
+                      type: "get",
+                      dataType: "json",
+                      success: function(values) {
+                        testresults = values.reverse();
+                        
+                        
+                        var numberOf200Values = testresults.map(function (testresult, index) {
+                            return {'x': index, 'y': testresult.numberOf200};
+                        });
+
+                        var numberOf400Values = testresults.map(function (testresult, index) {
+                            return {'x': index, 'y': testresult.numberOf400};
+                        });
+
+                        var numberOf500Values = testresults.map(function (testresult, index) {
+                            return {'x': index, 'y': testresult.numberOf500};
+                        });
+
+                        var runtimeValues = testresults.map(function(testresult, index) {
+                            if (testresult.runtimeMilliseconds === null) {
+                                return {'x': index, 'y': -1.00}; // We don't have any statistics yet, but we need to show something.
+                            } else {
+                                 return {'x': index, 'y': (testresult.runtimeMilliseconds / 1000).toFixed(2)};
+                            }
+                        });
+
+                        requestData[0].values = numberOf200Values;
+                        requestData[1].values = numberOf400Values;
+                        requestData[2].values = numberOf500Values;
+                        
+                        timingData[0].values = runtimeValues;                        
+                        
+                        requestChart.update();
+                        timingChart.update();
+                      }
+                    });
+                }
+                
+                refresh();
+            
             }
         };
 

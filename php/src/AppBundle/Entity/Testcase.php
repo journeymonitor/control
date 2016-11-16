@@ -344,35 +344,6 @@ class Testcase
     }
     */
 
-    public function getLastTestresultsWithStatisticsAsJson() {
-        $arr = [];
-        $testresults = $this->getLimitedTestresults(100);
-        foreach ($testresults as $testresult) {
-            if (is_object($testresult->getStatistics())) {
-                $arr[] = [
-                    'id' => $testresult->getId(),
-                    'datetimeRun' => $testresult->getDatetimeRun(),
-                    'exitCode' => $testresult->getExitCode(),
-                    'runtimeMilliseconds' => $testresult->getStatistics()->getRuntimeMilliseconds(),
-                    'numberOf200' => $testresult->getStatistics()->getNumberOf200(),
-                    'numberOf400' => $testresult->getStatistics()->getNumberOf400(),
-                    'numberOf500' => $testresult->getStatistics()->getNumberOf500()
-                ];
-            } else {
-                $arr[] = [
-                    'id' => $testresult->getId(),
-                    'datetimeRun' => $testresult->getDatetimeRun(),
-                    'exitCode' => $testresult->getExitCode(),
-                    'runtimeMilliseconds' => null,
-                    'numberOf200' => null,
-                    'numberOf400' => null,
-                    'numberOf500' => null
-                ];
-            }
-        }
-        return json_encode(array_reverse($arr));
-    }
-
     public function hasTestresults() {
         $testresults = $this->getLimitedTestresults(1);
         if (sizeof($testresults) > 0) {

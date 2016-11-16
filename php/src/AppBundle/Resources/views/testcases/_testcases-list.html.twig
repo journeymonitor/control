@@ -19,13 +19,7 @@
                     <div id="testcase-{{ testcase.id }}-requestchart"><svg style="height:200px"></div>
                     <div id="testcase-{{ testcase.id }}-timingchart"><svg style="height:200px"></div>
                     <script>
-                        journeymonitor.renderTestresults(
-                                "{{ testcase.id }}",
-                                JSON.parse(
-                                        '{{ testcase.lastTestresultsWithStatisticsAsJson }}'
-                                                .replace(new RegExp('&quot;', 'g'), '"')
-                                )
-                        );
+                        journeymonitor.renderTestresults("{{ testcase.id }}");
                     </script>
                 {% else %}
                     <small>No test run results yet.</small>
