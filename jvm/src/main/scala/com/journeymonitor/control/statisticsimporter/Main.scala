@@ -42,8 +42,9 @@ object Main {
     val testcaseIds = Await.result(db.run(testcaseTable.map(_.id).result), Duration.Inf)
     db.close()
 
+    val minTestresultDatetimeRun = config.getString("mintestresultdatetimerun")
     val allUris = testcaseIds.map(testcaseId =>
-      s"${apiBaseUri}testcases/${testcaseId}/statistics/latest/"
+      s"${apiBaseUri}testcases/${testcaseId}/statistics/latest/?minTestresultDatetimeRun=${java.net.URLEncoder.encode(minTestresultDatetimeRun, "utf-8")}"
     )
 
     val results = allUris.grouped(groupSize).toList.flatMap(uriGroup => {

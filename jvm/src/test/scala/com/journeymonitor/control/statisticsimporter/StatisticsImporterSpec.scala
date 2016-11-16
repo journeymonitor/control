@@ -33,7 +33,7 @@ class StatisticsImporterSpec extends FunSpec with Matchers {
       val ent = new BasicHttpEntity()
       ent.setContent(jsonInputStream)
       res.setEntity(ent)
-      val si = new StatisticsImporter()
+      val si = new StatisticsImporter("http://www.example.com/")
       si.responseHandler.handleResponse(res)
     }
   }

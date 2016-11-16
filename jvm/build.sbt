@@ -12,3 +12,6 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.0.0" % "test",
   "com.typesafe" % "config" % "1.3.1"
 )
+
+lazy val statisticsImporter = project.in(file("."))
+  .settings(assemblyJarName in assembly := "journeymonitor-control-statisticsimporter-assembly.jar")

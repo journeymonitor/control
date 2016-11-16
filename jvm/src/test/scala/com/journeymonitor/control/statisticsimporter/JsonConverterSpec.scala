@@ -38,7 +38,7 @@ class JsonConverterSpec extends FunSpec with Matchers {
   describe("The JsonConverter trait") {
     it("should allow to convert an InputStream to statistics case objects") {
       val statisticModels = ListBuffer[StatisticsModel]()
-      new JsonConverterWrapper().inputStreamToStatistics(jsonInputStream) { statisticsModel =>
+      new JsonConverterWrapper().inputStreamToStatistics("http://www.example.com/", jsonInputStream) { statisticsModel =>
         Try {
           statisticModels += statisticsModel
           ""

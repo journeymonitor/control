@@ -4,6 +4,9 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PA
 
 mkdir -p /opt/journeymonitor/control
 
+
+# PHP application
+
 rsync -ac --stats --exclude /opt/journeymonitor/control/php/var/cache --exclude /opt/journeymonitor/control/php/var/logs $2/php/ /opt/journeymonitor/control/php/ || exit 1
 
 chown -R www-data:www-data /opt/journeymonitor/control/php/var/cache || exit 1
@@ -17,3 +20,11 @@ sudo -u www-data SYMFONY__JOURNEYMONITOR__ENDPOINT__ANALYZE__API=$SYMFONY__JOURN
 sudo -u www-data SYMFONY__JOURNEYMONITOR__ENDPOINT__ANALYZE__API=$SYMFONY__JOURNEYMONITOR__ENDPOINT__ANALYZE__API /usr/bin/php ./bin/console cache:warmup --no-interaction --env=prod || exit 1
 
 sudo -u www-data /usr/bin/php ./bin/console doctrine:migrations:migrate --no-interaction --env=prod || exit 1
+
+
+# JVM application
+
+cd $2/jvm
+/usr/bin/update-ca-certificates -f # Java/sbt might miss certificates without this
+/usr/bin/sbt assembly
+mv target/scala-2.11/journeymonitor-control-statisticsimporter-assembly.jar /opt/journeymonitor/control/statisticsimporter/
