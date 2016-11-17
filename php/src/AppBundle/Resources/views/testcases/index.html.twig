@@ -15,8 +15,8 @@
             'graphNavigationFunctions': {},
             'renderTestresults': function(testcaseId) {
 
-                var requestChart;
-                var timingChart;
+                var requestChart = {};
+                var timingChart = {};
                 
                 var testresults;
                 
@@ -81,6 +81,8 @@
                         );
                     });
 
+                    triggerInitialLoad();
+                    
                     nv.utils.windowResize(requestChart.update);
 
                     return requestChart;
@@ -151,11 +153,19 @@
                             '_blank'
                         );
                     });
+                    
+                    triggerInitialLoad();
 
                     nv.utils.windowResize(timingChart.update);
 
                     return timingChart;
                 });
+                
+                var triggerInitialLoad = function() {
+                    if (typeof requestChart.update == 'function' && typeof timingChart.update == 'function') {
+                        loadData();
+                    }
+                };
                 
                 var loadData = function() {
                     
@@ -235,8 +245,6 @@
                     loadData();
                 };
                 
-                loadData();
-            
                 return {
                     'loadDataFunction': loadData,
                     'loadOlderDataFunction': loadOlderData,
