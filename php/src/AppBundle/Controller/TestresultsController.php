@@ -19,13 +19,14 @@ class TestresultsController extends Controller
         }
 
         $offset = (int)$request->query->get('offset');
+        $limit = (int)$request->query->get('limit');
 
         $em = $this->getDoctrine()->getManager();
         $testcaseRepo = $em->getRepository('AppBundle\Entity\Testcase');
         $testcase = $testcaseRepo->find($testcaseId);
 
         $arr = [];
-        $testresults = $testcase->getLimitedTestresults($offset, 100);
+        $testresults = $testcase->getLimitedTestresults($offset, $limit);
         foreach ($testresults as $testresult) {
             if (is_object($testresult->getStatistics())) {
                 $arr[] = [

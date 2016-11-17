@@ -19,10 +19,33 @@
                     <div id="testcase-{{ testcase.id }}-requestchart"><svg style="height:200px"></div>
                     <div id="testcase-{{ testcase.id }}-timingchart"><svg style="height:200px"></div>
 
-                    <!-- <a class="btn btn-primary btn-sm">◀ Show older results</a> -->
+                    <a id="testcase-{{ testcase.id }}-showolderbutton"
+                       class="btn btn-default btn-sm"
+                       style="display: none;"
+                       onClick="journeymonitor.graphNavigationFunctions['{{ testcase.id }}']['loadOlderDataFunction']();"
+                        >◀ Older results</a>
+                    
+                    <a id="testcase-{{ testcase.id }}-shownewerbutton"
+                       class="btn btn-default btn-sm"
+                       style="display: none;"
+                       onClick="journeymonitor.graphNavigationFunctions['{{ testcase.id }}']['loadNewerDataFunction']();"
+                       >Newer results ▶▶</a>
+                       
+                    <a id="testcase-{{ testcase.id }}-shownewestbutton"
+                       class="btn btn-default btn-sm"
+                       style="display: none;"
+                       onClick="journeymonitor.graphNavigationFunctions['{{ testcase.id }}']['loadNewestDataFunction']();"
+                        >Newest results ▶▮</a>
+                    
+                    <p>
+                        <span id="testcase-{{ testcase.id }}-fetchmessage"
+                              class="label label-info"
+                              style="display: none;"
+                              >&nbsp;&nbsp;Fetching data, please wait...</span>
+                    </p>
                     
                     <script>
-                        journeymonitor.refreshFunctions['{{ testcase.id }}'] = journeymonitor.renderTestresults("{{ testcase.id }}");
+                        journeymonitor.graphNavigationFunctions['{{ testcase.id }}'] = journeymonitor.renderTestresults("{{ testcase.id }}");
                     </script>
                 {% else %}
                     <small>No test run results yet.</small>

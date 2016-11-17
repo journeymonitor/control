@@ -12,13 +12,16 @@
     <script>
         
         var journeymonitor = {
-            'refreshFunctions': {},
+            'graphNavigationFunctions': {},
             'renderTestresults': function(testcaseId) {
 
                 var requestChart;
                 var timingChart;
                 
                 var testresults;
+                
+                var resultsOffset = 0;
+                var maximumNumberOfResults = 50;
                 
                 var requestData = [
                     {'key': 'Status 200', 'values': []},
@@ -154,14 +157,30 @@
                     return timingChart;
                 });
                 
-                var refresh = function(offset = 0) {
+                var loadData = function() {
+                    
+                    jQuery('#testcase-' + testcaseId + '-showolderbutton').hide();
+                    jQuery('#testcase-' + testcaseId + '-shownewerbutton').hide();
+                    jQuery('#testcase-' + testcaseId + '-shownewestbutton').hide();
+                    jQuery('#testcase-' + testcaseId + '-fetchmessage').fadeIn();
+                
                     jQuery.ajax({
-                      url: ("{{ path('testresults.index', {'testcaseId': 'REPLACE-ME'}) }}?offset=" + offset).replace('REPLACE-ME', testcaseId),
+                      url: ("{{ path('testresults.index', {'testcaseId': 'REPLACE-ME'}) }}?offset=" + resultsOffset + "&limit=" + maximumNumberOfResults).replace('REPLACE-ME', testcaseId),
                       type: "get",
                       dataType: "json",
                       success: function(values) {
-                        testresults = values.reverse();
                         
+                        jQuery('#testcase-' + testcaseId + '-fetchmessage').hide();
+                        
+                        if (resultsOffset === 0) {
+                            jQuery('#testcase-' + testcaseId + '-shownewerbutton').fadeOut();
+                            jQuery('#testcase-' + testcaseId + '-shownewestbutton').fadeOut();
+                        } else {
+                            jQuery('#testcase-' + testcaseId + '-shownewerbutton').fadeIn();
+                            jQuery('#testcase-' + testcaseId + '-shownewestbutton').fadeIn();
+                        }
+        
+                        testresults = values.reverse();
                         
                         var numberOf200Values = testresults.map(function (testresult, index) {
                             return {'x': index, 'y': testresult.numberOf200};
@@ -191,13 +210,39 @@
                         
                         requestChart.update();
                         timingChart.update();
+                        
+                        if (testresults.length < maximumNumberOfResults) {
+                            jQuery('#testcase-' + testcaseId + '-showolderbutton').fadeOut();
+                        } else {
+                            jQuery('#testcase-' + testcaseId + '-showolderbutton').fadeIn();
+                        }
                       }
                     });
-                }
+                };
                 
-                refresh();
+                var loadOlderData = function() {
+                    resultsOffset = resultsOffset + maximumNumberOfResults;
+                    loadData();
+                };
+                
+                var loadNewerData = function() {
+                    resultsOffset = resultsOffset - maximumNumberOfResults;
+                    loadData();
+                };
+                
+                var loadNewestData = function() {
+                    resultsOffset = 0;
+                    loadData();
+                };
+                
+                loadData();
             
-                return refresh;
+                return {
+                    'loadDataFunction': loadData,
+                    'loadOlderDataFunction': loadOlderData,
+                    'loadNewerDataFunction': loadNewerData,
+                    'loadNewestDataFunction': loadNewestData
+                };
             }
         };
 
