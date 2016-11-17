@@ -13,17 +13,17 @@ class TestresultsController extends Controller
                 ->get('demo_service')
                 ->getUser($request, $this->getUser());
 
-        if (empty($user)) {
-            $this->addFlash('error', 'Access denied.');
-            return $this->redirect($this->get('router')->generate('homepage'));
-        }
-
         $offset = (int)$request->query->get('offset');
         $limit = (int)$request->query->get('limit');
 
         $em = $this->getDoctrine()->getManager();
         $testcaseRepo = $em->getRepository('AppBundle\Entity\Testcase');
         $testcase = $testcaseRepo->find($testcaseId);
+
+        if (empty($user) || $testcase->getUser()->getId() != $user->getId()) {
+            $this->addFlash('error', 'Access denied.');
+            return $this->redirect($this->get('router')->generate('homepage'));
+        }
 
         $arr = [];
         $testresults = $testcase->getLimitedTestresults($offset, $limit);

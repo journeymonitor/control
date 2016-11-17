@@ -43,6 +43,11 @@ testresults.index:
     defaults: { _controller: AppBundle:Testresults:index }
     methods:  [GET]
 
+testresults.demo.index:
+    path:     /demo/testcases/{testcaseId}/testresults/
+    defaults: { _controller: AppBundle:Testresults:index }
+    methods:  [GET]
+
 testresults.show:
     path:     /testresults/{testresultId}
     defaults: { _controller: AppBundle:Testresults:show }

@@ -186,15 +186,25 @@
                     }
                 };
                 
+                var buildUrl = function() {
+                    var url;
+                    if ('{{ isDemoMode }}' === '1') {
+                        url = "{{ path('testresults.demo.index', {'testcaseId': 'testcaseId'}) }}";
+                    } else {
+                        url = "{{ path('testresults.index', {'testcaseId': 'testcaseId'}) }}";
+                    }
+                    return (url + "?offset=" + resultsOffset + "&limit=" + maximumNumberOfResults).replace('testcaseId', testcaseId);
+                };
+                
                 var loadData = function() {
                     
                     jQuery('#testcase-' + testcaseId + '-showolderbutton').hide();
                     jQuery('#testcase-' + testcaseId + '-shownewerbutton').hide();
                     jQuery('#testcase-' + testcaseId + '-shownewestbutton').hide();
                     jQuery('#testcase-' + testcaseId + '-fetchmessage').fadeIn();
-                
+                                    
                     jQuery.ajax({
-                      url: ("{{ path('testresults.index', {'testcaseId': 'REPLACE-ME'}) }}?offset=" + resultsOffset + "&limit=" + maximumNumberOfResults).replace('REPLACE-ME', testcaseId),
+                      url: buildUrl(),
                       type: "get",
                       dataType: "json",
                       success: function(values) {
