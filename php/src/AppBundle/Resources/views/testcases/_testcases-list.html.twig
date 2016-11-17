@@ -19,6 +19,11 @@
                     <div id="testcase-{{ testcase.id }}-requestchart"><svg style="height:200px"></div>
                     <div id="testcase-{{ testcase.id }}-timingchart"><svg style="height:200px"></div>
 
+                    <!-- Always occupy the button space -->
+                    <a class="btn btn-default btn-sm"
+                       style="opacity: 0.001;"
+                       >&nbsp;</a>
+                    
                     <a id="testcase-{{ testcase.id }}-showolderbutton"
                        class="btn btn-default btn-sm"
                        style="display: none;"
@@ -29,13 +34,13 @@
                        class="btn btn-default btn-sm"
                        style="display: none;"
                        onClick="journeymonitor.graphNavigationFunctions['{{ testcase.id }}']['loadNewerDataFunction']();"
-                       >Newer results ▶▶</a>
+                       >Newer results ▶</a>
                        
                     <a id="testcase-{{ testcase.id }}-shownewestbutton"
                        class="btn btn-default btn-sm"
                        style="display: none;"
                        onClick="journeymonitor.graphNavigationFunctions['{{ testcase.id }}']['loadNewestDataFunction']();"
-                        >Newest results ▶▮</a>
+                       >Newest results ▶▏</a>
                     
                     <p>
                         <span id="testcase-{{ testcase.id }}-fetchmessage"
