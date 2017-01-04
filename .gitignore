@@ -1,3 +1,6 @@
 .DS_Store
 .idea/
 statisticsimporter/
+php/.buildpath
+php/.project
+php/.settings
