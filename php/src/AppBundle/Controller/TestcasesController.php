@@ -46,7 +46,7 @@ class TestcasesController extends Controller
         $form = $this->createForm(TestcaseAndUserType::class);
         $form->handleRequest($request);
 
-        if ($form->isValid() && empty($user)) {
+        if ($form->isSubmitted() && empty($user)) {
             try {
                 $this->createOrLoginUserFromForm($form);
             } catch (AuthenticationException $ex) {
@@ -55,7 +55,7 @@ class TestcasesController extends Controller
             }
         }
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted()) {
             $this->get('testcase')->createTestcaseForUser(
                 $form->get('user')->getData(),
                 $form->get('testcase')->getData()
@@ -83,7 +83,7 @@ class TestcasesController extends Controller
         $form = $this->createForm(TestcaseType::class);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted()) {
             $this->get('testcase')->createTestcaseForUser(
                 $user,
                 $form->getData()
@@ -117,7 +117,7 @@ class TestcasesController extends Controller
         $form->add('Save', SubmitType::class, ['label' => 'Update testcase', 'attr' => ['class' => 'btn-primary']]);
 
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        if ($form->isSubmitted()) {
             $em->flush();
             $this->addFlash('success', 'The testcase has been updated.');
         }
