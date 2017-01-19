@@ -44,6 +44,25 @@ class User extends BaseUser
      */
     private $activatedAt = null;
 
+    /**
+     * @var boolean
+     * @ORM\Column(name="locked", type="boolean", nullable=false)
+     */
+    protected $locked = false;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="expired", type="boolean", nullable=false)
+     */
+    protected $expired = false;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="credentials_expired", type="boolean", nullable=false)
+     */
+    protected $credentialsExpired = false;
+
+
     public function __construct()
     {
         $this->testcases = new ArrayCollection();
