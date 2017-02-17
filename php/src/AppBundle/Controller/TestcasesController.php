@@ -14,9 +14,7 @@ class TestcasesController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $user = $this
-            ->get('demo_service')
-            ->getUser($request, $this->getUser());
+        $user = $this->get('demo_service')->getUser($request, $this->getUser());
 
         if (empty($user)) {
             $this->addFlash('error', 'Access denied.');
@@ -34,6 +32,23 @@ class TestcasesController extends Controller
                 'isDemoMode' => $this->get('demo_service')->isDemoMode($request)
             )
         );
+    }
+
+    protected function createTestcaseAndHandleUserFromForm(Form $form)
+    {
+        $this->get('testcase')->createTestcaseForUser(
+            $form->get('user')->getData(),
+            $form->get('testcase')->getData()
+        );
+        $this->addFlash('success', 'The new testcase has been added.');
+
+        $user = $this->getUser();
+        if (!empty($user) && $user->isEnabled()) { // A previously non-logged in user that is fully activated used the homepage form
+            return $this->redirect($this->get('router')->generate('testcases.index'));
+        } else {
+            $this->addFlash('info', 'We will start monitoring your site as soon as your account has been activated.');
+            return $this->render('AppBundle:registration:thankyou.html.twig');
+        }
     }
 
     public function newWithRegAction(Request $request)
@@ -56,19 +71,7 @@ class TestcasesController extends Controller
         }
 
         if ($form->isSubmitted()) {
-            $this->get('testcase')->createTestcaseForUser(
-                $form->get('user')->getData(),
-                $form->get('testcase')->getData()
-            );
-            $this->addFlash('success', 'The new testcase has been added.');
-
-            $user = $this->getUser();
-            if (!empty($user) && $user->isEnabled()) { // A previously non-logged in user that is fully activated used the homepage form
-                return $this->redirect($this->get('router')->generate('testcases.index'));
-            } else {
-                $this->addFlash('info', 'We will start monitoring your site as soon as your account has been activated.');
-                return $this->render('AppBundle:registration:thankyou.html.twig');
-            }
+            return $this->createTestcaseAndHandleUserFromForm($form);
         }
         return $this->render('AppBundle:default:index.html.twig', array('form' => $form->createView()));
     }
