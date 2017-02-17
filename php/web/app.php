@@ -1,8 +1,5 @@
 <?php
 
-// See https://github.com/journeymonitor/control/issues/32
-ini_set('memory_limit', '160M');
-
 use Symfony\Component\HttpFoundation\Request;
 
 $loader = require __DIR__.'/../app/autoload.php';
