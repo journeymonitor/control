@@ -36,5 +36,6 @@ security:
 
 
     access_control:
+        - { path: ^/testcases/guestview/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/testcases, role: IS_AUTHENTICATED_REMEMBERED }
         - { path: ^/testresults, role: IS_AUTHENTICATED_REMEMBERED }

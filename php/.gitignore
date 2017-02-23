@@ -10,3 +10,4 @@
 /web/bundles/
 src/AppBundle/Resources/public/vendor
 composer.phar
+php.iml

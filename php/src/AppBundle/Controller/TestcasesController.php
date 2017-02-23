@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Form\Type\TestcaseType;
+use Monolog\Logger;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,14 +15,28 @@ class TestcasesController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $user = $this->get('demo_service')->getUser($request, $this->getUser());
+        $isGuestviewMode = false;
+        $em = $this->getDoctrine()->getManager();
+        if (   $request->get('guestviewSecurityToken') !== null
+            && $request->get('guestviewForUserId') !== null)
+        {
+            if (\sha1($this->getParameter('secret') . $request->get('guestviewForUserId')) === $request->get('guestviewSecurityToken')) {
+                $userRepo = $em->getRepository('AppBundle\Entity\User');
+                $user = $userRepo->find($request->get('guestviewForUserId'));
+                $isGuestviewMode = true;
+            } else {
+                $this->addFlash('error', 'Guest view access denied.');
+                return $this->redirect($this->get('router')->generate('homepage'));
+            }
+        } else {
+            $user = $this->get('demo_service')->getUser($request, $this->getUser());
+        }
 
         if (empty($user)) {
             $this->addFlash('error', 'Access denied.');
             return $this->redirect($this->get('router')->generate('homepage'));
         }
 
-        $em = $this->getDoctrine()->getManager();
         $testcaseRepo = $em->getRepository('AppBundle\Entity\Testcase');
         $testcases = $testcaseRepo->findBy(['user' => $user], ['enabled' => 'DESC']);
 
@@ -29,7 +44,11 @@ class TestcasesController extends Controller
             'AppBundle:testcases:index.html.twig',
             array(
                 'testcases' => $testcases,
-                'isDemoMode' => $this->get('demo_service')->isDemoMode($request)
+                'isDemoMode' => $this->get('demo_service')->isDemoMode($request),
+                'isGuestviewMode' => $isGuestviewMode,
+                'isRestrictedMode' => $this->get('demo_service')->isDemoMode($request) || $isGuestviewMode,
+                'guestviewSecurityToken' => \sha1($this->getParameter('secret') . $user->getId()),
+                'userId' => $user->getId()
             )
         );
     }

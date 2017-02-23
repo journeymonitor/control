@@ -309,7 +309,7 @@
                         </div>
                     </div>
                     <div class="pagenav">
-                        <a class="pull-right" {% if (not isDemoMode) %} href="{{ path('testcases.new') }}" {% else %} data-toggle="tooltip" data-placement="top" title="Not available in demo mode" {% endif %}>＋ Add another testcase</a>
+                        <a class="pull-right" {% if (not isRestrictedMode) %} href="{{ path('testcases.new') }}" {% else %} data-toggle="tooltip" data-placement="top" title="Not available in demo and guest view mode" {% endif %}>＋ Add another testcase</a>
                     </div>
 
                     <table class="table testcases">

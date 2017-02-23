@@ -18,6 +18,11 @@ testcases.demo.index:
     defaults: { _controller: AppBundle:Testcases:index }
     methods:  [GET, POST]
 
+testcases.guestview.index:
+    path:     /testcases/guestview/
+    defaults: { _controller: AppBundle:Testcases:index }
+    methods:  [GET]
+
 testcases.new:
     path:     /testcases/new
     defaults: { _controller: AppBundle:Testcases:new }

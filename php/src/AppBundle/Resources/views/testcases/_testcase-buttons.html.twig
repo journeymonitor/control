@@ -1,18 +1,18 @@
 <a class="btn btn-primary btn-sm"
-    {% if (isDemoMode) %}
-        data-toggle="tooltip" data-placement="top" title="Not available in demo mode"
+    {% if (isRestrictedMode) %}
+        data-toggle="tooltip" data-placement="top" title="Not available in demo and guest view mode"
     {% else %}
         href="{{ path('testcases.edit', {'testcaseId': testcase.id}) }}"
     {% endif %}>Edit</a>
 
 {% if (testcase.enabled) %}
 
-    {% if (isDemoMode) %}
+    {% if (isRestrictedMode) %}
         <a
             class="btn btn-default btn-sm"
             data-toggle="tooltip"
             data-placement="top"
-            title="Not available in demo mode">Disable</a>
+            title="Not available in demo and guest view mode">Disable</a>
     {% else %}
         <form class="testcase-enable-disable-form" method="post" action="{{ path('testcases.disable', {'testcaseId': testcase.id}) }}">
             <button class="btn btn-default btn-sm" type="submit">Disable</button>
@@ -21,12 +21,12 @@
 
 {% else %}
 
-    {% if (isDemoMode) %}
+    {% if (isRestrictedMode) %}
         <a
             class="btn btn-default btn-sm"
             data-toggle="tooltip"
             data-placement="top"
-            title="Not available in demo mode">Enable</a>
+            title="Not available in demo and guest view mode">Enable</a>
     {% else %}
         <form class="testcase-enable-disable-form" method="post" action="{{ path('testcases.enable', {'testcaseId': testcase.id}) }}">
             <button class="btn btn-default btn-sm" type="submit">Enable</button>
