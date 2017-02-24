@@ -29,9 +29,37 @@ class GuestviewModeFunctionalWebTest extends WebTestCase
             $crawler->filter('body')->first()->text()
         );
 
-        $this->assertEquals('You are viewing this page in Guest View mode. Some functions on this page are not available to you.', trim($crawler->filter('div.alert.alert-warning')->first()->text()));
+        $this->assertEquals(
+            'You are viewing this page in Guest View mode. Some functions on this page are not available to you.',
+            trim($crawler->filter('div.alert.alert-warning')->first()->text())
+        );
         $this->assertEquals('Demo User Testcase One', trim($crawler->filter('h4')->eq(1)->text()));
-        $this->assertEquals('Not available in demo and guest view mode', trim($crawler->filter('div.row div.col-xs-12 a.pull-right')->first()->attr('title')));
+        $this->assertEquals(
+            'Not available in demo and guest view mode',
+            trim($crawler->filter('div.row div.col-xs-12 a.pull-right')->first()->attr('title'))
+        );
+
+        // Verifying that a Guest View URI with an invalid security token doesn't give access to the testcases page.
+        $linkUri = $link->getUri();
+        $linkUriWithWrongGuestviewSecurityToken = \str_replace(
+            'guestviewSecurityToken=',
+            'guestviewSecurityToken=a',
+            $linkUri
+        );
+        $crawler = $client->request('GET', $linkUriWithWrongGuestviewSecurityToken);
+
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $this->assertContains(
+            'Redirecting to /.',
+            $crawler->filter('body')->first()->text()
+        );
+
+        $crawler = $client->followRedirect();
+
+        $this->assertContains(
+            'Guest view access denied.',
+            $crawler->filter('div.alert-danger')->first()->text()
+        );
     }
 
 }
