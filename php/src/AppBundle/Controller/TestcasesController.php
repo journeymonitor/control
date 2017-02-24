@@ -48,7 +48,7 @@ class TestcasesController extends Controller
                 'isGuestviewMode' => $isGuestviewMode,
                 'isRestrictedMode' => $this->get('demo_service')->isDemoMode($request) || $isGuestviewMode,
                 'guestviewSecurityToken' => \sha1($this->getParameter('secret') . $user->getId()),
-                'userId' => $user->getId()
+                'guestviewForUserId' => $user->getId()
             )
         );
     }

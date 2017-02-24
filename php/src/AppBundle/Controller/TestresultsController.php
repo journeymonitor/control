@@ -8,15 +8,26 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TestresultsController extends Controller
 {
-    public function indexAction(Request $request, $testcaseId) {
-        $user = $this
-                ->get('demo_service')
-                ->getUser($request, $this->getUser());
+    public function indexAction(Request $request, $testcaseId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if (   $request->get('guestviewSecurityToken') !== null
+            && $request->get('guestviewForUserId') !== null)
+        {
+            if (\sha1($this->getParameter('secret') . $request->get('guestviewForUserId')) === $request->get('guestviewSecurityToken')) {
+                $userRepo = $em->getRepository('AppBundle\Entity\User');
+                $user = $userRepo->find($request->get('guestviewForUserId'));
+            } else {
+                $this->addFlash('error', 'Guest view access denied.');
+                return $this->redirect($this->get('router')->generate('homepage'));
+            }
+        } else {
+            $user = $this->get('demo_service')->getUser($request, $this->getUser());
+        }
 
         $offset = (int)$request->query->get('offset');
         $limit = (int)$request->query->get('limit');
 
-        $em = $this->getDoctrine()->getManager();
         $testcaseRepo = $em->getRepository('AppBundle\Entity\Testcase');
         $testcase = $testcaseRepo->find($testcaseId);
 

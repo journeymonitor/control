@@ -1,9 +1,14 @@
-{% if (isDemoMode is defined and isDemoMode) or (app.session.flashbag.has('success')) or (app.session.flashbag.has('info')) or (app.session.flashbag.has('error')) %}
+{% if (isDemoMode is defined and isDemoMode) or (isGuestviewMode is defined and isGuestviewMode) or (app.session.flashbag.has('success')) or (app.session.flashbag.has('info')) or (app.session.flashbag.has('error')) %}
     <aside class="messages">
         <section class="container">
             {% if (isDemoMode is defined and isDemoMode) %}
-                <div class="alert alert-info" role="alert">
-                    You are currently in demo mode.
+                <div class="alert alert-warning" role="alert">
+                    You are viewing this page in Demo mode. Some functions on this page are not available to you.
+                </div>
+            {% endif %}
+            {% if (isGuestviewMode is defined and isGuestviewMode) %}
+                <div class="alert alert-warning" role="alert">
+                    You are viewing this page in Guest View mode. Some functions on this page are not available to you.
                 </div>
             {% endif %}
             {% for flashMessage in app.session.flashbag.get('success') %}

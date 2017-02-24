@@ -188,12 +188,16 @@
                 
                 var buildUrl = function() {
                     var url;
+                    var guestviewUrlParameters = '';
                     if ('{{ isDemoMode }}' === '1') {
                         url = "{{ path('testresults.demo.index', {'testcaseId': 'testcaseId'}) }}";
+                    } else if ('{{ isGuestviewMode }}' === '1') {
+                        url = "{{ path('testresults.guestview.index', {'testcaseId': 'testcaseId'}) }}";
+                        guestviewUrlParameters = '&guestviewForUserId={{ guestviewForUserId }}&guestviewSecurityToken={{ guestviewSecurityToken }}';
                     } else {
                         url = "{{ path('testresults.index', {'testcaseId': 'testcaseId'}) }}";
                     }
-                    return (url + "?offset=" + resultsOffset + "&limit=" + maximumNumberOfResults).replace('testcaseId', testcaseId);
+                    return (url + "?offset=" + resultsOffset + "&limit=" + maximumNumberOfResults + guestviewUrlParameters).replace('testcaseId', testcaseId);
                 };
                 
                 var loadData = function() {
@@ -311,6 +315,12 @@
                     <div class="pagenav">
                         <a class="pull-right" {% if (not isRestrictedMode) %} href="{{ path('testcases.new') }}" {% else %} data-toggle="tooltip" data-placement="top" title="Not available in demo and guest view mode" {% endif %}>＋ Add another testcase</a>
                     </div>
+
+                    {% if (not isGuestviewMode) %}
+                        <div class="pagenav">
+                            <a class="pull-right" href="{{ path('testcases.guestview.index', {'guestviewSecurityToken': guestviewSecurityToken, 'guestviewForUserId': guestviewForUserId }) }}">&#128279; Guest View link for this overview</a>
+                        </div>
+                    {% endif %}
 
                     <table class="table testcases">
                         {{ include('AppBundle:testcases:_testcases-list.html.twig') }}
