@@ -22,7 +22,7 @@ class ImportStatisticsCommandTest extends WebTestCase
     public function testExecute()
     {
         $this->resetDatabase();
-        $client = $this->createAndActivateDemoUser();
+        $client = $this->getClientThatRegisteredAndActivatedADemoUser();
 
         $kernel = $client->getKernel();
         $kernel->boot();

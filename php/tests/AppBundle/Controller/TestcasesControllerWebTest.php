@@ -72,7 +72,7 @@ Regards,
     public function testAddingTestcaseWithExistingUserHappyPath()
     {
         $this->resetDatabase();
-        $client = $this->createAndActivateDemoUser();
+        $client = $this->getClientThatRegisteredAndActivatedADemoUser();
 
         $crawler = $client->request('GET', '/testcases/');
 
@@ -98,7 +98,7 @@ Regards,
     public function testThatEnabledTestcasesAreListedFirst()
     {
         $this->resetDatabase();
-        $client = $this->createAndActivateDemoUser(); // This gives us the first testcase
+        $client = $this->getClientThatRegisteredAndActivatedADemoUser(); // This gives us the first testcase
 
         $crawler = $client->request('GET', '/testcases/');
 
@@ -145,7 +145,7 @@ Regards,
     public function testIndexWithTestcaseWithoutResults()
     {
         $this->resetDatabase();
-        $client = $this->createAndActivateDemoUser();
+        $client = $this->getClientThatRegisteredAndActivatedADemoUser();
 
         $crawler = $client->request('GET', '/testcases/');
 
@@ -172,7 +172,7 @@ Regards,
     public function testIndexWithTestcaseWithResults()
     {
         $this->resetDatabase();
-        $client = $this->createAndActivateDemoUser();
+        $client = $this->getClientThatRegisteredAndActivatedADemoUser();
 
         $container = $client->getContainer();
         $em = $container->get('doctrine.orm.entity_manager');
@@ -201,7 +201,7 @@ Regards,
     public function testIndexDisableAndEnableTestcase()
     {
         $this->resetDatabase();
-        $client = $this->createAndActivateDemoUser();
+        $client = $this->getClientThatRegisteredAndActivatedADemoUser();
         $crawler = $client->request('GET', '/testcases/');
 
         $buttonNode = $crawler->selectButton('Disable');
@@ -224,7 +224,7 @@ Regards,
     public function testEdit()
     {
         $this->resetDatabase();
-        $client = $this->createAndActivateDemoUser();
+        $client = $this->getClientThatRegisteredAndActivatedADemoUser();
 
         $crawler = $client->request('GET', '/testcases/');
 

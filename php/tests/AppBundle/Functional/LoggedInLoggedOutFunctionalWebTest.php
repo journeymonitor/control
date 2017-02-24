@@ -26,7 +26,7 @@ class LoggedInLoggedOutFunctionalWebTest extends WebTestCase
     public function testWhenLoggedIn()
     {
         $this->resetDatabase();
-        $client = $this->createAndActivateDemoUser();
+        $client = $this->getClientThatRegisteredAndActivatedADemoUser();
 
         $client->request('GET', '/');
 

@@ -12,7 +12,7 @@ class DemoModeFunctionalWebTest extends WebTestCase
     public function testDemoMode()
     {
         $this->resetDatabase();
-        $client = $this->createAndActivateDemoUser();
+        $client = $this->getClientThatRegisteredAndActivatedADemoUser();
 
         $crawler = $client->request('GET', '/demo/testcases/');
 
@@ -26,7 +26,7 @@ class DemoModeFunctionalWebTest extends WebTestCase
     public function testNotDemoMode()
     {
         $this->resetDatabase();
-        $this->createAndActivateDemoUser();
+        $this->getClientThatRegisteredAndActivatedADemoUser();
 
         $client = static::createClient();
         $client->request('GET', '/testcases/');

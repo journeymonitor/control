@@ -16,7 +16,7 @@ class TestresultRepositoryTest extends WebTestCase
     public function testGetLatestByTestcaseWithStatisticsIterator()
     {
         $this->resetDatabase();
-        $client = $this->createAndActivateDemoUser();
+        $client = $this->getClientThatRegisteredAndActivatedADemoUser();
 
         $kernel = $client->getKernel();
         $kernel->boot();

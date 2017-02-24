@@ -34,7 +34,7 @@ trait TestHelpers
     /**
      * @return \Symfony\Bundle\FrameworkBundle\Client A client where the demo user is already logged in
      */
-    protected function createAndActivateDemoUser()
+    protected function getClientThatRegisteredAndActivatedADemoUser()
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/');
