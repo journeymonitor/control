@@ -27,7 +27,7 @@ Afterwards, follow these steps:
 - From `infra/docker`, run `docker-compose exec journeymonitor-control bash`
 - `cd /opt/journeymonitor/control`
 
-Enjoy. Consider running most command via `sudo -u www-data`, because `www-data` is the owner of all files in
+Enjoy. Consider running most commands via `sudo -u www-data`, because `www-data` is the owner of all files in
 /opt/journeymonitor/control and the owner of the nginx and php-fpm processes.
 
 Example:
