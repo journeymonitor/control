@@ -217,6 +217,10 @@ textarea.codeform {
     font-family: "Courier New", Courier, monospace;
 }
 
+.testcase-entry-row .well {
+    margin-bottom: 12px;
+}
+
 table tr td.testcase-entry-cell {
     border-top: none;
     padding-top: 80px;
