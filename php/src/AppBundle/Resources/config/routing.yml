@@ -43,6 +43,11 @@ testcases.enable:
     defaults: { _controller: AppBundle:Testcases:enable }
     methods:  [POST]
 
+testcases.delete:
+    path:     /testcases/{testcaseId}/delete
+    defaults: { _controller: AppBundle:Testcases:delete }
+    methods:  [POST]
+
 testresults.index:
     path:     /testcases/{testcaseId}/testresults/
     defaults: { _controller: AppBundle:Testresults:index }

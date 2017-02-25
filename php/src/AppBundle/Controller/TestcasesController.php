@@ -187,6 +187,26 @@ class TestcasesController extends Controller
         return $this->redirect($this->get('router')->generate('testcases.index'));
     }
 
+    public function deleteAction($testcaseId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $testcaseRepo = $em->getRepository('AppBundle\Entity\Testcase');
+        $testcase = $testcaseRepo->find($testcaseId);
+        if (!empty($testcase)) {
+            $user = $this->getUser();
+            if ($user->getId() != $testcase->getUser()->getId()) {
+                $this->addFlash('error', 'Access to this testcase has been denied.');
+            } else {
+                $em->remove($testcase);
+                $em->flush();
+                $this->addFlash('success', 'The testcase "' . $testcase->getTitle() . '" has been removed.');
+            }
+        } else {
+            $this->addFlash('error', 'The testcase could not be found.');
+        }
+        return $this->redirect($this->get('router')->generate('testcases.index'));
+    }
+
     /**
      * @param Form $form
      */
