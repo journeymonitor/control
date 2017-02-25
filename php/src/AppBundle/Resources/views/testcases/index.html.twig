@@ -57,7 +57,7 @@
                 };
 
                 var getDateAndTimeOfRun = function(index) {
-                    return testresults[index].datetimeRun.date + ' ' + testresults[index].datetimeRun.timezone;
+                    return testresults[index].datetimeRun.date.substring(0, 19) + ' ' + testresults[index].datetimeRun.timezone;
                 };
 
                 var getExitCode = function(index) {
