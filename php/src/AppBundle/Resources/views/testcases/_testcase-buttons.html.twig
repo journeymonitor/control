@@ -42,7 +42,15 @@
         data-placement="top"
         title="Not available in demo and guest view mode">Delete</a>
 {% else %}
-    <form class="testcase-button-form" method="post" action="{{ path('testcases.delete', {'testcaseId': testcase.id}) }}">
-        <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+    <form
+        id="testcase-delete-form-{{ testcase.id }}"
+        class="testcase-button-form"
+        method="post"
+        action="{{ path('testcases.delete', {'testcaseId': testcase.id}) }}"
+    >
+        <button
+            data-testcase-id="{{ testcase.id }}"
+            class="delete-modal-trigger btn btn-danger btn-sm" type="submit"
+        >Delete</button>
     </form>
 {% endif %}
