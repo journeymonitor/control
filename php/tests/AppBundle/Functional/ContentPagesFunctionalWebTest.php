@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\AppBundle\Controller;
+namespace Tests\AppBundle\Functional;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ContentControllerWebTest extends WebTestCase
+class ContentPagesFunctionalWebTest extends WebTestCase
 {
     public function testImprint()
     {

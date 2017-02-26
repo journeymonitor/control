@@ -1,13 +1,12 @@
 <?php
 
-namespace Tests\AppBundle\Controller;
+namespace Tests\AppBundle\Functional;
 
 use AppBundle\Entity\Testresult;
 use Tests\AppBundle\TestHelpers;
-use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class TestcasesControllerWebTest extends WebTestCase
+class TestcasesFunctionalWebTest extends WebTestCase
 {
     use TestHelpers;
 
@@ -221,7 +220,7 @@ Regards,
         $this->assertSame('Enabled', trim($crawler->filter('td.testcase-entry-cell span.label')->eq(1)->text()));
     }
 
-    public function testEdit()
+    public function testTestcaseEdit()
     {
         $this->resetDatabase();
         $client = $this->getClientThatRegisteredAndActivatedADemoUser();
