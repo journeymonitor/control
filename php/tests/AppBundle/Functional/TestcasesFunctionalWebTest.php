@@ -258,4 +258,23 @@ Regards,
             count($crawler->filter('table.testcases span.label-default:contains("*/15")'))
         );
     }
+
+    public function testTestcaseDeletionOnIndexPage()
+    {
+        $this->resetDatabase();
+        $client = $this->getClientThatRegisteredAndActivatedADemoUser();
+        $crawler = $client->request('GET', '/testcases/');
+
+        $this->assertSame('Demo User Testcase One', trim($crawler->filter('.testcase-entry-cell h4')->eq(0)->text()));
+
+        $buttonNode = $crawler->selectButton('Delete');
+        $form = $buttonNode->form();
+        $client->submit($form);
+
+        $crawler = $client->followRedirect();
+
+        $this->assertSame(1, count($crawler->filter('h4:contains("Your testcases")')));
+
+        $this->assertEmpty($crawler->filter('.testcase-entry-cell h4')->eq(0));
+    }
 }
