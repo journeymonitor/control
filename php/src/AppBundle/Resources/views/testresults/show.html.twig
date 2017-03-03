@@ -17,10 +17,10 @@
                     <p>
                         <strong>Testcase: </strong>
                         <a
-                                {% if (isRestrictedMode is defined and not isRestrictedMode) %}
-                                    href="{{ path('testcases.edit', {'testcaseId': testresult.testcase.id}) }}"
-                                {% else %}
+                                {% if (isRestrictedMode is defined and isRestrictedMode) %}
                                     data-toggle="tooltip" data-placement="top" title="Not available in demo and guest view mode"
+                                {% else %}
+                                    href="{{ path('testcases.edit', {'testcaseId': testresult.testcase.id}) }}"
                                 {% endif %}
                                 >{{ testresult.testcase.title }}</a>
                         <br>
