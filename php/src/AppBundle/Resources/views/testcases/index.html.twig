@@ -127,7 +127,7 @@
                         } else {
                             return 'red';
                         }
-                    })
+                    });
 
                     timingChart.xAxis
                         .tickFormat(function(index) { return getTimeOfRun(index); });
@@ -151,7 +151,7 @@
                             exitCodeMessage = 'Journey not successful, page element not found.';
                         } else {
                             exitCodeMessage = 'A system error occurred.';
-                        };
+                        }
                         return '<strong>Date & time of run:</strong> '
                             + getDateAndTimeOfRun(obj.data.x)
                             + '<br><strong>'
@@ -172,7 +172,7 @@
                             '_blank'
                         );
                     });
-                    
+
                     triggerInitialLoad();
 
                     nv.utils.windowResize(timingChart.update);
