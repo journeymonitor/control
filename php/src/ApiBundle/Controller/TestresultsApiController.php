@@ -28,7 +28,10 @@ class TestresultsApiController extends Controller {
         $srlas = $this->get('selenese_runner_log_analyzer');
         $urls = $srlas->getUrlsOfRequestedPages($output);
         $hts = $this->get('har_transformer');
+
+        // This is only neccessary for HARs from before https://github.com/journeymonitor/monitor/issues/19
         $transformedHar = $hts->splitIntoMultiplePages(json_decode($har), $urls);
+
         $response = new JsonResponse();
         $response->setCallback('onInputData');
         $response->setData($transformedHar);
