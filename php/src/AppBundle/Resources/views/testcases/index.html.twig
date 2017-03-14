@@ -47,7 +47,7 @@
                     {'key': 'Journey duration', 'values': []}
                 ];
                                 
-                var getTimeOfRun = function(index) {
+                var getXAxisLabel = function(index) {
                     var date = testresults[index].datetimeRun.date;
                     return journeymonitor.monthShortname[date.substring(5, 7)]
                             + ' '
@@ -81,7 +81,7 @@
                     requestChart.color(['#5cb85c', 'orange', 'red']);
 
                     requestChart.xAxis
-                        .tickFormat(function(index) { return getTimeOfRun(index); });
+                        .tickFormat(function(index) { return getXAxisLabel(index); });
 
                     requestChart.xAxis.fontSize('9px');
 
@@ -130,7 +130,7 @@
                     });
 
                     timingChart.xAxis
-                        .tickFormat(function(index) { return getTimeOfRun(index); });
+                        .tickFormat(function(index) { return getXAxisLabel(index); });
 
                     timingChart.xAxis.fontSize('9px');
 
