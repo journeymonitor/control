@@ -215,6 +215,7 @@
                         
                         jQuery('#testcase-' + testcaseId + '-fetchmessage').hide();
                         
+                        // We are already seeing the newest data, no need for these two buttons
                         if (resultsOffset === 0) {
                             jQuery('#testcase-' + testcaseId + '-shownewerbutton').fadeOut();
                             jQuery('#testcase-' + testcaseId + '-shownewestbutton').fadeOut();
