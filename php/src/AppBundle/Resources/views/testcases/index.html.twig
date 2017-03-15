@@ -68,6 +68,10 @@
                     return testresults[index].id;
                 };
 
+                var waterfallUriTemplate = 'http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': 'placeholder'}) }}';
+
+                var testresultdetailsUriTemplate = '{{ path('testresults.show', {'testresultId': 'placeholder'}) }}';
+
                 // Chart with request information
                 nv.addGraph(function() {
                     requestChart = nv.models.multiBarChart()
@@ -93,9 +97,8 @@
                         .call(requestChart);
 
                     requestChart.multibar.dispatch.on('elementClick', function(element) {
-                        var uriTemplate = 'http://www.softwareishard.com/har/viewer/?inputUrl={{ app.request.getSchemeAndHttpHost() }}{{ path('testresult-show-har', {'testresultId': 'placeholder'}) }}';
                         window.open(
-                            uriTemplate.replace('placeholder', getId(element.index)),
+                            waterfallUriTemplate.replace('placeholder', getId(element.index)),
                             '_blank'
                         );
                     });
@@ -166,9 +169,8 @@
                     });
 
                     timingChart.multibar.dispatch.on('elementClick', function(element) {
-                        var uriTemplate = '{{ path('testresults.show', {'testresultId': 'placeholder'}) }}';
                         window.open(
-                            uriTemplate.replace('placeholder', getId(element.index)),
+                            testresultdetailsUriTemplate.replace('placeholder', getId(element.index)),
                             '_blank'
                         );
                     });
@@ -201,6 +203,19 @@
                 };
 
                 var updateTestresultsTable = function() {
+
+                    var getTableRowClassForExitCode = function(exitCode) {
+                        if (exitCode == 0) {
+                            return 'success';
+                        } else if (exitCode == 2) {
+                            return 'warning';
+                        } else if (exitCode == 3) {
+                            return 'danger';
+                        } else {
+                            return 'danger';
+                        }
+                    };
+
                     var getBeautifiedRuntimeValue = function(runtimeMilliseconds) {
                         if (runtimeMilliseconds === null) {
                             return 'unknown';
@@ -221,7 +236,7 @@
 
                     var body = '';
                     for (var i = testresults.length - 1; i > -1; i--) {
-                        body += '<tr>';
+                        body += '<tr class="' + getTableRowClassForExitCode(testresults[i]['exitCode']) + '">';
                         body += '<td>';
                         body += getDateAndTimeOfRun(i);
                         body += '</td>';
@@ -237,6 +252,12 @@
                         body += '<td>';
                         body += getBeautifiedNumberOfRequestsValue(testresults[i]['numberOf500']);
                         body += '</td>';
+                        body += '<td>';
+                        body += '<a href="' + waterfallUriTemplate.replace('placeholder', testresults[i]['id']) + '" target="_blank">Waterfall</a>';
+                        body += '</td>';
+                        body += '<td>';
+                        body += '<a href="' + testresultdetailsUriTemplate.replace('placeholder', testresults[i]['id']) + '" target="_blank">Journey Log</a>';
+                        body += '</td>';
                         body += '</tr>';
                     }
 
@@ -250,6 +271,8 @@
                             + '<th>Status 200</th>'
                             + '<th>Status 400</th>'
                             + '<th>Status 500</th>'
+                            + '<th></th>'
+                            + '<th></th>'
                             + '</tr>'
                             + '</thead>'
                             + '</tbody>'
