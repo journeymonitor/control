@@ -219,29 +219,28 @@
 
                     jQuery('#testcase-' + testcaseId + '-resultstable').empty();
 
+                    var body = '';
+                    for (var i = testresults.length - 1; i > -1; i--) {
+                        body = body + '<tr>' + '<td>' + getDateAndTimeOfRun(i) + '</td>' + '<td>' + getBeautifiedRuntimeValue(testresults[i]['runtimeMilliseconds']) + '</td>' + '<td>' + getBeautifiedNumberOfRequestsValue(testresults[i]['numberOf200']) + '</td>' + '<td>' + getBeautifiedNumberOfRequestsValue(testresults[i]['numberOf400']) + '</td>' + '<td>' + getBeautifiedNumberOfRequestsValue(testresults[i]['numberOf500']) + '</td>' + '</tr>';
+                    }
+
                     jQuery('#testcase-' + testcaseId + '-resultstable')
                         .append(
-                            '<strong>'
-                            + 'Date and time of run\t\t'
-                            + 'Journey duration\t\t'
-                            + 'Status 200\t\t'
-                            + 'Status 400\t\t'
-                            + 'Status 500\t\t'
-                            + '</strong>'
-                            + '<hr>'
+                            '<table class="table table-striped table-hover table-condensed table-responsive">'
+                            + '<thead>'
+                            + '<tr>'
+                            + '<th>Date and time of run</th>'
+                            + '<th>Duration</th>'
+                            + '<th>Status 200</th>'
+                            + '<th>Status 400</th>'
+                            + '<th>Status 500</th>'
+                            + '</tr>'
+                            + '</thead>'
+                            + '</tbody>'
+                            + body
+                            + '</tbody>'
+                            + '</table>'
                         );
-
-                    for (var i = testresults.length - 1; i > -1; i--) {
-                        jQuery('#testcase-' + testcaseId + '-resultstable')
-                            .append(
-                                getDateAndTimeOfRun(i) + "\t\t"
-                                + getBeautifiedRuntimeValue(testresults[i]['runtimeMilliseconds']) + "\t\t\t"
-                                + getBeautifiedNumberOfRequestsValue(testresults[i]['numberOf200']) + "\t\t\t"
-                                + getBeautifiedNumberOfRequestsValue(testresults[i]['numberOf400']) + "\t\t\t"
-                                + getBeautifiedNumberOfRequestsValue(testresults[i]['numberOf500'])
-                                + '<br>'
-                            )
-                    }
                 };
 
                 var toggleResultsTable = function () {

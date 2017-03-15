@@ -51,7 +51,7 @@
                        class="btn btn-default btn-sm pull-right"
                        onClick="journeymonitor.testresultsFunctions['{{ testcase.id }}']['toggleResultsTableFunction']();"
                     >𝌓 Show/hide detailed table of results</a>
-                    <pre id="testcase-{{ testcase.id }}-resultstable" class="resultstable" style="display: none;"></pre>
+                    <div id="testcase-{{ testcase.id }}-resultstable" class="clear well well-sm resultstable" style="display: none;"></div>
 
                     <script>
                         journeymonitor.testresultsFunctions['{{ testcase.id }}'] = journeymonitor.renderTestresults("{{ testcase.id }}");
