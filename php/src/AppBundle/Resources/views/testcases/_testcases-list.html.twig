@@ -18,23 +18,23 @@
                 {% if (testcase.hasTestresults) %}
                     <div id="testcase-{{ testcase.id }}-requestchart"><svg style="height:200px" /></div>
                     <div id="testcase-{{ testcase.id }}-timingchart"><svg style="height:200px" /></div>
-                    
+
                     <a id="testcase-{{ testcase.id }}-showolderbutton"
                        class="btn btn-default btn-sm"
                        style="display: none;"
-                       onClick="journeymonitor.graphNavigationFunctions['{{ testcase.id }}']['loadOlderDataFunction']();"
+                       onClick="journeymonitor.testresultsFunctions['{{ testcase.id }}']['loadOlderDataFunction']();"
                         >◀ Older results</a>
                     
                     <a id="testcase-{{ testcase.id }}-shownewerbutton"
                        class="btn btn-default btn-sm"
                        style="display: none;"
-                       onClick="journeymonitor.graphNavigationFunctions['{{ testcase.id }}']['loadNewerDataFunction']();"
+                       onClick="journeymonitor.testresultsFunctions['{{ testcase.id }}']['loadNewerDataFunction']();"
                        >Newer results ▶</a>
                        
                     <a id="testcase-{{ testcase.id }}-shownewestbutton"
                        class="btn btn-default btn-sm"
                        style="display: none;"
-                       onClick="journeymonitor.graphNavigationFunctions['{{ testcase.id }}']['loadNewestDataFunction']();"
+                       onClick="journeymonitor.testresultsFunctions['{{ testcase.id }}']['loadNewestDataFunction']();"
                        >Newest results ▶▏</a>
                     
                     <span id="testcase-{{ testcase.id }}-fetchmessage"
@@ -46,9 +46,15 @@
                     <a class="btn btn-default btn-sm"
                        style="opacity: 0.001;"
                        >&nbsp;</a>
-                          
+
+                    <a id="testcase-{{ testcase.id }}-toggleresultstablebutton"
+                       class="btn btn-default btn-sm"
+                       onClick="journeymonitor.testresultsFunctions['{{ testcase.id }}']['toggleResultsTableFunction']();"
+                    >𝌓 Show/hide detailed table of results</a>
+                    <pre id="testcase-{{ testcase.id }}-resultstable" class="resultstable" style="display: none;"></pre>
+
                     <script>
-                        journeymonitor.graphNavigationFunctions['{{ testcase.id }}'] = journeymonitor.renderTestresults("{{ testcase.id }}");
+                        journeymonitor.testresultsFunctions['{{ testcase.id }}'] = journeymonitor.renderTestresults("{{ testcase.id }}");
                     </script>
                 {% else %}
                     <small>No test run results yet.</small>

@@ -26,7 +26,7 @@
                 '11': 'Nov',
                 '12': 'Dec',
             },
-            'graphNavigationFunctions': {},
+            'testresultsFunctions': {},
             'renderTestresults': function(testcaseId) {
 
                 var requestChart = {};
@@ -199,6 +199,54 @@
                     }
                     return (url + "?offset=" + resultsOffset + "&limit=" + maximumNumberOfResults + guestviewUrlParameters).replace('testcaseId', testcaseId);
                 };
+
+                var updateTestresultsTable = function() {
+                    var getBeautifiedRuntimeValue = function(runtimeMilliseconds) {
+                        if (runtimeMilliseconds === null) {
+                            return 'unknown';
+                        } else {
+                            return (runtimeMilliseconds / 1000).toFixed(2);
+                        }
+                    };
+
+                    var getBeautifiedNumberOfRequestsValue = function(numberOfValue) {
+                        if (numberOfValue === null) {
+                            return '-';
+                        } else {
+                            return numberOfValue;
+                        }
+                    };
+
+                    jQuery('#testcase-' + testcaseId + '-resultstable').empty();
+
+                    jQuery('#testcase-' + testcaseId + '-resultstable')
+                        .append(
+                            '<strong>'
+                            + 'Date and time of run\t\t'
+                            + 'Journey duration\t\t'
+                            + 'Status 200\t\t'
+                            + 'Status 400\t\t'
+                            + 'Status 500\t\t'
+                            + '</strong>'
+                            + '<hr>'
+                        );
+
+                    for (var i = testresults.length - 1; i > -1; i--) {
+                        jQuery('#testcase-' + testcaseId + '-resultstable')
+                            .append(
+                                getDateAndTimeOfRun(i) + "\t\t"
+                                + getBeautifiedRuntimeValue(testresults[i]['runtimeMilliseconds']) + "\t\t\t"
+                                + getBeautifiedNumberOfRequestsValue(testresults[i]['numberOf200']) + "\t\t\t"
+                                + getBeautifiedNumberOfRequestsValue(testresults[i]['numberOf400']) + "\t\t\t"
+                                + getBeautifiedNumberOfRequestsValue(testresults[i]['numberOf500'])
+                                + '<br>'
+                            )
+                    }
+                };
+
+                var toggleResultsTable = function () {
+                  jQuery('#testcase-' + testcaseId + '-resultstable').toggle();
+                };
                 
                 var loadData = function() {
                     
@@ -254,6 +302,8 @@
                         
                         requestChart.update();
                         timingChart.update();
+
+                        updateTestresultsTable();
                         
                         if (testresults.length < maximumNumberOfResults) {
                             jQuery('#testcase-' + testcaseId + '-showolderbutton').fadeOut();
@@ -283,7 +333,8 @@
                     'loadDataFunction': loadData,
                     'loadOlderDataFunction': loadOlderData,
                     'loadNewerDataFunction': loadNewerData,
-                    'loadNewestDataFunction': loadNewestData
+                    'loadNewestDataFunction': loadNewestData,
+                    'toggleResultsTableFunction': toggleResultsTable
                 };
             },
 
