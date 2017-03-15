@@ -221,7 +221,23 @@
 
                     var body = '';
                     for (var i = testresults.length - 1; i > -1; i--) {
-                        body = body + '<tr>' + '<td>' + getDateAndTimeOfRun(i) + '</td>' + '<td>' + getBeautifiedRuntimeValue(testresults[i]['runtimeMilliseconds']) + '</td>' + '<td>' + getBeautifiedNumberOfRequestsValue(testresults[i]['numberOf200']) + '</td>' + '<td>' + getBeautifiedNumberOfRequestsValue(testresults[i]['numberOf400']) + '</td>' + '<td>' + getBeautifiedNumberOfRequestsValue(testresults[i]['numberOf500']) + '</td>' + '</tr>';
+                        body += '<tr>';
+                        body += '<td>';
+                        body += getDateAndTimeOfRun(i);
+                        body += '</td>';
+                        body += '<td>';
+                        body += getBeautifiedRuntimeValue(testresults[i]['runtimeMilliseconds']);
+                        body += '</td>';
+                        body += '<td>';
+                        body += getBeautifiedNumberOfRequestsValue(testresults[i]['numberOf200']);
+                        body += '</td>';
+                        body += '<td>';
+                        body += getBeautifiedNumberOfRequestsValue(testresults[i]['numberOf400']);
+                        body += '</td>';
+                        body += '<td>';
+                        body += getBeautifiedNumberOfRequestsValue(testresults[i]['numberOf500']);
+                        body += '</td>';
+                        body += '</tr>';
                     }
 
                     jQuery('#testcase-' + testcaseId + '-resultstable')

@@ -47,11 +47,13 @@
                        style="opacity: 0.001;"
                        >&nbsp;</a>
 
-                    <a id="testcase-{{ testcase.id }}-toggleresultstablebutton"
-                       class="btn btn-default btn-sm pull-right"
-                       onClick="journeymonitor.testresultsFunctions['{{ testcase.id }}']['toggleResultsTableFunction']();"
-                    >𝌓 Show/hide detailed table of results</a>
-                    <div id="testcase-{{ testcase.id }}-resultstable" class="clear well well-sm resultstable" style="display: none;"></div>
+                    <div>
+                        <a id="testcase-{{ testcase.id }}-toggleresultstablebutton"
+                           class="btn btn-primary btn-sm toggleresultstablebutton"
+                           onClick="journeymonitor.testresultsFunctions['{{ testcase.id }}']['toggleResultsTableFunction']();"
+                        >𝌓 Show/hide detailed table of results</a>
+                        <div id="testcase-{{ testcase.id }}-resultstable" class="clear well well-sm resultstable" style="display: none;"></div>
+                    </div>
 
                     <script>
                         journeymonitor.testresultsFunctions['{{ testcase.id }}'] = journeymonitor.renderTestresults("{{ testcase.id }}");

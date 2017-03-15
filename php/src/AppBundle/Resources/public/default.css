@@ -278,7 +278,11 @@ footer {
     clear: both;
 }
 
+.toggleresultstablebutton {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
 .resultstable {
-    margin-top: 24px;
     background-color: #fff;
 }
